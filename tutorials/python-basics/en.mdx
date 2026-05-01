@@ -1,0 +1,189 @@
+---
+title: "1 Hour to Python Basics"
+description: "Go from zero to writing your first real Python script in 60 minutes."
+---
+
+By the end of this hour, you'll have written a working Python CLI tool that reads a file, counts words, and outputs statistics. No prior programming experience required.
+
+## 🎯 What You'll Build
+
+A command-line word counter:
+
+```bash
+$ python wordcount.py README.md
+Total words: 1,247
+Unique words: 423
+Most common: "the" (82 times)
+```
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Install Python & set up" />
+<TimeBlock start="10" end="25" title="Variables, strings, basic I/O" />
+<TimeBlock start="25" end="40" title="Functions and loops" />
+<TimeBlock start="40" end="55" title="Build the word counter" />
+<TimeBlock start="55" end="60" title="Run it and ship" />
+
+## 📋 Prerequisites
+
+- A computer (Mac/Linux/Windows)
+- A text editor (VS Code recommended)
+- 60 minutes of focused time
+
+## Step 1: Install Python (0–10 min)
+
+Python 3 is usually pre-installed on Mac/Linux. Check:
+
+```bash
+python3 --version
+```
+
+If you see `Python 3.10+`, you're good. Otherwise:
+
+```bash
+# Mac
+brew install python3
+
+# Ubuntu/Debian
+sudo apt install python3
+```
+
+**Windows**: Download from [python.org/downloads](https://python.org/downloads). Check "Add to PATH" during install.
+
+<Checkpoint>
+Run `python3 --version`. You should see a version number.
+<Answer>
+If you see "Python 3.10+" or higher, you're good to go. If not, install from python.org.
+</Answer>
+</Checkpoint>
+
+## Step 2: Your First Code (10–25 min)
+
+Create `hello.py`:
+
+```python
+name = "World"
+print(f"Hello, {name}!")
+```
+
+Run it:
+
+```bash
+python3 hello.py
+# Hello, World!
+```
+
+**Try these:**
+
+```python
+# Numbers
+age = 25
+print(f"I am {age} years old")
+
+# Math
+x = 10
+y = 3
+print(f"Sum: {x + y}, Division: {x / y}")
+```
+
+<Checkpoint>
+You should understand variables (`name = "value"`), f-strings, and basic operators.
+</Checkpoint>
+
+## Step 3: Functions and Loops (25–40 min)
+
+```python
+def greet(name):
+    return f"Hello, {name}!"
+
+# Loops
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+# Conditionals
+age = 20
+if age >= 18:
+    print("Adult")
+else:
+    print("Minor")
+```
+
+<Checkpoint>
+Write a function `square(n)` that returns `n * n`, then print squares of 1–5.
+<Answer>
+```python
+def square(n):
+    return n * n
+
+for i in range(1, 6):
+    print(square(i))
+```
+</Answer>
+</Checkpoint>
+
+## Step 4: Build the Word Counter (40–55 min)
+
+Create `wordcount.py`:
+
+```python
+import sys
+from collections import Counter
+
+def count_words(filename):
+    with open(filename, 'r') as f:
+        text = f.read()
+
+    words = text.lower().split()
+    words = [w.strip('.,!?";:()[]') for w in words]
+    words = [w for w in words if w]
+
+    total = len(words)
+    unique = len(set(words))
+    counter = Counter(words)
+    most_common, count = counter.most_common(1)[0]
+
+    print(f"Total words: {total:,}")
+    print(f"Unique words: {unique:,}")
+    print(f'Most common: "{most_common}" ({count} times)')
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python wordcount.py <filename>")
+        sys.exit(1)
+    count_words(sys.argv[1])
+```
+
+## Step 5: Ship It (55–60 min)
+
+```bash
+echo "The quick brown fox jumps over the lazy dog. The fox is quick." > test.txt
+python3 wordcount.py test.txt
+```
+
+Expected output:
+
+```
+Total words: 12
+Unique words: 9
+Most common: "the" (3 times)
+```
+
+🎉 **You just built a working Python tool!**
+
+## 🎁 Bonus
+
+- Add `--top N` flag to show top N most common words
+- Handle multiple files
+- Output as JSON
+
+## 📚 Next Steps
+
+<NextStep slug="ai-chatbot" />
+<NextStep slug="deploy-first-site" />
+
+## 🔗 Resources
+
+- [Real Python](https://realpython.com/) — Quality tutorials
+- [Python Cheatsheet](https://www.pythoncheatsheet.org/) — Quick reference
+- [Automate the Boring Stuff](https://automatetheboringstuff.com/) — Free book

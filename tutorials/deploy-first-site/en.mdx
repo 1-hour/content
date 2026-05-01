@@ -1,0 +1,189 @@
+---
+title: "1 Hour to Deploy Your First Site"
+description: "Get your first website live on the internet in 60 minutes. Free, with HTTPS, auto-deploys on git push."
+---
+
+By the end of this hour, your site will be live at a real URL, served over HTTPS, completely free, with auto-deploys on every git push.
+
+## 🎯 What You'll Build
+
+A live personal landing page at:
+
+```
+https://yourname.pages.dev
+```
+
+(Or your own custom domain)
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Create a simple website" />
+<TimeBlock start="10" end="25" title="Push to GitHub" />
+<TimeBlock start="25" end="45" title="Deploy with Cloudflare Pages" />
+<TimeBlock start="45" end="55" title="Add custom domain (optional)" />
+<TimeBlock start="55" end="60" title="Test auto-deploy" />
+
+## 📋 Prerequisites
+
+- A [GitHub](https://github.com) account
+- A [Cloudflare](https://cloudflare.com) account (both free)
+- Git installed
+- Text editor
+
+## Step 1: Create Your Site (0–10 min)
+
+```bash
+mkdir my-first-site
+cd my-first-site
+```
+
+Create `index.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hi, I'm Your Name</title>
+  <style>
+    body {
+      font-family: -apple-system, system-ui, sans-serif;
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    h1 { font-size: 2.5rem; }
+    a { color: #FF6B35; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>Hi, I'm Your Name 👋</h1>
+  <p>Building things on the internet.</p>
+  <p>
+    <a href="https://github.com/yourname">GitHub</a> ·
+    <a href="https://twitter.com/yourname">Twitter</a> ·
+    <a href="mailto:you@example.com">Email</a>
+  </p>
+</body>
+</html>
+```
+
+Open it locally:
+
+```bash
+open index.html  # Mac
+xdg-open index.html  # Linux
+start index.html  # Windows
+```
+
+<Checkpoint>
+Your site loads in the browser with your name and links visible.
+</Checkpoint>
+
+## Step 2: Push to GitHub (10–25 min)
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+Create a repo on [github.com/new](https://github.com/new):
+- Name: `my-first-site`
+- Visibility: **Public**
+- Don't initialize with README
+
+Push:
+
+```bash
+git remote add origin https://github.com/YOUR-USERNAME/my-first-site.git
+git branch -M main
+git push -u origin main
+```
+
+> Use a [Personal Access Token](https://github.com/settings/tokens) instead of password if asked.
+
+<Checkpoint>
+Refresh your repo page on GitHub. You should see `index.html`.
+</Checkpoint>
+
+## Step 3: Deploy with Cloudflare Pages (25–45 min)
+
+1. Go to [dash.cloudflare.com](https://dash.cloudflare.com)
+2. **Workers & Pages** → **Create** → **Pages** tab
+3. **Connect to Git** → authorize GitHub
+4. Select `my-first-site` repository
+
+**Build settings:**
+
+| Field | Value |
+|-------|-------|
+| Project name | `my-first-site` |
+| Production branch | `main` |
+| Framework preset | **None** |
+| Build command | _(empty)_ |
+| Build output directory | `/` |
+
+Click **Save and Deploy**. Wait ~1 min.
+
+<Checkpoint>
+Visit `https://my-first-site.pages.dev`. Your site is **live**! 🎉
+</Checkpoint>
+
+## Step 4: Custom Domain (Optional, 45–55 min)
+
+If you have a domain:
+
+1. Project → **Custom domains** → **Set up a custom domain**
+2. Enter your domain (e.g., `yourname.com`)
+3. If your domain uses Cloudflare DNS, it auto-configures
+4. Otherwise, add a CNAME record pointing to `my-first-site.pages.dev`
+
+Wait 1–5 min for DNS propagation.
+
+## Step 5: Test Auto-Deploy (55–60 min)
+
+Make a change:
+
+```html
+<h1>Hi, I'm Your Name ✨</h1>
+```
+
+Push:
+
+```bash
+git add .
+git commit -m "Update emoji"
+git push
+```
+
+Within 30 seconds: Cloudflare detects the push, rebuilds, and updates your site.
+
+🎉 **Continuous deployment pipeline complete!**
+
+## 🎁 Bonus
+
+- **Custom 404**: Drop `404.html` in your repo
+- **Analytics**: Pages → Settings → Web Analytics → Enable (privacy-friendly)
+- **Favicon**: Drop `favicon.ico` in repo root
+- **OG tags**: Add to `<head>` for better social previews
+
+```html
+<meta property="og:title" content="Your Name">
+<meta property="og:description" content="Building things on the internet">
+<meta property="og:image" content="https://yourname.com/og.png">
+```
+
+## 📚 Next Steps
+
+<NextStep slug="python-basics" />
+<NextStep slug="ai-chatbot" />
+
+## 🔗 Resources
+
+- [Cloudflare Pages Docs](https://developers.cloudflare.com/pages/)
+- [HTML Tutorial (MDN)](https://developer.mozilla.org/en-US/docs/Learn/HTML)
+- [GitHub Skills](https://skills.github.com/)

@@ -1,0 +1,78 @@
+# UI strings (English)
+nav:
+  tutorials: Tutorials
+  categories: Categories
+  about: About
+
+home:
+  hero_title_prefix: "Learn anything in"
+  hero_title_highlight: "1 hour"
+  hero_title_suffix: "."
+  hero_description: "Hands-on tutorials designed to get you from zero to shipping in 60 minutes. No theory overload. Just practical skills."
+  cta_browse: "Browse Tutorials"
+  cta_start: "Start Learning"
+  why_title: "Why 1 Hour?"
+  why_description: "The perfect balance between quick tips and deep dives"
+  popular_title: "Popular Now"
+  stats:
+    tutorials: "Tutorials"
+    per_tutorial: "Per Tutorial"
+    categories: "Categories"
+    free: "Free"
+
+features:
+  timeboxed:
+    title: "Time-Boxed Learning"
+    description: "Every tutorial fits in 60 minutes. No endless rabbit holes."
+  outcome:
+    title: "Outcome-Focused"
+    description: "Build something real by the end. No abstract theory."
+  checkpoint:
+    title: "Checkpoints Included"
+    description: "Self-test after each section to verify you're on track."
+  beginner:
+    title: "Beginner-Friendly"
+    description: "Clear prerequisites. No assumed knowledge."
+  nextsteps:
+    title: "Next Steps Provided"
+    description: "Know exactly what to learn next after finishing."
+  bonus:
+    title: "Bonus Resources"
+    description: "Curated links for deeper exploration when ready."
+
+tutorial:
+  time_breakdown: "Time Breakdown"
+  prerequisites: "Prerequisites"
+  what_youll_build: "What You'll Build"
+  next_steps: "Next Steps"
+  resources: "Resources"
+  checkpoint: "Checkpoint"
+  bonus: "Bonus"
+  show_answer: "Show answer"
+  on_this_page: "On This Page"
+  back_to_list: "Back to Tutorials"
+  reading_time: "min read"
+  not_translated_title: "This tutorial is not available in your language yet"
+  not_translated_description: "You can read it in English, or check back later."
+  view_in_english: "View in English"
+
+list:
+  title: "All Tutorials"
+  filter_category: "All Categories"
+  filter_difficulty: "All Difficulties"
+  filter_duration: "Any Duration"
+  no_results: "No tutorials match your filters."
+
+difficulty:
+  beginner: "Beginner"
+  intermediate: "Intermediate"
+  advanced: "Advanced"
+
+footer:
+  learn: "Learn"
+  community: "Community"
+  tagline: "Learn anything in 1 hour."
+  built_by: "Built by"
+
+common:
+  min: "min"

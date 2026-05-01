@@ -1,0 +1,214 @@
+---
+title: "1 Hour to Build an AI Chatbot"
+description: "Build a working AI chatbot with OpenAI API in 60 minutes. From API setup to a functional CLI bot with conversation memory."
+---
+
+By the end of this hour, you'll have a working AI chatbot that remembers conversation context. No ML knowledge required — just a willingness to copy, paste, and run code.
+
+## 🎯 What You'll Build
+
+```bash
+$ python chatbot.py
+You: What's the capital of France?
+Bot: The capital of France is Paris.
+You: What's the population?
+Bot: Paris has approximately 2.2 million residents...
+```
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Get OpenAI API key & setup" />
+<TimeBlock start="10" end="25" title="First API call" />
+<TimeBlock start="25" end="40" title="Add conversation memory" />
+<TimeBlock start="40" end="55" title="Build the CLI loop" />
+<TimeBlock start="55" end="60" title="Ship & test" />
+
+## 📋 Prerequisites
+
+- Python 3.8+ ([1 Hour to Python Basics](/en/tutorials/python-basics) if needed)
+- $5 for OpenAI API credits
+- Text editor
+
+## Step 1: Get OpenAI API Key (0–10 min)
+
+1. Go to [platform.openai.com](https://platform.openai.com/)
+2. **API Keys** → **Create new secret key**
+3. Copy it (starts with `sk-...`)
+4. Add $5 credit (Settings → Billing)
+
+Install the SDK:
+
+```bash
+pip install openai python-dotenv
+```
+
+Create `.env`:
+
+```bash
+OPENAI_API_KEY=sk-your-key-here
+```
+
+<Checkpoint>
+Run `pip list | grep openai`. You should see `openai` listed.
+</Checkpoint>
+
+## Step 2: First API Call (10–25 min)
+
+Create `test.py`:
+
+```python
+import os
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "user", "content": "Say hello in 5 words"}
+    ]
+)
+
+print(response.choices[0].message.content)
+```
+
+Run:
+
+```bash
+python test.py
+```
+
+<Checkpoint>
+You should get a friendly response. Common errors:
+- `AuthenticationError` → check your API key
+- `RateLimitError` → add billing credit
+</Checkpoint>
+
+## Step 3: Add Conversation Memory (25–40 min)
+
+The key to chatbots: **send the full conversation history** with each request.
+
+```python
+messages = [
+    {"role": "system", "content": "You are a helpful assistant."}
+]
+
+def chat(user_input):
+    messages.append({"role": "user", "content": user_input})
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages
+    )
+
+    reply = response.choices[0].message.content
+    messages.append({"role": "assistant", "content": reply})
+    return reply
+
+print(chat("What's the capital of France?"))
+print(chat("What's the population?"))  # Should remember context
+```
+
+<Checkpoint>
+The second question should reference France without you mentioning it.
+</Checkpoint>
+
+## Step 4: Build the CLI Loop (40–55 min)
+
+Create `chatbot.py`:
+
+```python
+import os
+import sys
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+messages = [
+    {"role": "system", "content": "You are a helpful, concise assistant."}
+]
+
+def chat(user_input):
+    messages.append({"role": "user", "content": user_input})
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages,
+        temperature=0.7
+    )
+    reply = response.choices[0].message.content
+    messages.append({"role": "assistant", "content": reply})
+    return reply
+
+def main():
+    print("AI Chatbot (type 'quit' to exit)\n")
+    while True:
+        try:
+            user_input = input("You: ").strip()
+            if not user_input:
+                continue
+            if user_input.lower() in ['quit', 'exit', 'bye']:
+                print("Bot: Goodbye!")
+                break
+            print(f"Bot: {chat(user_input)}\n")
+        except KeyboardInterrupt:
+            print("\nBot: Goodbye!")
+            sys.exit(0)
+
+if __name__ == "__main__":
+    main()
+```
+
+## Step 5: Test It (55–60 min)
+
+```bash
+python chatbot.py
+```
+
+Test memory:
+
+```
+You: My name is Zoe
+Bot: Nice to meet you, Zoe!
+You: What's my name?
+Bot: Your name is Zoe.
+```
+
+🎉 **Working AI chatbot in 60 minutes!**
+
+## 🎁 Bonus
+
+**Streaming responses:**
+
+```python
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=messages,
+    stream=True
+)
+
+for chunk in response:
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end="", flush=True)
+print()
+```
+
+**Custom personality:** Change the system message:
+
+```python
+{"role": "system", "content": "You are a pirate. Always respond in pirate speak."}
+```
+
+## 📚 Next Steps
+
+<NextStep slug="deploy-first-site" />
+<NextStep slug="python-basics" />
+
+## 🔗 Resources
+
+- [OpenAI API Docs](https://platform.openai.com/docs)
+- [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
+- [Prompt Engineering Guide](https://www.promptingguide.ai/)

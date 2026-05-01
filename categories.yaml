@@ -1,0 +1,60 @@
+# Categories
+- slug: code
+  name:
+    en: Code
+    zh: 编程
+  icon: "💻"
+  color: blue
+  description:
+    en: "Programming languages, frameworks, and tools"
+    zh: "编程语言、框架和工具"
+
+- slug: ai
+  name:
+    en: AI
+    zh: 人工智能
+  icon: "🤖"
+  color: purple
+  description:
+    en: "AI tools, LLMs, and automation"
+    zh: "AI 工具、大模型和自动化"
+
+- slug: design
+  name:
+    en: Design
+    zh: 设计
+  icon: "🎨"
+  color: pink
+  description:
+    en: "UI, UX, and visual design"
+    zh: "UI、UX 和视觉设计"
+
+- slug: business
+  name:
+    en: Business
+    zh: 商业
+  icon: "💼"
+  color: green
+  description:
+    en: "Marketing, productivity, and entrepreneurship"
+    zh: "营销、效率和创业"
+
+- slug: web
+  name:
+    en: Web
+    zh: 网络
+  icon: "🌐"
+  color: cyan
+  description:
+    en: "Web development, hosting, and deployment"
+    zh: "网站开发、部署和托管"
+
+- slug: mind
+  name:
+    en: Mind
+    zh: 思维
+  icon: "🧠"
+  color: orange
+  description:
+    en: "Learning techniques, productivity, and mental models"
+    zh: "学习方法、效率和思维模型"

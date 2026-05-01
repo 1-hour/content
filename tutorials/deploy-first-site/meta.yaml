@@ -1,0 +1,15 @@
+slug: deploy-first-site
+category: web
+difficulty: beginner
+duration: 60
+tags: [deployment, web, github, cloudflare, hosting]
+date: 2026-05-01
+published: true
+cover: /images/tutorials/deploy-first-site.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: draft

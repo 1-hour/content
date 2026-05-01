@@ -1,0 +1,15 @@
+slug: ai-chatbot
+category: ai
+difficulty: beginner
+duration: 60
+tags: [ai, openai, chatgpt, python]
+date: 2026-05-01
+published: true
+cover: /images/tutorials/ai-chatbot.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: draft

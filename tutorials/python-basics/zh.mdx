@@ -1,0 +1,189 @@
+---
+title: "1 小时学会 Python 基础"
+description: "60 分钟从零开始，写出你的第一个真正可用的 Python 脚本。"
+---
+
+读完这篇教程，你将拥有一个能读取文件、统计词频、输出报告的 Python 命令行工具。无需任何编程基础。
+
+## 🎯 你将构建
+
+一个命令行词频统计工具：
+
+```bash
+$ python wordcount.py README.md
+总词数: 1,247
+独立词: 423
+最高频: "the" (出现 82 次)
+```
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="安装 Python 与环境配置" />
+<TimeBlock start="10" end="25" title="变量、字符串与基础输入输出" />
+<TimeBlock start="25" end="40" title="函数与循环" />
+<TimeBlock start="40" end="55" title="构建词频统计工具" />
+<TimeBlock start="55" end="60" title="运行并完成" />
+
+## 📋 前置要求
+
+- 一台电脑（Mac/Linux/Windows 均可）
+- 一个文本编辑器（推荐 VS Code）
+- 60 分钟专注时间
+
+## 第 1 步：安装 Python（0–10 分钟）
+
+Mac/Linux 通常已自带 Python 3。检查：
+
+```bash
+python3 --version
+```
+
+看到 `Python 3.10+` 就 OK。如果没装：
+
+```bash
+# Mac
+brew install python3
+
+# Ubuntu/Debian
+sudo apt install python3
+```
+
+**Windows**：去 [python.org/downloads](https://python.org/downloads) 下载，安装时勾选 "Add to PATH"。
+
+<Checkpoint>
+运行 `python3 --version`，应该看到版本号。
+<Answer>
+如果看到 "Python 3.10+" 或更高版本就可以继续。否则去 python.org 安装。
+</Answer>
+</Checkpoint>
+
+## 第 2 步：第一行代码（10–25 分钟）
+
+创建 `hello.py`：
+
+```python
+name = "World"
+print(f"Hello, {name}!")
+```
+
+运行：
+
+```bash
+python3 hello.py
+# Hello, World!
+```
+
+**试试这些：**
+
+```python
+# 数字
+age = 25
+print(f"我今年 {age} 岁")
+
+# 数学
+x = 10
+y = 3
+print(f"和: {x + y}, 商: {x / y}")
+```
+
+<Checkpoint>
+你应该理解变量（`name = "value"`）、f-字符串和基本运算符。
+</Checkpoint>
+
+## 第 3 步：函数与循环（25–40 分钟）
+
+```python
+def greet(name):
+    return f"你好，{name}！"
+
+# 循环
+fruits = ["苹果", "香蕉", "樱桃"]
+for fruit in fruits:
+    print(fruit)
+
+# 条件
+age = 20
+if age >= 18:
+    print("成年人")
+else:
+    print("未成年")
+```
+
+<Checkpoint>
+写一个 `square(n)` 函数，返回 `n * n`，然后打印 1–5 的平方。
+<Answer>
+```python
+def square(n):
+    return n * n
+
+for i in range(1, 6):
+    print(square(i))
+```
+</Answer>
+</Checkpoint>
+
+## 第 4 步：构建词频统计工具（40–55 分钟）
+
+创建 `wordcount.py`：
+
+```python
+import sys
+from collections import Counter
+
+def count_words(filename):
+    with open(filename, 'r') as f:
+        text = f.read()
+
+    words = text.lower().split()
+    words = [w.strip('.,!?";:()[]') for w in words]
+    words = [w for w in words if w]
+
+    total = len(words)
+    unique = len(set(words))
+    counter = Counter(words)
+    most_common, count = counter.most_common(1)[0]
+
+    print(f"总词数: {total:,}")
+    print(f"独立词: {unique:,}")
+    print(f'最高频: "{most_common}" (出现 {count} 次)')
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("用法: python wordcount.py <文件名>")
+        sys.exit(1)
+    count_words(sys.argv[1])
+```
+
+## 第 5 步：运行（55–60 分钟）
+
+```bash
+echo "The quick brown fox jumps over the lazy dog. The fox is quick." > test.txt
+python3 wordcount.py test.txt
+```
+
+预期输出：
+
+```
+总词数: 12
+独立词: 9
+最高频: "the" (出现 3 次)
+```
+
+🎉 **你刚刚做出了一个真正可用的 Python 工具！**
+
+## 🎁 加分项
+
+- 加 `--top N` 参数显示前 N 个高频词
+- 支持多文件
+- 输出 JSON 格式
+
+## 📚 下一步
+
+<NextStep slug="ai-chatbot" />
+<NextStep slug="deploy-first-site" />
+
+## 🔗 相关资源
+
+- [Real Python](https://realpython.com/) — 高质量教程
+- [Python Cheatsheet](https://www.pythoncheatsheet.org/) — 速查手册
+- [Automate the Boring Stuff](https://automatetheboringstuff.com/) — 免费书籍

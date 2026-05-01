@@ -1,0 +1,25 @@
+# Site Configuration
+defaultLocale: en
+locales: [en, zh]
+
+title:
+  en: "1 Hour Guide"
+  zh: "一小时指南"
+
+description:
+  en: "Learn anything in 1 hour. Hands-on tutorials, no fluff."
+  zh: "一小时学会任何技能。动手教程，无废话。"
+
+domain: 1hour.guide
+url: https://1hour.guide
+
+author:
+  name: Zoe
+  url: https://zoe.im
+  email: hi@zoe.im
+  twitter: noboddyim
+  github: jiusanzhou
+
+theme:
+  primary: "#FF6B35"
+  primaryGradientEnd: "#F7931E"

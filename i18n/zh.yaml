@@ -1,0 +1,78 @@
+# UI strings (Chinese)
+nav:
+  tutorials: 教程
+  categories: 分类
+  about: 关于
+
+home:
+  hero_title_prefix: "用"
+  hero_title_highlight: "1小时"
+  hero_title_suffix: "学会一件事。"
+  hero_description: "精心设计的动手教程，让你在 60 分钟内从零起步到交付成果。没有冗长理论，只有实用技能。"
+  cta_browse: "浏览教程"
+  cta_start: "开始学习"
+  why_title: "为什么是1小时？"
+  why_description: "快速入门与深度学习之间的完美平衡"
+  popular_title: "热门教程"
+  stats:
+    tutorials: "教程"
+    per_tutorial: "每篇时长"
+    categories: "分类"
+    free: "免费"
+
+features:
+  timeboxed:
+    title: "时间盒学习"
+    description: "每个教程都控制在 60 分钟内，不做永无止境的深挖。"
+  outcome:
+    title: "结果导向"
+    description: "学完就能做出真实作品，不讲抽象理论。"
+  checkpoint:
+    title: "内置检查点"
+    description: "每节后都有自测题，帮你确认是否掌握。"
+  beginner:
+    title: "新手友好"
+    description: "明确列出前置要求，不假设你已知的内容。"
+  nextsteps:
+    title: "推荐下一步"
+    description: "学完后明确知道接下来该学什么。"
+  bonus:
+    title: "延伸资源"
+    description: "精选拓展链接，准备深入时随时可用。"
+
+tutorial:
+  time_breakdown: "时间分配"
+  prerequisites: "前置要求"
+  what_youll_build: "你将构建"
+  next_steps: "下一步"
+  resources: "相关资源"
+  checkpoint: "检查点"
+  bonus: "加分项"
+  show_answer: "查看答案"
+  on_this_page: "本页目录"
+  back_to_list: "返回教程列表"
+  reading_time: "分钟阅读"
+  not_translated_title: "此教程暂无中文版"
+  not_translated_description: "你可以阅读英文版，或稍后再来查看。"
+  view_in_english: "查看英文版"
+
+list:
+  title: "全部教程"
+  filter_category: "所有分类"
+  filter_difficulty: "所有难度"
+  filter_duration: "任意时长"
+  no_results: "没有符合条件的教程。"
+
+difficulty:
+  beginner: "新手"
+  intermediate: "进阶"
+  advanced: "高级"
+
+footer:
+  learn: "学习"
+  community: "社区"
+  tagline: "1 小时学会一件事。"
+  built_by: "作者"
+
+common:
+  min: "分钟"

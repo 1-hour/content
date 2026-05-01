@@ -1,0 +1,15 @@
+slug: python-basics
+category: code
+difficulty: beginner
+duration: 60
+tags: [python, programming, beginners, cli]
+date: 2026-05-01
+published: true
+cover: /images/tutorials/python-basics.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published
