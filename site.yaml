@@ -30,6 +30,14 @@ analytics:
   googleAnalytics:
     id: G-G6W0CYL4LD
 
+  # Counterscale (self-hosted on Cloudflare Workers, free tier)
+  counterscale:
+    siteId: "1hour-guide"
+    # Optional: Dashboard URL (for admin access)
+    dashboardUrl: https://counterscale.wuma.workers.dev
+    # Optional: Protect dashboard with password (set via Counterscale CLI)
+    # password: "your-dashboard-password"
+
   # Plausible (privacy-friendly, requires payment) - disabled
   # plausible:
   #   domain: 1hour.guide
