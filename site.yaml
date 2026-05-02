@@ -26,15 +26,13 @@ theme:
 
 # Analytics (optional, all fields optional)
 analytics:
-  # Plausible (privacy-friendly, no cookies)
-  plausible:
-    domain: 1hour.guide
-    # Use Plausible's default script. For self-hosted, set src.
-    # src: https://plausible.io/js/script.js
+  # Google Analytics 4 (free, no need for payment)
+  googleAnalytics:
+    id: G-G6W0CYL4LD
 
-  # Google Analytics 4
-  # googleAnalytics:
-  #   id: G-XXXXXXXXXX
+  # Plausible (privacy-friendly, requires payment) - disabled
+  # plausible:
+  #   domain: 1hour.guide
 
 # Social / Open Graph
 social:
