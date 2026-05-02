@@ -1,0 +1,13 @@
+slug: git-basics
+category: code
+difficulty: beginner
+duration: 60
+tags: [git, github, version-control, cli]
+date: 2026-05-02
+published: true
+cover: /images/tutorials/git-basics.svg
+author: zoe
+
+translations:
+  en: { status: published }
+  zh: { status: published }

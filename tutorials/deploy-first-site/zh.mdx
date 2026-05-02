@@ -1,0 +1,189 @@
+---
+title: "1 小时部署你的第一个网站"
+description: "60 分钟让你的第一个网站上线互联网。免费，支持 HTTPS，每次 git push 自动部署。"
+---
+
+读完这篇教程，你的网站将通过真实 URL 上线，有 HTTPS，完全免费，每次 git push 自动重新部署。
+
+## 🎯 你将构建
+
+一个在线的个人主页：
+
+```
+https://yourname.pages.dev
+```
+
+（或者你自己的域名）
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="创建一个简单网站" />
+<TimeBlock start="10" end="25" title="推送到 GitHub" />
+<TimeBlock start="25" end="45" title="用 Cloudflare Pages 部署" />
+<TimeBlock start="45" end="55" title="绑定自定义域名（可选）" />
+<TimeBlock start="55" end="60" title="测试自动部署" />
+
+## 📋 前置要求
+
+- [GitHub](https://github.com) 账号
+- [Cloudflare](https://cloudflare.com) 账号（都免费）
+- 已安装 Git
+- 文本编辑器
+
+## 第 1 步：创建你的网站（0–10 分钟）
+
+```bash
+mkdir my-first-site
+cd my-first-site
+```
+
+创建 `index.html`：
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>你好，我是 Your Name</title>
+  <style>
+    body {
+      font-family: -apple-system, system-ui, sans-serif;
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    h1 { font-size: 2.5rem; }
+    a { color: #FF6B35; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>你好，我是 Your Name 👋</h1>
+  <p>在互联网上构建东西。</p>
+  <p>
+    <a href="https://github.com/yourname">GitHub</a> ·
+    <a href="https://twitter.com/yourname">Twitter</a> ·
+    <a href="mailto:you@example.com">Email</a>
+  </p>
+</body>
+</html>
+```
+
+在本地打开：
+
+```bash
+open index.html      # Mac
+xdg-open index.html  # Linux
+start index.html     # Windows
+```
+
+<Checkpoint>
+浏览器里能看到你的名字和链接。
+</Checkpoint>
+
+## 第 2 步：推送到 GitHub（10–25 分钟）
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+在 [github.com/new](https://github.com/new) 创建仓库：
+- 名称：`my-first-site`
+- 可见性：**Public**
+- 不要勾选 README
+
+推送：
+
+```bash
+git remote add origin https://github.com/YOUR-USERNAME/my-first-site.git
+git branch -M main
+git push -u origin main
+```
+
+> 如果要求输入密码，用 [Personal Access Token](https://github.com/settings/tokens) 代替。
+
+<Checkpoint>
+刷新 GitHub 仓库页面，应该能看到 `index.html`。
+</Checkpoint>
+
+## 第 3 步：用 Cloudflare Pages 部署（25–45 分钟）
+
+1. 访问 [dash.cloudflare.com](https://dash.cloudflare.com)
+2. **Workers & Pages** → **Create** → **Pages** 选项卡
+3. **Connect to Git** → 授权 GitHub
+4. 选择 `my-first-site` 仓库
+
+**构建配置：**
+
+| 字段 | 值 |
+|-------|-------|
+| Project name | `my-first-site` |
+| Production branch | `main` |
+| Framework preset | **None** |
+| Build command | _（留空）_ |
+| Build output directory | `/` |
+
+点击 **Save and Deploy**，大约等 1 分钟。
+
+<Checkpoint>
+访问 `https://my-first-site.pages.dev`，你的网站**已经上线**！🎉
+</Checkpoint>
+
+## 第 4 步：自定义域名（可选，45–55 分钟）
+
+如果你有域名：
+
+1. Project → **Custom domains** → **Set up a custom domain**
+2. 输入你的域名（如 `yourname.com`）
+3. 如果域名已经在 Cloudflare DNS 上，会自动配置
+4. 否则，添加一条 CNAME 记录指向 `my-first-site.pages.dev`
+
+等待 1–5 分钟 DNS 生效。
+
+## 第 5 步：测试自动部署（55–60 分钟）
+
+改一下内容：
+
+```html
+<h1>你好，我是 Your Name ✨</h1>
+```
+
+推送：
+
+```bash
+git add .
+git commit -m "更新 emoji"
+git push
+```
+
+30 秒内：Cloudflare 自动检测到 push，重新构建，更新你的网站。
+
+🎉 **持续部署流水线完成！**
+
+## 🎁 加分项
+
+- **自定义 404**：在仓库根目录放 `404.html`
+- **访问统计**：Pages → Settings → Web Analytics → 启用（隐私友好）
+- **Favicon**：仓库根目录放 `favicon.ico`
+- **社交预览**：`<head>` 加 Open Graph 标签
+
+```html
+<meta property="og:title" content="Your Name">
+<meta property="og:description" content="在互联网上构建东西">
+<meta property="og:image" content="https://yourname.com/og.png">
+```
+
+## 📚 下一步
+
+<NextStep slug="python-basics" />
+<NextStep slug="ai-chatbot" />
+
+## 🔗 相关资源
+
+- [Cloudflare Pages 文档](https://developers.cloudflare.com/pages/)
+- [HTML 教程 (MDN 中文)](https://developer.mozilla.org/zh-CN/docs/Learn/HTML)
+- [GitHub Skills](https://skills.github.com/)

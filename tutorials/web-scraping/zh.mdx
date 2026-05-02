@@ -1,0 +1,239 @@
+---
+title: "1 小时学会 Python 网页抓取"
+description: "60 分钟构建真正可用的网页抓取工具。从网站提取数据、处理分页、保存到 CSV。不需要任何抓取经验。"
+---
+
+读完这篇教程，你将拥有一个能从真实网站提取商品数据并保存为 CSV 的 Python 抓取工具。
+
+## 🎯 你将构建
+
+一个 Python 脚本：
+- 从网站获取 HTML
+- 提取结构化数据（标题、价格、评分）
+- 处理分页（多个页面）
+- 保存为 CSV
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="安装工具 & 理解 HTML" />
+<TimeBlock start="10" end="25" title="第一次抓取：提取单个条目" />
+<TimeBlock start="25" end="40" title="提取页面所有条目" />
+<TimeBlock start="40" end="55" title="处理分页" />
+<TimeBlock start="55" end="60" title="保存为 CSV 并测试" />
+
+## 📋 前置要求
+
+- Python 3.8+（新手请看 [1 小时学会 Python 基础](/zh/tutorials/python-basics/)）
+- 了解基础 HTML（`<div>`、`<a>`、`<span>` 等标签）
+
+## 第 1 步：安装工具（0–10 分钟）
+
+安装 `requests`（获取 HTML）和 `beautifulsoup4`（解析 HTML）：
+
+```bash
+pip install requests beautifulsoup4
+```
+
+**测试：**
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+response = requests.get("https://example.com")
+soup = BeautifulSoup(response.text, 'html.parser')
+print(soup.title.string)
+```
+
+<Checkpoint>
+应该能打印 `Example Domain`。如果报 `ModuleNotFoundError`，重新执行 `pip install`。
+</Checkpoint>
+
+## 第 2 步：理解 HTML 结构（10–15 分钟）
+
+我们抓取 [books.toscrape.com](http://books.toscrape.com/)（官方练习站）。
+
+在浏览器打开 → 右键点击一本书 → **检查（Inspect）**。
+
+你会看到：
+
+```html
+<article class="product_pod">
+  <h3><a href="..." title="A Light in the Attic">A Light in the ...</a></h3>
+  <p class="price_color">£51.77</p>
+  <p class="star-rating Three">...</p>
+</article>
+```
+
+**关键选择器：**
+- 书名：`article.product_pod h3 a`
+- 价格：`p.price_color`
+- 评分：`p.star-rating`（class 名中包含评分）
+
+## 第 3 步：提取一个条目（15–25 分钟）
+
+创建 `scraper.py`：
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+url = "http://books.toscrape.com/"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# 找第一本书
+book = soup.find('article', class_='product_pod')
+
+title = book.h3.a['title']
+price = book.find('p', class_='price_color').text
+rating_class = book.find('p', class_='star-rating')['class'][1]
+
+print(f"标题: {title}")
+print(f"价格: {price}")
+print(f"评分: {rating_class}")
+```
+
+运行：
+
+```bash
+python scraper.py
+```
+
+<Checkpoint>
+应该能看到一本书的标题、价格和评分（例如 "Three"）。
+</Checkpoint>
+
+## 第 4 步：提取所有条目（25–40 分钟）
+
+循环遍历页面上所有书：
+
+```python
+books = soup.find_all('article', class_='product_pod')
+
+for book in books:
+    title = book.h3.a['title']
+    price = book.find('p', class_='price_color').text
+    rating = book.find('p', class_='star-rating')['class'][1]
+    
+    print(f"{title} | {price} | {rating}")
+```
+
+<Checkpoint>
+应该能打印 20 本书（一页 20 个条目）。
+</Checkpoint>
+
+## 第 5 步：处理分页（40–55 分钟）
+
+这个网站有"下一页"按钮。我们抓取多页：
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+base_url = "http://books.toscrape.com/catalogue/"
+page_url = "page-{}.html"
+all_books = []
+
+for page_num in range(1, 4):  # 抓 3 页
+    if page_num == 1:
+        url = "http://books.toscrape.com/"
+    else:
+        url = base_url + page_url.format(page_num)
+    
+    print(f"抓取 {url}...")
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    books = soup.find_all('article', class_='product_pod')
+    
+    for book in books:
+        title = book.h3.a['title']
+        price = book.find('p', class_='price_color').text.strip('£')
+        rating = book.find('p', class_='star-rating')['class'][1]
+        
+        all_books.append({
+            'title': title,
+            'price': price,
+            'rating': rating
+        })
+
+print(f"总共抓取: {len(all_books)} 本书")
+```
+
+<Checkpoint>
+应该看到 `总共抓取: 60 本书`（3 页 × 20 本）。
+</Checkpoint>
+
+## 第 6 步：保存为 CSV（55–60 分钟）
+
+```python
+import csv
+
+# ... （前面的抓取代码） ...
+
+# 保存为 CSV
+with open('books.csv', 'w', newline='', encoding='utf-8') as f:
+    writer = csv.DictWriter(f, fieldnames=['title', 'price', 'rating'])
+    writer.writeheader()
+    writer.writerows(all_books)
+
+print("已保存到 books.csv")
+```
+
+运行：
+
+```bash
+python scraper.py
+```
+
+用 Excel 或任意文本编辑器打开 `books.csv`，应该能看到 60 本书！
+
+🎉 **你在 60 分钟内构建了一个真正的网页抓取工具！**
+
+## 🎁 加分项
+
+**添加延迟（做一个礼貌的抓取者）：**
+
+```python
+import time
+
+for page_num in range(1, 4):
+    # ... 抓取代码 ...
+    time.sleep(1)  # 每页间隔 1 秒
+```
+
+**处理错误：**
+
+```python
+try:
+    response = requests.get(url, timeout=10)
+    response.raise_for_status()
+except requests.RequestException as e:
+    print(f"错误: {e}")
+    continue
+```
+
+**使用 User-Agent（避免被屏蔽）：**
+
+```python
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+}
+response = requests.get(url, headers=headers)
+```
+
+## 📚 下一步
+
+<NextStep slug="python-basics" />
+<NextStep slug="docker-basics" />
+
+## 🔗 相关资源
+
+- [Beautiful Soup 文档](https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/)
+- [Requests 文档](https://requests.readthedocs.io/zh-cn/latest/)
+- [Scrapy](https://scrapy.org/)（进阶框架）
+
+## ⚠️ 法律提示
+
+抓取前请检查网站的 `robots.txt` 和服务条款。尊重速率限制，不要过度请求导致服务器负担。

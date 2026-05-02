@@ -1,0 +1,13 @@
+slug: docker-basics
+category: code
+difficulty: intermediate
+duration: 60
+tags: [docker, containers, devops, deployment]
+date: 2026-05-02
+published: true
+cover: /images/tutorials/docker-basics.svg
+author: zoe
+
+translations:
+  en: { status: published }
+  zh: { status: published }

@@ -1,0 +1,270 @@
+---
+title: "1 小时学会 Docker 基础"
+description: "60 分钟容器化一个应用。从安装 Docker 到运行自己的容器，再到把镜像推送到 Docker Hub。"
+---
+
+读完这篇教程，你能把应用跑在容器里，并理解 Docker 的核心工作流。不需要 DevOps 基础。
+
+## 🎯 你将掌握
+
+一个容器化的 Web 应用 + Docker Hub 镜像：
+
+```bash
+docker build -t myapp:1.0 .
+docker run -p 8080:8080 myapp:1.0
+# 访问 http://localhost:8080
+```
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="安装 Docker" />
+<TimeBlock start="10" end="25" title="第一个容器" />
+<TimeBlock start="25" end="40" title="写 Dockerfile" />
+<TimeBlock start="40" end="55" title="构建并运行镜像" />
+<TimeBlock start="55" end="60" title="推送到 Docker Hub" />
+
+## 📋 前置要求
+
+- 基本命令行操作
+- Docker Hub 账号
+
+## 第 1 步：安装 Docker（0–10 分钟）
+
+**Mac/Windows**：下载 [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+**Ubuntu/Debian**：
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker $USER
+# 注销并重新登录
+```
+
+检查：
+
+```bash
+docker --version
+docker run hello-world
+```
+
+<Checkpoint>
+`hello-world` 应该能跑，并打印 "Hello from Docker!"。
+</Checkpoint>
+
+## 第 2 步：第一个容器（10–25 分钟）
+
+运行一个 Nginx 容器：
+
+```bash
+docker run -d -p 8080:80 --name my-nginx nginx
+```
+
+这段命令做了什么：
+- `-d` → 后台运行
+- `-p 8080:80` → 把主机的 8080 端口映射到容器的 80 端口
+- `--name my-nginx` → 给容器起个名字
+- `nginx` → 使用官方 Nginx 镜像
+
+访问 http://localhost:8080
+
+**管理容器：**
+
+```bash
+docker ps              # 运行中的容器
+docker ps -a           # 所有容器（包括已停止的）
+docker stop my-nginx   # 停止
+docker start my-nginx  # 启动
+docker rm my-nginx     # 删除
+```
+
+**交互式进入容器：**
+
+```bash
+docker run -it --rm ubuntu bash
+# 现在你在 Ubuntu 容器里了！
+```
+
+<Checkpoint>
+运行 `docker ps`，能看到 Nginx 容器。然后停止并删除它。
+</Checkpoint>
+
+## 第 3 步：写 Dockerfile（25–40 分钟）
+
+创建一个简单的 Node.js 应用：
+
+```bash
+mkdir my-docker-app && cd my-docker-app
+cat > package.json << EOF
+{
+  "name": "my-docker-app",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {"start": "node server.js"},
+  "dependencies": {"express": "^4.18.0"}
+}
+EOF
+
+cat > server.js << 'EOF'
+const express = require('express');
+const app = express();
+const PORT = 8080;
+
+app.get('/', (req, res) => {
+  res.send('Hello from Docker! 🐳');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+EOF
+```
+
+创建 `Dockerfile`：
+
+```dockerfile
+# 使用 Node.js 20 Alpine（轻量级）
+FROM node:20-alpine
+
+# 设置工作目录
+WORKDIR /app
+
+# 复制 package 文件
+COPY package*.json ./
+
+# 安装依赖
+RUN npm install
+
+# 复制应用代码
+COPY . .
+
+# 暴露端口
+EXPOSE 8080
+
+# 运行应用
+CMD ["npm", "start"]
+```
+
+<Checkpoint>
+你应该有 `Dockerfile`、`package.json` 和 `server.js`。
+</Checkpoint>
+
+## 第 4 步：构建与运行（40–55 分钟）
+
+构建镜像：
+
+```bash
+docker build -t myapp:1.0 .
+```
+
+这段命令做了什么：
+- `-t myapp:1.0` → 打标签（名称:版本）
+- `.` → 构建上下文是当前目录
+
+运行：
+
+```bash
+docker run -d -p 8080:8080 --name myapp myapp:1.0
+```
+
+访问 http://localhost:8080
+
+**查看日志：**
+
+```bash
+docker logs myapp
+docker logs -f myapp  # 跟踪（类似 tail -f）
+```
+
+**查看容器详情：**
+
+```bash
+docker inspect myapp
+```
+
+停止并删除：
+
+```bash
+docker stop myapp
+docker rm myapp
+```
+
+<Checkpoint>
+你的应用正在容器里运行！检查日志，能看到服务器启动的消息。
+</Checkpoint>
+
+## 第 5 步：推送到 Docker Hub（55–60 分钟）
+
+登录：
+
+```bash
+docker login
+# 输入你的 Docker Hub 账号密码
+```
+
+打标签并推送：
+
+```bash
+docker tag myapp:1.0 YOURUSERNAME/myapp:1.0
+docker push YOURUSERNAME/myapp:1.0
+```
+
+现在任何人都能运行：
+
+```bash
+docker run -d -p 8080:8080 YOURUSERNAME/myapp:1.0
+```
+
+🎉 **你刚发布了一个 Docker 镜像！**
+
+## 🎁 加分项
+
+**多阶段构建**（更小的最终镜像）：
+
+```dockerfile
+# 构建阶段
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# 运行阶段
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY package*.json ./
+RUN npm ci --production
+CMD ["npm", "start"]
+```
+
+**Docker Compose**（运行多容器应用）：
+
+```yaml
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+  redis:
+    image: redis:alpine
+```
+
+运行：
+
+```bash
+docker-compose up
+```
+
+## 📚 下一步
+
+<NextStep slug="deploy-first-site" />
+<NextStep slug="git-basics" />
+
+## 🔗 相关资源
+
+- [Docker 文档](https://docs.docker.com/)
+- [Docker Hub](https://hub.docker.com/)
+- [最佳实践](https://docs.docker.com/develop/dev-best-practices/)

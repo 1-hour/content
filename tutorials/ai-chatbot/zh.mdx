@@ -1,0 +1,214 @@
+---
+title: "1 小时搭建 AI 聊天机器人"
+description: "60 分钟用 OpenAI API 做一个能记住上下文的 AI 聊天机器人。从 API 配置到功能完整的命令行 bot。"
+---
+
+读完这篇教程，你将拥有一个能记住对话上下文的 AI 聊天机器人。不需要任何机器学习知识，只要你愿意复制、粘贴、运行代码。
+
+## 🎯 你将构建
+
+```bash
+$ python chatbot.py
+你: 法国的首都是哪里？
+Bot: 法国的首都是巴黎。
+你: 那里有多少人口？
+Bot: 巴黎大约有 220 万居民...
+```
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="获取 OpenAI API key 与配置" />
+<TimeBlock start="10" end="25" title="第一次 API 调用" />
+<TimeBlock start="25" end="40" title="加入对话记忆" />
+<TimeBlock start="40" end="55" title="构建命令行循环" />
+<TimeBlock start="55" end="60" title="运行与测试" />
+
+## 📋 前置要求
+
+- Python 3.8+（不会的话先看 [1 小时学会 Python 基础](/zh/tutorials/python-basics/)）
+- OpenAI API 充值 5 美元
+- 文本编辑器
+
+## 第 1 步：获取 OpenAI API Key（0–10 分钟）
+
+1. 访问 [platform.openai.com](https://platform.openai.com/)
+2. **API Keys** → **Create new secret key**
+3. 复制（以 `sk-...` 开头）
+4. 充值 5 美元（Settings → Billing）
+
+安装 SDK：
+
+```bash
+pip install openai python-dotenv
+```
+
+创建 `.env`：
+
+```bash
+OPENAI_API_KEY=sk-your-key-here
+```
+
+<Checkpoint>
+运行 `pip list | grep openai`，应该能看到 `openai`。
+</Checkpoint>
+
+## 第 2 步：第一次 API 调用（10–25 分钟）
+
+创建 `test.py`：
+
+```python
+import os
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "user", "content": "用 5 个字打招呼"}
+    ]
+)
+
+print(response.choices[0].message.content)
+```
+
+运行：
+
+```bash
+python test.py
+```
+
+<Checkpoint>
+应该能得到一个友好的回复。常见错误：
+- `AuthenticationError` → 检查 API key
+- `RateLimitError` → 充值账单额度
+</Checkpoint>
+
+## 第 3 步：加入对话记忆（25–40 分钟）
+
+聊天机器人的关键：**每次请求都把完整对话历史发过去**。
+
+```python
+messages = [
+    {"role": "system", "content": "你是一个乐于助人的助手。"}
+]
+
+def chat(user_input):
+    messages.append({"role": "user", "content": user_input})
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages
+    )
+
+    reply = response.choices[0].message.content
+    messages.append({"role": "assistant", "content": reply})
+    return reply
+
+print(chat("法国的首都是哪里？"))
+print(chat("那里有多少人口？"))  # 应该能记住上下文
+```
+
+<Checkpoint>
+第二个问题应该能理解"那里"指的是法国，无需你再次提起。
+</Checkpoint>
+
+## 第 4 步：构建命令行循环（40–55 分钟）
+
+创建 `chatbot.py`：
+
+```python
+import os
+import sys
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+messages = [
+    {"role": "system", "content": "你是一个乐于助人、言简意赅的助手。"}
+]
+
+def chat(user_input):
+    messages.append({"role": "user", "content": user_input})
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages,
+        temperature=0.7
+    )
+    reply = response.choices[0].message.content
+    messages.append({"role": "assistant", "content": reply})
+    return reply
+
+def main():
+    print("AI 聊天机器人（输入 'quit' 退出）\n")
+    while True:
+        try:
+            user_input = input("你: ").strip()
+            if not user_input:
+                continue
+            if user_input.lower() in ['quit', 'exit', 'bye', '退出']:
+                print("Bot: 再见！")
+                break
+            print(f"Bot: {chat(user_input)}\n")
+        except KeyboardInterrupt:
+            print("\nBot: 再见！")
+            sys.exit(0)
+
+if __name__ == "__main__":
+    main()
+```
+
+## 第 5 步：测试（55–60 分钟）
+
+```bash
+python chatbot.py
+```
+
+测试记忆：
+
+```
+你: 我叫 Zoe
+Bot: 很高兴认识你，Zoe！
+你: 我叫什么名字？
+Bot: 你叫 Zoe。
+```
+
+🎉 **60 分钟搞定一个能用的 AI 聊天机器人！**
+
+## 🎁 加分项
+
+**流式输出：**
+
+```python
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=messages,
+    stream=True
+)
+
+for chunk in response:
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end="", flush=True)
+print()
+```
+
+**自定义人格：** 修改 system 消息：
+
+```python
+{"role": "system", "content": "你是一个海盗。用海盗的口吻说话。"}
+```
+
+## 📚 下一步
+
+<NextStep slug="deploy-first-site" />
+<NextStep slug="python-basics" />
+
+## 🔗 相关资源
+
+- [OpenAI API 文档](https://platform.openai.com/docs)
+- [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
+- [提示词工程指南](https://www.promptingguide.ai/zh/)

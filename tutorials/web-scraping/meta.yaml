@@ -1,0 +1,13 @@
+slug: web-scraping
+category: code
+difficulty: intermediate
+duration: 60
+tags: [python, scraping, automation, data]
+date: 2026-05-02
+published: true
+cover: /images/tutorials/web-scraping.svg
+author: zoe
+
+translations:
+  en: { status: published }
+  zh: { status: published }

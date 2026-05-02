@@ -1,0 +1,260 @@
+---
+title: "1 小时学会 Git 基础"
+description: "60 分钟掌握 Git。从零基础到分支、合并、推送到 GitHub —— 只学真正用得到的命令。"
+---
+
+读完这篇教程，你能自信地在自己的项目中使用 Git。不讲 DAG 或底层原理，只讲 95% 场景下真正用得到的命令。
+
+## 🎯 你将掌握
+
+真实的 Git 工作流：
+
+```bash
+# 克隆、创建分支、提交、推送、发 PR
+git clone ...
+git checkout -b feature/login
+# ... 编辑文件 ...
+git add .
+git commit -m "添加登录页"
+git push -u origin feature/login
+# 在 GitHub 上发 PR
+```
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="安装 Git 与配置" />
+<TimeBlock start="10" end="25" title="init / add / commit" />
+<TimeBlock start="25" end="40" title="远程仓库与推送到 GitHub" />
+<TimeBlock start="40" end="55" title="分支与合并" />
+<TimeBlock start="55" end="60" title="撤销错误操作" />
+
+## 📋 前置要求
+
+- 终端基础（`cd`、`ls`）
+- GitHub 账号
+
+## 第 1 步：安装 Git（0–10 分钟）
+
+检查：
+
+```bash
+git --version
+```
+
+如果没装：
+
+```bash
+# Mac
+brew install git
+
+# Ubuntu/Debian
+sudo apt install git
+```
+
+**Windows**：从 [git-scm.com](https://git-scm.com/) 下载。
+
+配置你的身份：
+
+```bash
+git config --global user.name "你的名字"
+git config --global user.email "you@example.com"
+git config --global init.defaultBranch main
+```
+
+<Checkpoint>
+运行 `git config --global --list`，应该能看到你的名字和邮箱。
+</Checkpoint>
+
+## 第 2 步：第一个仓库（10–25 分钟）
+
+```bash
+mkdir my-project && cd my-project
+git init
+echo "# 我的项目" > README.md
+git add README.md
+git commit -m "初始提交"
+```
+
+**刚才发生了什么：**
+- `git init` → 把这个文件夹变成 Git 仓库
+- `git add` → 把文件加入下次提交的暂存区
+- `git commit` → 保存一个带消息的快照
+
+多改几次：
+
+```bash
+echo "第二行" >> README.md
+git status          # 显示变更
+git diff            # 显示具体改动
+git add README.md
+git commit -m "添加第二行"
+```
+
+查看历史：
+
+```bash
+git log --oneline
+```
+
+<Checkpoint>
+你应该能看到至少 2 次提交。试试 `git log --oneline --graph` 看可视化版。
+</Checkpoint>
+
+## 第 3 步：推送到 GitHub（25–40 分钟）
+
+在 [github.com/new](https://github.com/new) 创建仓库：
+- 名称：`my-project`
+- 不要勾选 README
+
+连接并推送：
+
+```bash
+git remote add origin https://github.com/YOUR-USERNAME/my-project.git
+git branch -M main
+git push -u origin main
+```
+
+之后每次推送只需要：
+
+```bash
+git push
+```
+
+**拉取远程改动：**
+
+```bash
+git pull
+```
+
+<Checkpoint>
+刷新 GitHub 仓库页，文件在那里了。
+</Checkpoint>
+
+## 第 4 步：分支与合并（40–55 分钟）
+
+分支让你可以在不影响 `main` 的情况下开发新功能。
+
+```bash
+# 创建并切换到分支
+git checkout -b feature/hello
+
+# 编辑
+echo "console.log('hello')" > hello.js
+git add .
+git commit -m "添加 hello 脚本"
+
+# 推送分支
+git push -u origin feature/hello
+```
+
+**合并**（两种方式）：
+
+**方式 A：通过 Pull Request**（团队推荐）
+
+1. 在 GitHub 上点 "Compare & pull request"
+2. 审查 → 合并
+
+**方式 B：本地合并**（个人开发）
+
+```bash
+git checkout main
+git merge feature/hello
+git push
+```
+
+**删除已合并的分支：**
+
+```bash
+git branch -d feature/hello
+git push origin --delete feature/hello
+```
+
+<Checkpoint>
+创建分支，提交些东西，合并回 main。在 `main` 上应该能看到改动。
+<Answer>
+```bash
+git checkout -b test-branch
+echo "test" > test.txt
+git add . && git commit -m "test"
+git checkout main
+git merge test-branch
+```
+</Answer>
+</Checkpoint>
+
+## 第 5 步：撤销错误操作（55–60 分钟）
+
+**撤销未暂存的改动**（文件还没 `git add`）：
+
+```bash
+git checkout -- filename
+# 或
+git restore filename
+```
+
+**取消暂存**（已经 `git add` 了）：
+
+```bash
+git reset HEAD filename
+# 或
+git restore --staged filename
+```
+
+**修改最后一次提交**（忘了加文件或信息写错）：
+
+```bash
+git add forgotten-file
+git commit --amend
+```
+
+**撤销最后一次提交**（但保留改动）：
+
+```bash
+git reset --soft HEAD~1
+```
+
+**彻底丢弃最后一次提交**（⚠️ 小心）：
+
+```bash
+git reset --hard HEAD~1
+```
+
+🎉 **你已经掌握 95% 日常 Git 操作！**
+
+## 🎁 加分项
+
+**暂存未完成的工作：**
+
+```bash
+git stash          # 保存改动
+git stash pop      # 恢复
+```
+
+**实用别名：**
+
+```bash
+git config --global alias.s status
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.lg "log --oneline --graph --all"
+```
+
+**.gitignore** — 永远不要提交这些文件：
+
+```
+node_modules/
+.env
+*.log
+.DS_Store
+```
+
+## 📚 下一步
+
+<NextStep slug="deploy-first-site" />
+<NextStep slug="python-basics" />
+
+## 🔗 相关资源
+
+- [Pro Git 中文版](https://git-scm.com/book/zh/v2) — 免费、全面
+- [Oh Shit, Git!?!](https://ohshitgit.com/) — 常见错误
+- [Learn Git Branching](https://learngitbranching.js.org/?locale=zh_CN) — 交互式学习

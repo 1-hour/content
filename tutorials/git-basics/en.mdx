@@ -1,0 +1,260 @@
+---
+title: "1 Hour to Git Basics"
+description: "Master Git in 60 minutes. From zero to branches, merges, and pushing to GitHub — the commands you actually need."
+---
+
+By the end of this hour, you'll confidently use Git for your own projects. No theory about DAGs or internals — just the commands that matter 95% of the time.
+
+## 🎯 What You'll Build
+
+A real Git workflow:
+
+```bash
+# Clone, branch, commit, push, PR
+git clone ...
+git checkout -b feature/login
+# ... edit files ...
+git add .
+git commit -m "Add login page"
+git push -u origin feature/login
+# Open PR on GitHub
+```
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Install Git & setup" />
+<TimeBlock start="10" end="25" title="Init, add, commit" />
+<TimeBlock start="25" end="40" title="Remote + push to GitHub" />
+<TimeBlock start="40" end="55" title="Branches & merging" />
+<TimeBlock start="55" end="60" title="Undo mistakes" />
+
+## 📋 Prerequisites
+
+- Terminal basics (`cd`, `ls`)
+- A GitHub account
+
+## Step 1: Install Git (0–10 min)
+
+Check:
+
+```bash
+git --version
+```
+
+If not installed:
+
+```bash
+# Mac
+brew install git
+
+# Ubuntu/Debian
+sudo apt install git
+```
+
+**Windows**: Download from [git-scm.com](https://git-scm.com/).
+
+Configure your identity:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global init.defaultBranch main
+```
+
+<Checkpoint>
+Run `git config --global --list`. You should see your name and email.
+</Checkpoint>
+
+## Step 2: Your First Repo (10–25 min)
+
+```bash
+mkdir my-project && cd my-project
+git init
+echo "# My Project" > README.md
+git add README.md
+git commit -m "Initial commit"
+```
+
+**What just happened:**
+- `git init` → turned this folder into a repo
+- `git add` → staged the file for the next commit
+- `git commit` → saved a snapshot with a message
+
+Make more changes:
+
+```bash
+echo "Second line" >> README.md
+git status          # Shows what changed
+git diff            # Shows line-level changes
+git add README.md
+git commit -m "Add second line"
+```
+
+View history:
+
+```bash
+git log --oneline
+```
+
+<Checkpoint>
+You should see at least 2 commits. Try `git log --oneline --graph` for a visual.
+</Checkpoint>
+
+## Step 3: Push to GitHub (25–40 min)
+
+Create a repo on [github.com/new](https://github.com/new):
+- Name: `my-project`
+- Don't initialize with README
+
+Connect and push:
+
+```bash
+git remote add origin https://github.com/YOUR-USERNAME/my-project.git
+git branch -M main
+git push -u origin main
+```
+
+From now on, just:
+
+```bash
+git push
+```
+
+**Pull changes from remote:**
+
+```bash
+git pull
+```
+
+<Checkpoint>
+Refresh your repo page on GitHub. Your files are there.
+</Checkpoint>
+
+## Step 4: Branches & Merging (40–55 min)
+
+Branches let you work on features without affecting `main`.
+
+```bash
+# Create and switch to a branch
+git checkout -b feature/hello
+
+# Make changes
+echo "console.log('hello')" > hello.js
+git add .
+git commit -m "Add hello script"
+
+# Push the branch
+git push -u origin feature/hello
+```
+
+**Merging** (two options):
+
+**Option A: Via Pull Request** (recommended for teams)
+
+1. On GitHub, click "Compare & pull request"
+2. Review → Merge
+
+**Option B: Local merge** (solo work)
+
+```bash
+git checkout main
+git merge feature/hello
+git push
+```
+
+**Delete merged branch:**
+
+```bash
+git branch -d feature/hello
+git push origin --delete feature/hello
+```
+
+<Checkpoint>
+Create a branch, commit something, merge back to main. You should see the changes on `main`.
+<Answer>
+```bash
+git checkout -b test-branch
+echo "test" > test.txt
+git add . && git commit -m "test"
+git checkout main
+git merge test-branch
+```
+</Answer>
+</Checkpoint>
+
+## Step 5: Undo Mistakes (55–60 min)
+
+**Undo unstaged changes** (file not yet `git add`):
+
+```bash
+git checkout -- filename
+# or
+git restore filename
+```
+
+**Unstage a file** (after `git add`):
+
+```bash
+git reset HEAD filename
+# or
+git restore --staged filename
+```
+
+**Amend last commit** (forgot a file or typo in message):
+
+```bash
+git add forgotten-file
+git commit --amend
+```
+
+**Undo last commit** (but keep changes):
+
+```bash
+git reset --soft HEAD~1
+```
+
+**Nuke last commit entirely** (⚠️ careful):
+
+```bash
+git reset --hard HEAD~1
+```
+
+🎉 **You now know 95% of daily Git!**
+
+## 🎁 Bonus
+
+**Stash uncommitted work:**
+
+```bash
+git stash          # Save changes
+git stash pop      # Restore them
+```
+
+**Useful aliases:**
+
+```bash
+git config --global alias.s status
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.lg "log --oneline --graph --all"
+```
+
+**.gitignore** — never commit these files:
+
+```
+node_modules/
+.env
+*.log
+.DS_Store
+```
+
+## 📚 Next Steps
+
+<NextStep slug="deploy-first-site" />
+<NextStep slug="python-basics" />
+
+## 🔗 Resources
+
+- [Pro Git Book](https://git-scm.com/book) — Free and comprehensive
+- [Oh Shit, Git!?!](https://ohshitgit.com/) — Common mistakes
+- [Learn Git Branching](https://learngitbranching.js.org/) — Interactive

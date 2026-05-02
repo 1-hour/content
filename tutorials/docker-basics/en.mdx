@@ -1,0 +1,270 @@
+---
+title: "1 Hour to Docker Basics"
+description: "Containerize an app in 60 minutes. From installing Docker to running your own container and publishing an image to Docker Hub."
+---
+
+By the end of this hour, you'll run a real app in a container and understand the core Docker workflow. No prior DevOps knowledge needed.
+
+## 🎯 What You'll Build
+
+A containerized web app + Docker Hub image:
+
+```bash
+docker build -t myapp:1.0 .
+docker run -p 8080:8080 myapp:1.0
+# Visit http://localhost:8080
+```
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Install Docker" />
+<TimeBlock start="10" end="25" title="Your first container" />
+<TimeBlock start="25" end="40" title="Write a Dockerfile" />
+<TimeBlock start="40" end="55" title="Build & run your image" />
+<TimeBlock start="55" end="60" title="Push to Docker Hub" />
+
+## 📋 Prerequisites
+
+- Basic command line
+- A Docker Hub account
+
+## Step 1: Install Docker (0–10 min)
+
+**Mac/Windows**: Download [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+**Ubuntu/Debian**:
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker $USER
+# Log out and back in
+```
+
+Check:
+
+```bash
+docker --version
+docker run hello-world
+```
+
+<Checkpoint>
+`hello-world` should run and print "Hello from Docker!".
+</Checkpoint>
+
+## Step 2: Your First Container (10–25 min)
+
+Run an Nginx container:
+
+```bash
+docker run -d -p 8080:80 --name my-nginx nginx
+```
+
+What this does:
+- `-d` → run in background (detached)
+- `-p 8080:80` → map host port 8080 to container port 80
+- `--name my-nginx` → give it a name
+- `nginx` → use the official Nginx image
+
+Visit http://localhost:8080
+
+**Manage containers:**
+
+```bash
+docker ps              # Running containers
+docker ps -a           # All containers (including stopped)
+docker stop my-nginx   # Stop it
+docker start my-nginx  # Start again
+docker rm my-nginx     # Delete
+```
+
+**Interactive shell:**
+
+```bash
+docker run -it --rm ubuntu bash
+# Now you're inside an Ubuntu container!
+```
+
+<Checkpoint>
+Run `docker ps` and see your Nginx container. Then stop and remove it.
+</Checkpoint>
+
+## Step 3: Write a Dockerfile (25–40 min)
+
+Create a simple Node.js app:
+
+```bash
+mkdir my-docker-app && cd my-docker-app
+cat > package.json << EOF
+{
+  "name": "my-docker-app",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {"start": "node server.js"},
+  "dependencies": {"express": "^4.18.0"}
+}
+EOF
+
+cat > server.js << 'EOF'
+const express = require('express');
+const app = express();
+const PORT = 8080;
+
+app.get('/', (req, res) => {
+  res.send('Hello from Docker! 🐳');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+EOF
+```
+
+Create `Dockerfile`:
+
+```dockerfile
+# Use Node.js 20 Alpine (lightweight)
+FROM node:20-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy app code
+COPY . .
+
+# Expose port
+EXPOSE 8080
+
+# Run the app
+CMD ["npm", "start"]
+```
+
+<Checkpoint>
+You should have `Dockerfile`, `package.json`, and `server.js`.
+</Checkpoint>
+
+## Step 4: Build & Run (40–55 min)
+
+Build the image:
+
+```bash
+docker build -t myapp:1.0 .
+```
+
+What this does:
+- `-t myapp:1.0` → tag with name and version
+- `.` → build context is current directory
+
+Run it:
+
+```bash
+docker run -d -p 8080:8080 --name myapp myapp:1.0
+```
+
+Visit http://localhost:8080
+
+**View logs:**
+
+```bash
+docker logs myapp
+docker logs -f myapp  # Follow (tail -f style)
+```
+
+**Inspect container:**
+
+```bash
+docker inspect myapp
+```
+
+Stop and remove:
+
+```bash
+docker stop myapp
+docker rm myapp
+```
+
+<Checkpoint>
+Your app is running in a container! Check logs and see the server started message.
+</Checkpoint>
+
+## Step 5: Push to Docker Hub (55–60 min)
+
+Login:
+
+```bash
+docker login
+# Enter your Docker Hub credentials
+```
+
+Tag and push:
+
+```bash
+docker tag myapp:1.0 YOURUSERNAME/myapp:1.0
+docker push YOURUSERNAME/myapp:1.0
+```
+
+Now anyone can run it:
+
+```bash
+docker run -d -p 8080:8080 YOURUSERNAME/myapp:1.0
+```
+
+🎉 **You just published a Docker image!**
+
+## 🎁 Bonus
+
+**Multi-stage build** (smaller final image):
+
+```dockerfile
+# Build stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Run stage
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY package*.json ./
+RUN npm ci --production
+CMD ["npm", "start"]
+```
+
+**Docker Compose** (run multi-container apps):
+
+```yaml
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+  redis:
+    image: redis:alpine
+```
+
+Run:
+
+```bash
+docker-compose up
+```
+
+## 📚 Next Steps
+
+<NextStep slug="deploy-first-site" />
+<NextStep slug="git-basics" />
+
+## 🔗 Resources
+
+- [Docker Documentation](https://docs.docker.com/)
+- [Docker Hub](https://hub.docker.com/)
+- [Best Practices](https://docs.docker.com/develop/dev-best-practices/)

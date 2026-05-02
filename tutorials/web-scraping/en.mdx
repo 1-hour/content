@@ -1,0 +1,239 @@
+---
+title: "1 Hour to Web Scraping with Python"
+description: "Build a real web scraper in 60 minutes. Extract data from websites, handle pagination, and save to CSV. No prior scraping experience needed."
+---
+
+By the end of this tutorial, you'll have a working web scraper that extracts product data from a real website and saves it to CSV.
+
+## 🎯 What You'll Build
+
+A Python script that:
+- Fetches HTML from a website
+- Extracts structured data (titles, prices, ratings)
+- Handles pagination (multiple pages)
+- Saves results to CSV
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Install tools & understand HTML" />
+<TimeBlock start="10" end="25" title="First scrape: extract one item" />
+<TimeBlock start="25" end="40" title="Extract all items on a page" />
+<TimeBlock start="40" end="55" title="Handle pagination" />
+<TimeBlock start="55" end="60" title="Save to CSV & test" />
+
+## 📋 Prerequisites
+
+- Python 3.8+ (see [1 Hour to Python Basics](/en/tutorials/python-basics/) if new)
+- Basic HTML knowledge (tags like `<div>`, `<a>`, `<span>`)
+
+## Step 1: Install Tools (0–10 min)
+
+Install `requests` (fetch HTML) and `beautifulsoup4` (parse HTML):
+
+```bash
+pip install requests beautifulsoup4
+```
+
+**Test it:**
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+response = requests.get("https://example.com")
+soup = BeautifulSoup(response.text, 'html.parser')
+print(soup.title.string)
+```
+
+<Checkpoint>
+You should see `Example Domain` printed. If you get `ModuleNotFoundError`, re-run `pip install`.
+</Checkpoint>
+
+## Step 2: Understand HTML Structure (10–15 min)
+
+We'll scrape [books.toscrape.com](http://books.toscrape.com/) (a practice site).
+
+Open it in your browser → Right-click a book → **Inspect**.
+
+You'll see:
+
+```html
+<article class="product_pod">
+  <h3><a href="..." title="A Light in the Attic">A Light in the ...</a></h3>
+  <p class="price_color">£51.77</p>
+  <p class="star-rating Three">...</p>
+</article>
+```
+
+**Key selectors:**
+- Book title: `article.product_pod h3 a`
+- Price: `p.price_color`
+- Rating: `p.star-rating` (class name contains rating)
+
+## Step 3: Extract One Item (15–25 min)
+
+Create `scraper.py`:
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+url = "http://books.toscrape.com/"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# Find first book
+book = soup.find('article', class_='product_pod')
+
+title = book.h3.a['title']
+price = book.find('p', class_='price_color').text
+rating_class = book.find('p', class_='star-rating')['class'][1]
+
+print(f"Title: {title}")
+print(f"Price: {price}")
+print(f"Rating: {rating_class}")
+```
+
+Run:
+
+```bash
+python scraper.py
+```
+
+<Checkpoint>
+You should see one book's title, price, and rating (e.g., "Three").
+</Checkpoint>
+
+## Step 4: Extract All Items (25–40 min)
+
+Loop through all books on the page:
+
+```python
+books = soup.find_all('article', class_='product_pod')
+
+for book in books:
+    title = book.h3.a['title']
+    price = book.find('p', class_='price_color').text
+    rating = book.find('p', class_='star-rating')['class'][1]
+    
+    print(f"{title} | {price} | {rating}")
+```
+
+<Checkpoint>
+You should see 20 books printed (one page has 20 items).
+</Checkpoint>
+
+## Step 5: Handle Pagination (40–55 min)
+
+The site has a "next" button. Let's scrape multiple pages:
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+base_url = "http://books.toscrape.com/catalogue/"
+page_url = "page-{}.html"
+all_books = []
+
+for page_num in range(1, 4):  # Scrape 3 pages
+    if page_num == 1:
+        url = "http://books.toscrape.com/"
+    else:
+        url = base_url + page_url.format(page_num)
+    
+    print(f"Scraping {url}...")
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    books = soup.find_all('article', class_='product_pod')
+    
+    for book in books:
+        title = book.h3.a['title']
+        price = book.find('p', class_='price_color').text.strip('£')
+        rating = book.find('p', class_='star-rating')['class'][1]
+        
+        all_books.append({
+            'title': title,
+            'price': price,
+            'rating': rating
+        })
+
+print(f"Total books scraped: {len(all_books)}")
+```
+
+<Checkpoint>
+You should see `Total books scraped: 60` (3 pages × 20 books).
+</Checkpoint>
+
+## Step 6: Save to CSV (55–60 min)
+
+```python
+import csv
+
+# ... (previous scraping code) ...
+
+# Save to CSV
+with open('books.csv', 'w', newline='', encoding='utf-8') as f:
+    writer = csv.DictWriter(f, fieldnames=['title', 'price', 'rating'])
+    writer.writeheader()
+    writer.writerows(all_books)
+
+print("Saved to books.csv")
+```
+
+Run:
+
+```bash
+python scraper.py
+```
+
+Open `books.csv` in Excel or any text editor. You should see 60 books!
+
+🎉 **You just built a real web scraper in 60 minutes!**
+
+## 🎁 Bonus
+
+**Add delays (be polite):**
+
+```python
+import time
+
+for page_num in range(1, 4):
+    # ... scraping code ...
+    time.sleep(1)  # Wait 1 second between pages
+```
+
+**Handle errors:**
+
+```python
+try:
+    response = requests.get(url, timeout=10)
+    response.raise_for_status()
+except requests.RequestException as e:
+    print(f"Error: {e}")
+    continue
+```
+
+**Use headers (avoid blocks):**
+
+```python
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+}
+response = requests.get(url, headers=headers)
+```
+
+## 📚 Next Steps
+
+<NextStep slug="python-basics" />
+<NextStep slug="docker-basics" />
+
+## 🔗 Resources
+
+- [Beautiful Soup Docs](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+- [Requests Docs](https://requests.readthedocs.io/)
+- [Scrapy](https://scrapy.org/) (advanced framework)
+
+## ⚠️ Legal Note
+
+Always check a website's `robots.txt` and Terms of Service before scraping. Respect rate limits and don't overload servers.
