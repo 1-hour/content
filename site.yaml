@@ -23,3 +23,21 @@ author:
 theme:
   primary: "#FF6B35"
   primaryGradientEnd: "#F7931E"
+
+# Analytics (optional, all fields optional)
+analytics:
+  # Plausible (privacy-friendly, no cookies)
+  plausible:
+    domain: 1hour.guide
+    # Use Plausible's default script. For self-hosted, set src.
+    # src: https://plausible.io/js/script.js
+
+  # Google Analytics 4
+  # googleAnalytics:
+  #   id: G-XXXXXXXXXX
+
+# Social / Open Graph
+social:
+  # Default OG image. Leave empty to auto-generate from title.
+  ogImage: /og-default.png
+  twitterCard: summary_large_image
