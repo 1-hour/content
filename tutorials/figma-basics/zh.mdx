@@ -1,0 +1,139 @@
+---
+title: "1 小时上手 Figma"
+description: "60 分钟内从空白画布设计你的第一个真实界面，制作可点击原型"
+---
+
+在这一小时结束时，你将拥有一个完整的移动应用界面，包含交互导航和可用于用户测试的工作原型。
+
+## 🎯 成果展示
+
+一个功能完整的外卖应用，包含 4 个界面：启动页、登录页、餐厅列表和菜单详情。原型将包括点击动画、页面切换和真实的交互体验，可在手机上测试。
+
+你的最终设计将呈现简洁的界面，包含 Logo、表单输入、图片卡片、按钮，以及流畅的页面切换效果，体验如同真实应用。
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="12" title="设置工作区并创建启动页" />
+<TimeBlock start="12" end="28" title="构建登录界面和表单" />
+<TimeBlock start="28" end="42" title="设计餐厅列表卡片" />
+<TimeBlock start="42" end="52" title="创建菜单详情页面" />
+<TimeBlock start="52" end="60" title="连接原型并测试交互" />
+
+## 📋 前置条件
+
+- Figma 账户（在 figma.com 免费注册）
+- 基本电脑操作技能
+- 了解移动应用（日常使用即可）
+- Chrome 或 Safari 浏览器
+
+## 第 1 步：创建画布 (0–12 分钟)
+
+打开 Figma，点击"New Design File"。按 `F` 键打开画框工具，然后从右侧面板选择"iPhone 14"。
+
+首先创建启动页。按 `T` 键选择文本工具，在中心添加应用名称"FoodieGo"。设置字号为 32，字重为 Bold。
+
+使用椭圆工具（`O`）添加简单 Logo。绘制一个圆形，填充颜色为 `#FF6B35`（橙色），然后在内部添加一个小白圆作为简单的食物图标。
+
+使用右侧面板的对齐工具将所有元素居中。
+
+<Checkpoint>
+你能看到 iPhone 画框上居中显示的应用名称和橙色 Logo 吗？
+<Answer>是的，"FoodieGo"文本和橙色圆形 Logo 应该在 iPhone 14 画框上垂直和水平居中</Answer>
+</Checkpoint>
+
+在图层面板（左侧）将此画框重命名为"Splash"。这样可以保持工作有序。
+
+通过复制（Mac 上 `Cmd+D`，Windows 上 `Ctrl+D`）创建三个更多的 iPhone 画框。水平排列它们并重命名为："Login"、"Restaurant List"、"Menu Details"。
+
+## 第 2 步：设计登录界面 (12–28 分钟)
+
+选择你的"Login"画框。在顶部添加欢迎信息："Welcome Back"，字号 28，字重 Bold。
+
+使用矩形工具（`R`）创建输入框。绘制一个 327×56 像素的矩形，填充白色，添加 1px `#E5E5E5` 边框描边，圆角半径 8px。
+
+在内部添加占位文本："Email address"，字号 16，颜色 `#999999`。将其定位在距离左边缘 16px 处。
+
+复制此输入框（`Cmd+D`）并将占位文本更改为"Password"。垂直堆叠，间距 16px。
+
+创建登录按钮：矩形 327×56px，填充 `#FF6B35`，圆角半径 8px。在内部居中添加白色文本"Sign In"。
+
+在下方使用文本工具添加"Forgot Password?"链接，字号 14，颜色 `#FF6B35`。
+
+<Checkpoint>
+你的登录界面是否包含邮箱/密码输入框和橙色登录按钮？
+<Answer>是的，两个带灰色边框和占位文本的输入框，加上一个标有"Sign In"的橙色按钮</Answer>
+</Checkpoint>
+
+## 第 3 步：构建餐厅网格 (28–42 分钟)
+
+在"Restaurant List"画框中，在顶部添加标题"Nearby Restaurants"，字号 24，字重 Bold。
+
+使用矩形创建餐厅卡片。制作主卡片 327×120px，白色填充，圆角半径 12px，并添加投影（效果 → 投影，Y:2，模糊:8，颜色:`#00000015`）。
+
+添加占位图像区域：矩形 80×80px，填充 `#F0F0F0`，圆角半径 8px。将其定位在距离左边缘 16px 处。
+
+使用文本添加餐厅详情：
+- 餐厅名称："Pizza Palace"，字号 18，字重 Bold
+- 菜系类型："Italian • Fast Food"，字号 14，颜色 `#666666`  
+- 评分："4.5 ⭐ (120 reviews)"，字号 12，颜色 `#666666`
+
+垂直堆叠这些文本元素，距离图像 16px。
+
+将此卡片复制 3 次（`Cmd+D`）。将餐厅名称更改为"Burger Barn"、"Sushi Spot"和"Taco Time"。相应调整菜系类型。
+
+卡片间垂直间距 12px。
+
+## 第 4 步：创建菜单页面 (42–52 分钟)
+
+在"Menu Details"画框中，添加带返回箭头的餐厅标题。使用文本"<"作为箭头，字号 20，然后在旁边添加"Pizza Palace"，字号 20，字重 Bold。
+
+创建类似餐厅卡片的菜单项卡片，但尺寸为 327×100px。添加：
+- 食物图片占位符：70×70px 矩形，`#F0F0F0` 填充
+- 项目名称："Margherita Pizza"，字号 16，字重 Bold
+- 描述："Fresh mozzarella, basil, tomato sauce"，字号 14，颜色 `#666666`
+- 价格："$12.99"，字号 16，字重 Bold，颜色 `#FF6B35`
+
+创建 4 个菜单项："Margherita Pizza"、"Pepperoni Special"、"Caesar Salad"、"Garlic Bread"。
+
+在底部添加浮动的"Add to Cart"按钮：343×56px，填充 `#FF6B35`，圆角半径 28px。居中白色文本"Add to Cart • $25.98"。
+
+<Checkpoint>
+你能看到菜单项目和价格以及底部的橙色"Add to Cart"按钮吗？
+<Answer>是的，4 个菜单项目各显示名称、描述、价格，以及屏幕底部显眼的橙色购物车按钮</Answer>
+</Checkpoint>
+
+## 第 5 步：发布作品 (52–60 分钟)
+
+切换到原型模式（右上角，"Design"旁边）。
+
+通过点击每个画框上的蓝色 + 图标连接你的页面：
+- Splash → Login（延迟后，2000ms）
+- Login 按钮 → Restaurant List（点击时，即时）
+- 餐厅卡片 → Menu Details（点击时，左推）
+- 返回箭头 → Restaurant List（点击时，右推）
+
+通过点击 Splash 画框上的播放图标设置起始点。
+
+点击播放按钮（右上角）测试你的原型。你应该能够流畅地在所有页面间点击切换。
+
+点击"Share"（右上角），然后"Copy link"获取可分享的原型 URL，可在手机上打开。
+
+🎉 恭喜！你已经构建了一个完整的应用界面和工作导航。你的原型展现了真正的 UX 技能，足以让客户和雇主印象深刻。
+
+## 🎁 进阶挑战
+
+- 添加微交互：餐厅卡片上可点击动画的心形图标
+- 创建组件库：将按钮和卡片转换为可重用组件
+- 使用 Figma 颜色变量功能设计深色模式版本
+
+## 📚 下一步学什么
+
+<NextStep slug="figma-components" />
+
+## 🔗 扩展资源
+
+- [Figma 官方教程系列](https://figma.com/resources/learn-design/)
+- [UI 设计模式库](https://ui-patterns.com/)
+- [移动端设计最佳实践](https://material.io/design)
+- [Figma 社区模板](https://figma.com/community)
+- [调色板生成器](https://coolors.co/)

@@ -1,0 +1,139 @@
+---
+title: "1 Hour to Figma"
+description: "Design your first real interface from blank canvas to clickable prototype in 60 minutes"
+---
+
+By the end of this hour, you'll have a complete mobile app interface with interactive navigation and a working prototype ready for user testing.
+
+## 🎯 What You'll Build
+
+A fully interactive food delivery app with 4 screens: splash screen, login page, restaurant list, and menu details. The prototype will include tap animations, screen transitions, and realistic interactions you can test on your phone.
+
+Your final design will feature a clean interface with a logo, form inputs, image cards, buttons, and smooth transitions between screens that feel like a real app.
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="12" title="Setup workspace and create splash screen" />
+<TimeBlock start="12" end="28" title="Build login interface with forms" />
+<TimeBlock start="28" end="42" title="Design restaurant listing with cards" />
+<TimeBlock start="42" end="52" title="Create menu detail screen" />
+<TimeBlock start="52" end="60" title="Connect prototype and test interactions" />
+
+## 📋 Prerequisites
+
+- Figma account (free at figma.com)
+- Basic computer navigation skills
+- Understanding of mobile apps (you use them daily)
+- Chrome or Safari browser
+
+## Step 1: Create Your Canvas (0–12 min)
+
+Open Figma and click "New Design File". Press `F` to open the Frame tool, then select "iPhone 14" from the right panel.
+
+Create your splash screen first. Press `T` for text tool and add your app name "FoodieGo" in the center. Make it size 32, weight Bold.
+
+Add a simple logo using the ellipse tool (`O`). Draw a circle, fill it with `#FF6B35` (orange), then add a smaller white circle inside for a simple food icon.
+
+Position everything in the center using the alignment tools in the right panel.
+
+<Checkpoint>
+Can you see a centered app name and orange logo on your iPhone frame?
+<Answer>Yes, "FoodieGo" text and orange circular logo should be centered vertically and horizontally on the iPhone 14 frame</Answer>
+</Checkpoint>
+
+Rename this frame to "Splash" in the layers panel (left side). This keeps your work organized.
+
+Create three more iPhone frames by duplicating (`Cmd+D` on Mac, `Ctrl+D` on Windows). Arrange them horizontally and rename them: "Login", "Restaurant List", "Menu Details".
+
+## Step 2: Design Login Interface (12–28 min)
+
+Select your "Login" frame. Add a welcome message at the top: "Welcome Back" in size 28, Bold weight.
+
+Create input fields using rectangles (`R`). Draw a rectangle 327×56 pixels, fill it white, add border stroke 1px `#E5E5E5`, corner radius 8px.
+
+Add placeholder text inside: "Email address" in size 16, color `#999999`. Position it 16px from the left edge.
+
+Duplicate this input field (`Cmd+D`) and change the placeholder to "Password". Stack them 16px apart vertically.
+
+Create a login button: rectangle 327×56px, fill `#FF6B35`, corner radius 8px. Add white text "Sign In" centered inside.
+
+Add a "Forgot Password?" link below using text tool, size 14, color `#FF6B35`.
+
+<Checkpoint>
+Does your login screen have email/password inputs and an orange Sign In button?
+<Answer>Yes, two input fields with gray borders and placeholder text, plus an orange button labeled "Sign In"</Answer>
+</Checkpoint>
+
+## Step 3: Build Restaurant Grid (28–42 min)
+
+In your "Restaurant List" frame, add a header "Nearby Restaurants" at the top, size 24, Bold.
+
+Create a restaurant card using rectangles. Make the main card 327×120px with white fill, corner radius 12px, and drop shadow (Effects → Drop Shadow, Y:2, Blur:8, Color:`#00000015`).
+
+Add a placeholder image area: rectangle 80×80px, fill `#F0F0F0`, corner radius 8px. Position it 16px from left edge.
+
+Add restaurant details with text:
+- Restaurant name: "Pizza Palace", size 18, Bold
+- Cuisine type: "Italian • Fast Food", size 14, color `#666666`  
+- Rating: "4.5 ⭐ (120 reviews)", size 12, color `#666666`
+
+Stack these text elements vertically, 16px from the image.
+
+Duplicate this card 3 times (`Cmd+D`). Change the restaurant names to "Burger Barn", "Sushi Spot", and "Taco Time". Adjust cuisine types accordingly.
+
+Space cards 12px apart vertically.
+
+## Step 4: Create Menu Screen (42–52 min)
+
+In "Menu Details" frame, add restaurant header with back arrow. Use text "<" for the arrow, size 20, then "Pizza Palace" next to it, size 20, Bold.
+
+Create menu item cards similar to restaurant cards but 327×100px. Add:
+- Food image placeholder: 70×70px rectangle, `#F0F0F0` fill
+- Item name: "Margherita Pizza", size 16, Bold
+- Description: "Fresh mozzarella, basil, tomato sauce", size 14, color `#666666`
+- Price: "$12.99", size 16, Bold, color `#FF6B35`
+
+Create 4 menu items: "Margherita Pizza", "Pepperoni Special", "Caesar Salad", "Garlic Bread".
+
+Add a floating "Add to Cart" button at bottom: 343×56px, fill `#FF6B35`, corner radius 28px. Center white text "Add to Cart • $25.98".
+
+<Checkpoint>
+Can you see menu items with prices and an orange "Add to Cart" button at the bottom?
+<Answer>Yes, 4 menu items each showing name, description, price, and a prominent orange cart button at screen bottom</Answer>
+</Checkpoint>
+
+## Step 5: Ship It (52–60 min)
+
+Switch to Prototype mode (top right, next to "Design"). 
+
+Connect your screens by clicking the blue + icon on each frame:
+- Splash → Login (After Delay, 2000ms)
+- Login button → Restaurant List (On Tap, Instant)
+- Restaurant card → Menu Details (On Tap, Push Left)
+- Back arrow → Restaurant List (On Tap, Push Right)
+
+Set your starting point by clicking the play icon on the Splash frame.
+
+Test your prototype by clicking the play button (top right). You should be able to tap through all screens smoothly.
+
+Click "Share" (top right), then "Copy link" to get a shareable prototype URL you can open on your phone.
+
+🎉 Congratulations! You've built a complete app interface with working navigation. Your prototype demonstrates real UX skills that impress clients and employers.
+
+## 🎁 Bonus
+
+- Add micro-interactions: heart icons that animate when tapped on restaurant cards
+- Create component library: turn your buttons and cards into reusable components
+- Design dark mode versions using Figma's color variables feature
+
+## 📚 Next Steps
+
+<NextStep slug="figma-components" />
+
+## 🔗 Resources
+
+- [Figma Official Tutorial Series](https://figma.com/resources/learn-design/)
+- [UI Design Patterns Library](https://ui-patterns.com/)
+- [Mobile Design Best Practices](https://material.io/design)
+- [Figma Community Templates](https://figma.com/community)
+- [Color Palette Generator](https://coolors.co/)
