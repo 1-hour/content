@@ -1,0 +1,15 @@
+slug: n8n-automation
+category: ai
+difficulty: beginner
+duration: 60
+tags: [ai, automation, n8n, no-code, workflow]
+date: 2026-06-19
+published: true
+cover: /images/tutorials/n8n-automation.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published

@@ -1,0 +1,275 @@
+---
+title: "1 小时上手 Claude 代码编程"
+description: "使用 Claude 作为 AI 编程助手，从想法到可运行代码，60 分钟构建真实 CLI 工具"
+---
+
+本教程结束后，你将在 Claude 的帮助下构建出一个功能完整的 CLI 工具，并掌握 AI 结对编程的核心模式。
+
+## 🎯 成果展示
+
+构建一个天气 CLI 工具，可以获取任意城市的实时天气状况。Claude 将帮你设计架构、编写代码并调试问题。
+
+```bash
+$ weather-cli "San Francisco"
+🌤️  San Francisco, CA
+Temperature: 68°F (20°C)
+Conditions: Partly Cloudy
+Humidity: 72%
+Wind: 8 mph SW
+```
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="建立 Claude 对话并定义项目范围" />
+<TimeBlock start="10" end="25" title="与 Claude 设计架构并搭建项目骨架" />
+<TimeBlock start="25" end="40" title="在 AI 协助下实现核心功能" />
+<TimeBlock start="40" end="55" title="添加特性、处理错误并测试边界情况" />
+<TimeBlock start="55" end="60" title="打包并部署你的 CLI 工具" />
+
+## 📋 前置条件
+
+- 已安装 Node.js 18+
+- 基础命令行使用能力
+- Claude 账户（免费版即可）
+- 文本编辑器或 IDE
+- OpenWeatherMap API 密钥（免费）
+
+## 第 1 步：开始你的 AI 结对编程会话（0–10 分钟）
+
+打开 Claude 并用以下提示建立你的编程伙伴关系：
+
+```
+我想在接下来的一小时内用 Node.js 构建一个 CLI 天气工具。我是一个[你的技能水平]开发者。
+
+需求：
+- 接受城市名称作为参数
+- 显示格式美观的当前天气
+- 优雅处理错误
+- 使用免费天气 API
+
+帮我规划架构，然后我们逐步构建。最佳方案是什么？
+```
+
+Claude 会建议一个架构。继续询问：
+
+```
+完美！我们使用 OpenWeatherMap API。你能帮我：
+1. 设置项目结构
+2. 选择合适的 npm 包
+3. 规划需要的主要函数
+
+显示初始文件结构和 package.json。
+```
+
+创建你的项目目录：
+
+```bash
+mkdir weather-cli
+cd weather-cli
+npm init -y
+```
+
+<Checkpoint>
+问 Claude："我应该首先安装哪些 npm 包，为什么？"
+<Answer>可能是 axios/fetch 用于 HTTP 请求，commander 用于 CLI 解析，chalk 用于彩色输出</Answer>
+</Checkpoint>
+
+## 第 2 步：在 Claude 指导下搭建骨架（10–25 分钟）
+
+安装 Claude 推荐的包：
+
+```bash
+npm install axios commander chalk dotenv
+npm install -D nodemon
+```
+
+请 Claude 生成初始文件结构：
+
+```
+现在创建基本文件结构。我需要：
+- 主要 CLI 入口点
+- 天气服务模块
+- 配置处理
+- 错误处理工具
+
+显示每个文件的代码，从 package.json 脚本和主要的 index.js 开始。
+```
+
+创建 Claude 建议的文件。通常包括：
+
+```bash
+touch index.js lib/weather-service.js lib/config.js lib/utils.js
+```
+
+添加 Claude 建议的 package.json 脚本：
+
+```json
+{
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "bin": {
+    "weather-cli": "./index.js"
+  }
+}
+```
+
+设置你的 `.env` 文件：
+
+```bash
+echo "OPENWEATHER_API_KEY=your_api_key_here" > .env
+```
+
+从 OpenWeatherMap 获取免费 API 密钥并替换占位符。
+
+<Checkpoint>
+问 Claude："能给我展示一个基础版本的 index.js，只需解析参数并打印它们？"
+<Answer>应该包含 commander 设置、参数解析和城市名称的 console.log</Answer>
+</Checkpoint>
+
+## 第 3 步：实现核心天气获取功能（25–40 分钟）
+
+在 Claude 帮助下构建天气服务：
+
+```
+我们来实现天气服务。我需要一个函数：
+- 接受城市名称
+- 调用 OpenWeatherMap API
+- 返回格式化的天气数据
+- 处理 API 错误
+
+显示完整的 weather-service.js 代码，包含错误处理。
+```
+
+实现 Claude 建议的代码。天气服务应该类似于：
+
+```javascript
+// lib/weather-service.js
+const axios = require('axios');
+require('dotenv').config();
+
+class WeatherService {
+  constructor() {
+    this.apiKey = process.env.OPENWEATHER_API_KEY;
+    this.baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  }
+
+  async getCurrentWeather(city) {
+    // Claude 将提供实现
+  }
+}
+
+module.exports = WeatherService;
+```
+
+测试你的 API 连接：
+
+```bash
+node -e "
+const WeatherService = require('./lib/weather-service');
+const ws = new WeatherService();
+ws.getCurrentWeather('London').then(console.log);
+"
+```
+
+请 Claude 帮助调试任何问题：
+
+```
+我遇到了[具体错误]。这是我的代码：[粘贴代码]
+哪里出错了，如何修复？
+```
+
+## 第 4 步：添加优化和错误处理（40–55 分钟）
+
+在 Claude 帮助下增强你的 CLI：
+
+```
+现在让我们把这个做成生产就绪的：
+1. 用 chalk 添加彩色输出
+2. 处理所有错误情况（无 API 密钥、无效城市、网络问题）
+3. 添加帮助命令
+4. 美观地格式化输出
+
+显示更新后的 index.js，包含适当的错误处理和格式化。
+```
+
+实现 Claude 建议的错误处理：
+
+```javascript
+// Claude 可能建议的错误处理示例
+try {
+  const weather = await weatherService.getCurrentWeather(city);
+  console.log(formatWeatherOutput(weather));
+} catch (error) {
+  if (error.response?.status === 404) {
+    console.error(chalk.red(`城市 "${city}" 未找到`));
+  } else if (error.code === 'ENOTFOUND') {
+    console.error(chalk.red('网络错误 - 请检查你的连接'));
+  } else {
+    console.error(chalk.red(`错误: ${error.message}`));
+  }
+  process.exit(1);
+}
+```
+
+测试 Claude 建议的边界情况：
+
+```bash
+npm start "InvalidCityName123"
+npm start ""
+npm start "London,UK"
+```
+
+<Checkpoint>
+问 Claude："对于天气 CLI，我应该处理的 3 个最重要的错误情况是什么？"
+<Answer>无效城市名称（404）、网络故障、缺失/无效的 API 密钥</Answer>
+</Checkpoint>
+
+## 第 5 步：发布上线（55–60 分钟）
+
+让你的 CLI 可以全局安装：
+
+```bash
+npm link
+```
+
+测试全局命令：
+
+```bash
+weather-cli "Tokyo"
+weather-cli "New York"
+```
+
+向 Claude 询问最终改进建议：
+
+```
+什么收尾工作能让这个 CLI 工具更专业？
+我应该添加这些特性吗：
+- 一次查询多个城市
+- 不同的单位系统
+- 基于天气状况的彩色输出
+- 配置文件支持
+```
+
+实现 Claude 建议的一个快速增强功能。
+
+🎉 你的天气 CLI 完成了！你已经成功地将 Claude 用作结对程序员，从零开始构建了一个真实的工具。
+
+## 🎁 进阶挑战
+
+- 根据天气状况使用 Unicode 符号添加天气图标
+- 用 `--forecast` 标志实现 5 天预报选项
+- 为默认城市和单位创建配置文件系统
+
+## 📚 下一步学什么
+
+<NextStep slug="cursor-basics" />
+
+## 🔗 扩展资源
+
+- [OpenWeatherMap API 文档](https://openweathermap.org/api)
+- [Commander.js CLI 框架](https://github.com/tj/commander.js/)
+- [Chalk 终端颜色库](https://github.com/chalk/chalk)
+- [Claude AI 最佳实践](https://docs.anthropic.com/claude/docs)
+- [Node.js CLI 最佳实践](https://github.com/lirantal/nodejs-cli-apps-best-practices)

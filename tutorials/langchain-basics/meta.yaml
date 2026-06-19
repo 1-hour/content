@@ -1,0 +1,15 @@
+slug: langchain-basics
+category: ai
+difficulty: beginner
+duration: 60
+tags: [ai, langchain, llm, python, chatbot]
+date: 2026-06-19
+published: true
+cover: /images/tutorials/langchain-basics.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published

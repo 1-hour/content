@@ -1,0 +1,208 @@
+---
+title: "1 Hour to n8n: Automate Your First Real Workflow Without Code"
+description: "Build a complete automation that monitors emails, processes data, and sends notifications - no coding required"
+---
+
+By the end of this hour, you'll have a working n8n automation that monitors your Gmail inbox, extracts data from incoming emails, processes it through conditions, and automatically sends Slack notifications or saves to Google Sheets.
+
+## 🎯 What You'll Build
+
+A complete email-to-action automation workflow that:
+- Triggers when specific emails arrive in Gmail
+- Extracts sender info and email content
+- Routes different email types to different actions
+- Sends formatted Slack notifications for urgent emails
+- Saves lead information to Google Sheets for sales emails
+
+```json
+{
+  "workflow": "Email Processing Bot",
+  "trigger": "Gmail - New Email",
+  "actions": ["Extract Data", "Condition Check", "Slack Notify", "Sheets Save"],
+  "status": "Active"
+}
+```
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Setup n8n and connect Gmail" />
+<TimeBlock start="10" end="25" title="Build email trigger and data extraction" />
+<TimeBlock start="25" end="40" title="Add conditional logic and routing" />
+<TimeBlock start="40" end="55" title="Connect output actions (Slack/Sheets)" />
+<TimeBlock start="55" end="60" title="Test and activate workflow" />
+
+## 📋 Prerequisites
+
+- Gmail account with emails you can test with
+- Slack workspace where you can add apps (or use webhook)
+- Google account for Sheets access
+- Chrome or Firefox browser
+- Basic understanding of email and spreadsheet concepts
+
+## Step 1: Setup n8n and Connect Gmail (0–10 min)
+
+Visit [n8n.cloud](https://n8n.cloud) and create a free account. The cloud version gives you 5,000 executions per month.
+
+Click "New Workflow" and you'll see the canvas with a "+ Add first step" button.
+
+Click the "+" button and search for "Gmail Trigger". Select "Gmail Trigger" from the list.
+
+Click "Connect my account" and authorize n8n to access your Gmail. Choose these settings:
+- Event: `message.received`
+- Mailbox: `INBOX`
+- Filters: Leave empty for now
+
+<Checkpoint>
+Test your Gmail connection by clicking "Test step". You should see recent emails appear in the output panel. What's the subject of the most recent email shown?
+<Answer>Any recent email subject from your inbox will appear in the test results</Answer>
+</Checkpoint>
+
+## Step 2: Extract and Structure Email Data (10–25 min)
+
+Click the "+" after your Gmail node to add the next step. Search for "Set" and select it.
+
+The Set node lets you clean and structure data. Configure these fields:
+
+```json
+{
+  "sender_email": "={{ $json.payload.from[0].address }}",
+  "sender_name": "={{ $json.payload.from[0].name }}",
+  "subject": "={{ $json.payload.subject }}",
+  "body_text": "={{ $json.payload.textPlain }}",
+  "received_date": "={{ $json.payload.date }}",
+  "is_urgent": "={{ $json.payload.subject.toLowerCase().includes('urgent') || $json.payload.subject.toLowerCase().includes('asap') }}"
+}
+```
+
+Click "Add Option" → "Keep Only Set" to clean output.
+
+Add another "+" and search for "Code". Select "Code" node.
+
+In the Code node, add this JavaScript to categorize emails:
+
+```javascript
+// Categorize emails based on content
+const subject = $input.first().json.subject.toLowerCase();
+const senderEmail = $input.first().json.sender_email.toLowerCase();
+
+let category = 'general';
+let priority = 'normal';
+
+// Check for sales leads
+if (subject.includes('quote') || subject.includes('pricing') || subject.includes('demo')) {
+  category = 'sales_lead';
+}
+
+// Check for support requests
+if (subject.includes('help') || subject.includes('support') || subject.includes('issue')) {
+  category = 'support';
+  priority = 'high';
+}
+
+// Check for urgent items
+if ($input.first().json.is_urgent) {
+  priority = 'urgent';
+}
+
+return {
+  ...($input.first().json),
+  category: category,
+  priority: priority,
+  processed_at: new Date().toISOString()
+};
+```
+
+<Checkpoint>
+Execute your workflow so far. In the Code node output, what category would an email with subject "Need help with pricing quote" be assigned?
+<Answer>sales_lead (because it contains "quote" and "pricing")</Answer>
+</Checkpoint>
+
+## Step 3: Add Conditional Routing Logic (25–40 min)
+
+Add an "IF" node after your Code node. This splits your workflow into different paths.
+
+Configure the IF condition:
+- Condition 1: `{{ $json.priority === 'urgent' }}`
+
+The IF node creates two paths: "true" and "false".
+
+For urgent emails (true path), add a "Slack" node:
+- Channel: Choose your channel or use `#general`
+- Message text:
+```
+🚨 URGENT EMAIL RECEIVED
+From: {{ $json.sender_name }} ({{ $json.sender_email }})
+Subject: {{ $json.subject }}
+Category: {{ $json.category }}
+Time: {{ $json.received_date }}
+
+Action needed!
+```
+
+Connect your Slack account when prompted.
+
+For non-urgent emails (false path), add another "IF" node to check categories:
+- Condition: `{{ $json.category === 'sales_lead' }}`
+
+## Step 4: Connect Output Actions (40–55 min)
+
+For the sales_lead path, add a "Google Sheets" node:
+- Operation: `Append`
+- Create a new spreadsheet called "Email Leads"
+- Columns to insert:
+  - A: `{{ $json.sender_name }}`
+  - B: `{{ $json.sender_email }}`
+  - C: `{{ $json.subject }}`
+  - D: `{{ $json.received_date }}`
+  - E: `{{ $json.category }}`
+
+For all other non-urgent emails, add a simple "Slack" node:
+- Message text:
+```
+📧 New email: {{ $json.subject }}
+From: {{ $json.sender_name }}
+Category: {{ $json.category }}
+```
+
+Connect the remaining IF outputs to ensure every path has an endpoint.
+
+Your workflow should now look like a tree:
+Gmail → Set → Code → IF (urgent?) → Slack (urgent) / IF (sales?) → Sheets (sales) / Slack (normal)
+
+<Checkpoint>
+Look at your workflow canvas. How many different end nodes (Slack/Sheets) do you have, and what triggers each one?
+<Answer>3 end nodes: Urgent Slack (priority=urgent), Sales Sheets (category=sales_lead), Normal Slack (everything else)</Answer>
+</Checkpoint>
+
+## Step 5: Ship It (55–60 min)
+
+Click "Save" in the top right and name your workflow "Email Processing Bot".
+
+Click the toggle switch to "Active" - this enables real-time email monitoring.
+
+Test your workflow:
+1. Send yourself an email with "URGENT: Test message" as subject
+2. Send another with "Pricing quote request" as subject
+3. Send a normal email with "Hello there" as subject
+
+Check your Slack channels and Google Sheet to verify each email was processed correctly.
+
+🎉 Your automation is now live! Every new email will be automatically categorized and routed to the appropriate action.
+
+## 🎁 Bonus
+
+- Add a "Delay" node to batch process emails every 5 minutes instead of instantly
+- Connect a "Notion" node to save urgent emails as tasks with due dates
+- Add an "HTTP Request" node to send data to your CRM or custom webhook
+
+## 📚 Next Steps
+
+<NextStep slug="claude-code-basics" />
+
+## 🔗 Resources
+
+- [n8n Documentation](https://docs.n8n.io/) - Complete workflow automation guide
+- [n8n Community](https://community.n8n.io/) - Share workflows and get help
+- [Gmail API Scopes](https://developers.google.com/gmail/api/auth/scopes) - Understanding permissions
+- [n8n Templates](https://n8n.io/workflows/) - 500+ pre-built workflows
+- [Slack Block Kit](https://api.slack.com/block-kit) - Advanced message formatting

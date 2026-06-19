@@ -1,0 +1,208 @@
+---
+title: "1 小时上手 n8n：无代码构建首个自动化工作流"
+description: "构建完整的自动化流程：监控邮件、处理数据、发送通知，完全无需编程"
+---
+
+一小时后，你将拥有一个完整的 n8n 自动化工作流，它能监控你的 Gmail 收件箱，从邮件中提取数据，通过条件判断处理，并自动发送 Slack 通知或保存到 Google Sheets。
+
+## 🎯 成果展示
+
+一个完整的邮件到行动的自动化工作流：
+- 监听 Gmail 中特定邮件的到达
+- 提取发件人信息和邮件内容
+- 根据邮件类型路由到不同操作
+- 为紧急邮件发送格式化的 Slack 通知
+- 将销售线索信息保存到 Google Sheets
+
+```json
+{
+  "workflow": "邮件处理机器人",
+  "trigger": "Gmail - 新邮件",
+  "actions": ["提取数据", "条件检查", "Slack 通知", "保存到表格"],
+  "status": "运行中"
+}
+```
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="设置 n8n 并连接 Gmail" />
+<TimeBlock start="10" end="25" title="构建邮件触发器和数据提取" />
+<TimeBlock start="25" end="40" title="添加条件逻辑和路由" />
+<TimeBlock start="40" end="55" title="连接输出操作（Slack/Sheets）" />
+<TimeBlock start="55" end="60" title="测试并激活工作流" />
+
+## 📋 前置条件
+
+- 有测试邮件的 Gmail 账户
+- 可以添加应用的 Slack 工作区（或使用 webhook）
+- 用于访问 Sheets 的 Google 账户
+- Chrome 或 Firefox 浏览器
+- 对邮件和表格概念的基本理解
+
+## 第 1 步：设置 n8n 并连接 Gmail（0–10 分钟）
+
+访问 [n8n.cloud](https://n8n.cloud) 并创建免费账户。云版本每月提供 5,000 次执行额度。
+
+点击"新建工作流"，你会看到带有"+ 添加第一步"按钮的画布。
+
+点击"+"按钮搜索"Gmail Trigger"，从列表中选择"Gmail Trigger"。
+
+点击"连接我的账户"并授权 n8n 访问你的 Gmail。选择以下设置：
+- 事件：`message.received`
+- 邮箱：`INBOX`
+- 过滤器：暂时留空
+
+<Checkpoint>
+点击"测试步骤"来测试你的 Gmail 连接。你应该在输出面板中看到最近的邮件。显示的最近邮件主题是什么？
+<Answer>你收件箱中的任何最近邮件主题都会出现在测试结果中</Answer>
+</Checkpoint>
+
+## 第 2 步：提取和结构化邮件数据（10–25 分钟）
+
+点击 Gmail 节点后的"+"添加下一步。搜索"Set"并选择它。
+
+Set 节点让你清理和结构化数据。配置以下字段：
+
+```json
+{
+  "sender_email": "={{ $json.payload.from[0].address }}",
+  "sender_name": "={{ $json.payload.from[0].name }}",
+  "subject": "={{ $json.payload.subject }}",
+  "body_text": "={{ $json.payload.textPlain }}",
+  "received_date": "={{ $json.payload.date }}",
+  "is_urgent": "={{ $json.payload.subject.toLowerCase().includes('urgent') || $json.payload.subject.toLowerCase().includes('asap') }}"
+}
+```
+
+点击"添加选项" → "仅保留设置"来清理输出。
+
+添加另一个"+"并搜索"Code"，选择"Code"节点。
+
+在 Code 节点中，添加这段 JavaScript 来分类邮件：
+
+```javascript
+// 根据内容对邮件进行分类
+const subject = $input.first().json.subject.toLowerCase();
+const senderEmail = $input.first().json.sender_email.toLowerCase();
+
+let category = 'general';
+let priority = 'normal';
+
+// 检查销售线索
+if (subject.includes('quote') || subject.includes('pricing') || subject.includes('demo')) {
+  category = 'sales_lead';
+}
+
+// 检查支持请求
+if (subject.includes('help') || subject.includes('support') || subject.includes('issue')) {
+  category = 'support';
+  priority = 'high';
+}
+
+// 检查紧急项目
+if ($input.first().json.is_urgent) {
+  priority = 'urgent';
+}
+
+return {
+  ...($input.first().json),
+  category: category,
+  priority: priority,
+  processed_at: new Date().toISOString()
+};
+```
+
+<Checkpoint>
+执行你目前的工作流。在 Code 节点输出中，主题为"Need help with pricing quote"的邮件会被分配到什么类别？
+<Answer>sales_lead（因为它包含"quote"和"pricing"）</Answer>
+</Checkpoint>
+
+## 第 3 步：添加条件路由逻辑（25–40 分钟）
+
+在 Code 节点后添加"IF"节点。这会将你的工作流分成不同路径。
+
+配置 IF 条件：
+- 条件 1：`{{ $json.priority === 'urgent' }}`
+
+IF 节点创建两个路径："true"和"false"。
+
+对于紧急邮件（true 路径），添加"Slack"节点：
+- 频道：选择你的频道或使用 `#general`
+- 消息文本：
+```
+🚨 收到紧急邮件
+发件人：{{ $json.sender_name }} ({{ $json.sender_email }})
+主题：{{ $json.subject }}
+类别：{{ $json.category }}
+时间：{{ $json.received_date }}
+
+需要立即处理！
+```
+
+提示时连接你的 Slack 账户。
+
+对于非紧急邮件（false 路径），添加另一个"IF"节点检查类别：
+- 条件：`{{ $json.category === 'sales_lead' }}`
+
+## 第 4 步：连接输出操作（40–55 分钟）
+
+对于 sales_lead 路径，添加"Google Sheets"节点：
+- 操作：`Append`
+- 创建名为"邮件线索"的新表格
+- 要插入的列：
+  - A：`{{ $json.sender_name }}`
+  - B：`{{ $json.sender_email }}`
+  - C：`{{ $json.subject }}`
+  - D：`{{ $json.received_date }}`
+  - E：`{{ $json.category }}`
+
+对于所有其他非紧急邮件，添加简单的"Slack"节点：
+- 消息文本：
+```
+📧 新邮件：{{ $json.subject }}
+发件人：{{ $json.sender_name }}
+类别：{{ $json.category }}
+```
+
+连接剩余的 IF 输出，确保每个路径都有终点。
+
+你的工作流现在应该像一棵树：
+Gmail → Set → Code → IF（紧急？）→ Slack（紧急）/ IF（销售？）→ Sheets（销售）/ Slack（普通）
+
+<Checkpoint>
+看看你的工作流画布。你有多少个不同的终端节点（Slack/Sheets），每个是由什么触发的？
+<Answer>3 个终端节点：紧急 Slack（priority=urgent）、销售 Sheets（category=sales_lead）、普通 Slack（其他所有情况）</Answer>
+</Checkpoint>
+
+## 第 5 步：部署上线（55–60 分钟）
+
+点击右上角的"保存"并将工作流命名为"邮件处理机器人"。
+
+点击切换开关到"激活" - 这将启用实时邮件监控。
+
+测试你的工作流：
+1. 给自己发送主题为"URGENT: 测试消息"的邮件
+2. 发送另一封主题为"报价请求"的邮件
+3. 发送主题为"你好"的普通邮件
+
+检查你的 Slack 频道和 Google Sheet，验证每封邮件都被正确处理。
+
+🎉 你的自动化现在已上线！每封新邮件都会被自动分类并路由到相应的操作。
+
+## 🎁 进阶挑战
+
+- 添加"Delay"节点，每 5 分钟批量处理邮件而不是立即处理
+- 连接"Notion"节点，将紧急邮件保存为带截止日期的任务
+- 添加"HTTP Request"节点，将数据发送到你的 CRM 或自定义 webhook
+
+## 📚 下一步学什么
+
+<NextStep slug="claude-code-basics" />
+
+## 🔗 扩展资源
+
+- [n8n 官方文档](https://docs.n8n.io/) - 完整的工作流自动化指南
+- [n8n 社区](https://community.n8n.io/) - 分享工作流并获得帮助
+- [Gmail API 范围](https://developers.google.com/gmail/api/auth/scopes) - 了解权限
+- [n8n 模板库](https://n8n.io/workflows/) - 500+ 预构建工作流
+- [Slack Block Kit](https://api.slack.com/block-kit) - 高级消息格式化

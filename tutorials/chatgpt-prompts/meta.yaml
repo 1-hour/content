@@ -1,0 +1,15 @@
+slug: chatgpt-prompts
+category: ai
+difficulty: beginner
+duration: 60
+tags: [ai, chatgpt, prompts, llm, patterns]
+date: 2026-06-19
+published: true
+cover: /images/tutorials/chatgpt-prompts.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published

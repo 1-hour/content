@@ -1,0 +1,275 @@
+---
+title: "1 Hour to Claude Code"
+description: "Build a real CLI tool using Claude as your AI pair programmer - from idea to working code in 60 minutes"
+---
+
+By the end of this hour, you'll have built a functional CLI tool with Claude's help and learned the core patterns of AI pair programming.
+
+## 🎯 What You'll Build
+
+A weather CLI tool that fetches current conditions for any city. Claude will help you design the architecture, write the code, and debug issues.
+
+```bash
+$ weather-cli "San Francisco"
+🌤️  San Francisco, CA
+Temperature: 68°F (20°C)
+Conditions: Partly Cloudy
+Humidity: 72%
+Wind: 8 mph SW
+```
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Set up Claude conversation and define project scope" />
+<TimeBlock start="10" end="25" title="Design architecture with Claude and scaffold project" />
+<TimeBlock start="25" end="40" title="Implement core functionality with AI assistance" />
+<TimeBlock start="40" end="55" title="Add features, handle errors, and test edge cases" />
+<TimeBlock start="55" end="60" title="Package and deploy your CLI tool" />
+
+## 📋 Prerequisites
+
+- Node.js 18+ installed
+- Basic command line familiarity
+- Claude account (free tier works)
+- Text editor or IDE
+- OpenWeatherMap API key (free)
+
+## Step 1: Start Your AI Pair Programming Session (0–10 min)
+
+Open Claude and establish your coding partnership with this prompt:
+
+```
+I want to build a CLI weather tool in Node.js in the next hour. I'm a [your skill level] developer.
+
+Requirements:
+- Takes city name as argument
+- Shows current weather with nice formatting
+- Handles errors gracefully
+- Uses a free weather API
+
+Help me plan the architecture, then we'll build it step by step. What's the best approach?
+```
+
+Claude will suggest an architecture. Follow up with:
+
+```
+Perfect! Let's use the OpenWeatherMap API. Can you help me:
+1. Set up the project structure
+2. Choose the right npm packages
+3. Plan the main functions we'll need
+
+Show me the initial file structure and package.json.
+```
+
+Create your project directory:
+
+```bash
+mkdir weather-cli
+cd weather-cli
+npm init -y
+```
+
+<Checkpoint>
+Ask Claude: "What npm packages should I install first and why?" 
+<Answer>Likely axios/fetch for HTTP requests, commander for CLI parsing, and chalk for colored output</Answer>
+</Checkpoint>
+
+## Step 2: Scaffold with Claude's Guidance (10–25 min)
+
+Install the packages Claude recommended:
+
+```bash
+npm install axios commander chalk dotenv
+npm install -D nodemon
+```
+
+Ask Claude to generate your initial file structure:
+
+```
+Now create the basic file structure. I need:
+- Main CLI entry point
+- Weather service module  
+- Configuration handling
+- Error handling utilities
+
+Show me the code for each file, starting with package.json scripts and the main index.js.
+```
+
+Create the files Claude suggests. Typically this includes:
+
+```bash
+touch index.js lib/weather-service.js lib/config.js lib/utils.js
+```
+
+Add Claude's suggested package.json scripts:
+
+```json
+{
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "bin": {
+    "weather-cli": "./index.js"
+  }
+}
+```
+
+Set up your `.env` file:
+
+```bash
+echo "OPENWEATHER_API_KEY=your_api_key_here" > .env
+```
+
+Get your free API key from OpenWeatherMap and replace the placeholder.
+
+<Checkpoint>
+Ask Claude: "Can you show me a basic version of index.js that just parses arguments and prints them?"
+<Answer>Should include commander setup, argument parsing, and console.log of the city name</Answer>
+</Checkpoint>
+
+## Step 3: Implement Core Weather Fetching (25–40 min)
+
+Now build the weather service with Claude's help:
+
+```
+Let's implement the weather service. I need a function that:
+- Takes a city name
+- Calls OpenWeatherMap API  
+- Returns formatted weather data
+- Handles API errors
+
+Show me the complete weather-service.js code with error handling.
+```
+
+Implement Claude's suggested code. The weather service should look similar to:
+
+```javascript
+// lib/weather-service.js
+const axios = require('axios');
+require('dotenv').config();
+
+class WeatherService {
+  constructor() {
+    this.apiKey = process.env.OPENWEATHER_API_KEY;
+    this.baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  }
+
+  async getCurrentWeather(city) {
+    // Claude will provide the implementation
+  }
+}
+
+module.exports = WeatherService;
+```
+
+Test your API connection:
+
+```bash
+node -e "
+const WeatherService = require('./lib/weather-service');
+const ws = new WeatherService();
+ws.getCurrentWeather('London').then(console.log);
+"
+```
+
+Ask Claude to help debug any issues:
+
+```
+I'm getting [specific error]. Here's my code: [paste code]
+What's wrong and how do I fix it?
+```
+
+## Step 4: Add Polish and Error Handling (40–55 min)
+
+Enhance your CLI with Claude's help:
+
+```
+Now let's make this production-ready:
+1. Add colorful output with chalk
+2. Handle all error cases (no API key, invalid city, network issues)  
+3. Add a help command
+4. Format the output beautifully
+
+Show me the updated index.js with proper error handling and formatting.
+```
+
+Implement Claude's suggestions for error handling:
+
+```javascript
+// Example error handling Claude might suggest
+try {
+  const weather = await weatherService.getCurrentWeather(city);
+  console.log(formatWeatherOutput(weather));
+} catch (error) {
+  if (error.response?.status === 404) {
+    console.error(chalk.red(`City "${city}" not found`));
+  } else if (error.code === 'ENOTFOUND') {
+    console.error(chalk.red('Network error - check your connection'));
+  } else {
+    console.error(chalk.red(`Error: ${error.message}`));
+  }
+  process.exit(1);
+}
+```
+
+Test edge cases Claude suggests:
+
+```bash
+npm start "InvalidCityName123"
+npm start ""
+npm start "London,UK"
+```
+
+<Checkpoint>
+Ask Claude: "What are the 3 most important error cases I should handle for a weather CLI?"
+<Answer>Invalid city names (404), network failures, and missing/invalid API keys</Answer>
+</Checkpoint>
+
+## Step 5: Ship It (55–60 min)
+
+Make your CLI globally installable:
+
+```bash
+npm link
+```
+
+Test the global command:
+
+```bash
+weather-cli "Tokyo"
+weather-cli "New York"
+```
+
+Ask Claude for final improvements:
+
+```
+What finishing touches would make this CLI tool more professional?
+Should I add features like:
+- Multiple cities at once
+- Different unit systems  
+- Colored output based on conditions
+- Configuration file support
+```
+
+Implement one quick enhancement Claude suggests.
+
+🎉 Your weather CLI is complete! You've successfully used Claude as a pair programmer to build a real tool from scratch.
+
+## 🎁 Bonus
+
+- Add weather icons using Unicode symbols based on conditions
+- Implement a 5-day forecast option with `--forecast` flag  
+- Create a config file system for default cities and units
+
+## 📚 Next Steps
+
+<NextStep slug="cursor-basics" />
+
+## 🔗 Resources
+
+- [OpenWeatherMap API Documentation](https://openweathermap.org/api)
+- [Commander.js CLI Framework](https://github.com/tj/commander.js/)
+- [Chalk for Terminal Colors](https://github.com/chalk/chalk)
+- [Claude AI Best Practices](https://docs.anthropic.com/claude/docs)
+- [Node.js CLI Best Practices](https://github.com/lirantal/nodejs-cli-apps-best-practices)

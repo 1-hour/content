@@ -1,0 +1,15 @@
+slug: claude-code-basics
+category: ai
+difficulty: beginner
+duration: 60
+tags: [ai, cli, claude, pair-programming, development]
+date: 2026-06-19
+published: true
+cover: /images/tutorials/claude-code-basics.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published
