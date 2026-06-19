@@ -172,13 +172,13 @@ git push origin --delete feature/hello
 <Checkpoint>
 Create a branch, commit something, merge back to main. You should see the changes on `main`.
 <Answer>
-```bash
+bash
 git checkout -b test-branch
-echo "test" > test.txt
-git add . && git commit -m "test"
+echo test > test.txt
+git add . && git commit -m test
 git checkout main
 git merge test-branch
-```
+
 </Answer>
 </Checkpoint>
 

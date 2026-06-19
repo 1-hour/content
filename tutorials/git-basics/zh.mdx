@@ -172,13 +172,13 @@ git push origin --delete feature/hello
 <Checkpoint>
 创建分支，提交些东西，合并回 main。在 `main` 上应该能看到改动。
 <Answer>
-```bash
+bash
 git checkout -b test-branch
-echo "test" > test.txt
-git add . && git commit -m "test"
+echo test > test.txt
+git add . && git commit -m test
 git checkout main
 git merge test-branch
-```
+
 </Answer>
 </Checkpoint>
 
