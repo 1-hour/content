@@ -1,0 +1,220 @@
+---
+title: "1 小时上手 Cursor：构建你的第一个 AI 驱动项目"
+description: "使用 Cursor 的代码生成功能，在 60 分钟内构建并部署一个完整的 AI 驱动 Web 应用"
+---
+
+在这一小时结束时，你将拥有一个部署到互联网的实时 AI 驱动 Web 应用，完全通过 Cursor 的 AI 辅助构建。
+
+## 🎯 成果展示
+
+一个具有 AI 智能分类功能的个人支出追踪器，能够自动整理你的支出并提供消费洞察。
+
+```typescript
+// AI 将帮助你构建这个功能
+const categorizeExpense = async (description: string) => {
+  const categories = await ai.classify(description, {
+    food: "restaurants, groceries, snacks",
+    transport: "gas, uber, parking, transit",
+    entertainment: "movies, games, subscriptions"
+  });
+  return categories.bestMatch;
+};
+```
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="设置 Cursor 并创建项目结构" />
+<TimeBlock start="10" end="25" title="在 AI 辅助下构建支出表单" />
+<TimeBlock start="25" end="40" title="实现 AI 分类逻辑" />
+<TimeBlock start="40" end="55" title="添加仪表板和数据可视化" />
+<TimeBlock start="55" end="60" title="部署到 Vercel 并测试" />
+
+## 📋 前置条件
+
+- 基础 HTML/JavaScript 知识
+- 已安装 Node.js 18+
+- Vercel 账户（免费）
+- OpenAI API 密钥（5 美元额度足够）
+
+## 第 1 步：设置 Cursor 和项目基础（0-10 分钟）
+
+从 [cursor.sh](https://cursor.sh) 下载并安装 Cursor。
+
+打开 Cursor，按 `Cmd+Shift+P`（Mac）或 `Ctrl+Shift+P`（Windows），输入 "Cursor: New Project" 并选择它。
+
+创建一个名为 `expense-tracker` 的新文件夹，在 Cursor 中打开它。
+
+按 `Cmd+K` 并输入此提示：
+
+```
+Create a Next.js project structure for an expense tracker app with:
+- TypeScript setup
+- Tailwind CSS
+- A simple homepage with a form to add expenses
+- Package.json with all dependencies
+```
+
+让 Cursor 生成文件。运行设置：
+
+```bash
+npm install
+npm run dev
+```
+
+<Checkpoint>
+你能在 localhost:3000 看到 "Welcome to Expense Tracker" 吗？
+<Answer>是的，应该有一个包含金额、描述和日期字段的基本表单</Answer>
+</Checkpoint>
+
+## 第 2 步：构建智能支出表单（10-25 分钟）
+
+选择主页组件并按 `Cmd+K`。提示 Cursor：
+
+```
+Update this form to:
+- Have better styling with Tailwind
+- Include amount (number), description (text), date (date picker)
+- Store expenses in localStorage
+- Show a list of added expenses below the form
+- Add delete functionality for each expense
+```
+
+创建 `.env.local` 文件并添加你的 OpenAI 密钥：
+
+```bash
+OPENAI_API_KEY=sk-your-key-here
+```
+
+安装 OpenAI SDK：
+
+```bash
+npm install openai
+```
+
+测试添加一些支出，如 "Coffee at Starbucks" 和 "Uber ride home"。
+
+<Checkpoint>
+你能添加支出并看到它出现在下方列表中吗？
+<Answer>是的，点击删除应该能从列表和 localStorage 中移除它</Answer>
+</Checkpoint>
+
+## 第 3 步：实现 AI 分类（25-40 分钟）
+
+创建 `pages/api/categorize.ts` 并提示 Cursor：
+
+```
+Create an API endpoint that:
+- Takes an expense description
+- Uses OpenAI to categorize it into: Food, Transport, Entertainment, Shopping, Bills, Other
+- Returns the category and confidence score
+- Handles errors gracefully
+```
+
+更新你的主组件以使用 AI 分类。选择表单提交逻辑并提示：
+
+```
+Modify the expense submission to:
+- Call /api/categorize with the description
+- Auto-assign the returned category to the expense
+- Show a loading state while categorizing
+- Fall back to "Other" if API fails
+```
+
+为你的支出列表添加类别标签：
+
+```typescript
+const categoryColors = {
+  Food: "bg-green-100 text-green-800",
+  Transport: "bg-blue-100 text-blue-800", 
+  Entertainment: "bg-purple-100 text-purple-800",
+  Shopping: "bg-pink-100 text-pink-800",
+  Bills: "bg-red-100 text-red-800",
+  Other: "bg-gray-100 text-gray-800"
+};
+```
+
+<Checkpoint>
+添加 "Pizza delivery" 会自动分类为 "Food" 吗？
+<Answer>是的，应该在支出旁边显示一个带有类别名称的彩色标签</Answer>
+</Checkpoint>
+
+## 第 4 步：添加仪表板和洞察（40-55 分钟）
+
+为仪表板创建新组件。按 `Cmd+K` 并提示：
+
+```
+Create a dashboard component that shows:
+- Total spending this month
+- Spending by category (pie chart or bars)
+- Recent expenses (last 5)
+- Biggest expense this week
+Use chart.js or a simple CSS solution for visualizations
+```
+
+安装图表依赖：
+
+```bash
+npm install chart.js react-chartjs-2
+```
+
+将仪表板添加到支出表单下方的主页面。
+
+创建一个简单的分析函数，让 Cursor 帮助你构建：
+
+```typescript
+const getSpendingInsights = (expenses: Expense[]) => {
+  // Let Cursor implement this
+  const thisMonth = expenses.filter(/* this month logic */);
+  const byCategory = groupBy(thisMonth, 'category');
+  const trends = calculateTrends(expenses);
+  return { thisMonth, byCategory, trends };
+};
+```
+
+<Checkpoint>
+你能看到按类别显示的支出可视化分解吗？
+<Answer>是的，应该有一个图表或可视化表示，显示你在每个类别中的支出金额</Answer>
+</Checkpoint>
+
+## 第 5 步：上线部署（55-60 分钟）
+
+将项目连接到 GitHub：
+
+```bash
+git init
+git add .
+git commit -m "Initial expense tracker with AI"
+git branch -M main
+git remote add origin https://github.com/yourusername/expense-tracker.git
+git push -u origin main
+```
+
+部署到 Vercel：
+
+1. 访问 [vercel.com](https://vercel.com)
+2. 点击 "New Project"
+3. 导入你的 GitHub 仓库
+4. 在环境变量中添加你的 `OPENAI_API_KEY`
+5. 部署
+
+通过添加支出并分享 URL 来测试你的在线应用。
+
+🎉 你在一小时内构建并部署了一个 AI 驱动的支出追踪器！
+
+## 🎁 进阶挑战
+
+- 使用 OpenAI Vision API 添加支出照片和 AI 驱动的收据扫描
+- 实现支出目标和 AI 驱动的预算建议
+- 创建支出导出为 CSV 功能，并生成 AI 支出报告
+
+## 📚 下一步学什么
+
+<NextStep slug="ai-chatbot" />
+
+## 🔗 扩展资源
+
+- [Cursor 文档](https://docs.cursor.sh)
+- [OpenAI API 参考](https://platform.openai.com/docs/api-reference)
+- [Next.js 部署指南](https://nextjs.org/docs/deployment)
+- [Tailwind CSS 组件](https://tailwindui.com/components)
+- [Vercel 环境变量](https://vercel.com/docs/concepts/projects/environment-variables)

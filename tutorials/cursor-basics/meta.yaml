@@ -1,0 +1,15 @@
+slug: cursor-basics
+category: ai
+difficulty: beginner
+duration: 60
+tags: [ai, editor, ide, productivity, cursor]
+date: 2026-06-19
+published: true
+cover: /images/tutorials/cursor-basics.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published

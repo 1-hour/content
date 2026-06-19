@@ -1,0 +1,220 @@
+---
+title: "1 Hour to Cursor: Ship Your First AI-Powered Project"
+description: "Build and deploy a complete AI-powered web app using Cursor's code generation in 60 minutes"
+---
+
+By the end of this hour, you'll have a live AI-powered web application deployed to the internet, built entirely with Cursor's AI assistance.
+
+## 🎯 What You'll Build
+
+A personal expense tracker with AI-powered categorization that automatically sorts your expenses and provides spending insights.
+
+```typescript
+// AI will help you build this
+const categorizeExpense = async (description: string) => {
+  const categories = await ai.classify(description, {
+    food: "restaurants, groceries, snacks",
+    transport: "gas, uber, parking, transit",
+    entertainment: "movies, games, subscriptions"
+  });
+  return categories.bestMatch;
+};
+```
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Setup Cursor and create project structure" />
+<TimeBlock start="10" end="25" title="Build the expense form with AI assistance" />
+<TimeBlock start="25" end="40" title="Implement AI categorization logic" />
+<TimeBlock start="40" end="55" title="Add dashboard and data visualization" />
+<TimeBlock start="55" end="60" title="Deploy to Vercel and test live" />
+
+## 📋 Prerequisites
+
+- Basic HTML/JavaScript knowledge
+- Node.js 18+ installed
+- A Vercel account (free)
+- OpenAI API key ($5 credit sufficient)
+
+## Step 1: Setup Cursor and Project Foundation (0–10 min)
+
+Download Cursor from [cursor.sh](https://cursor.sh) and install it.
+
+Open Cursor and press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows), type "Cursor: New Project" and select it.
+
+Create a new folder called `expense-tracker` and open it in Cursor.
+
+Press `Cmd+K` and type this prompt:
+
+```
+Create a Next.js project structure for an expense tracker app with:
+- TypeScript setup
+- Tailwind CSS
+- A simple homepage with a form to add expenses
+- Package.json with all dependencies
+```
+
+Let Cursor generate the files. Run the setup:
+
+```bash
+npm install
+npm run dev
+```
+
+<Checkpoint>
+Can you see "Welcome to Expense Tracker" at localhost:3000?
+<Answer>Yes, and there should be a basic form with fields for amount, description, and date</Answer>
+</Checkpoint>
+
+## Step 2: Build Smart Expense Form (10–25 min)
+
+Select the main page component and press `Cmd+K`. Prompt Cursor:
+
+```
+Update this form to:
+- Have better styling with Tailwind
+- Include amount (number), description (text), date (date picker)
+- Store expenses in localStorage
+- Show a list of added expenses below the form
+- Add delete functionality for each expense
+```
+
+Create an `.env.local` file and add your OpenAI key:
+
+```bash
+OPENAI_API_KEY=sk-your-key-here
+```
+
+Install the OpenAI SDK:
+
+```bash
+npm install openai
+```
+
+Test adding a few expenses like "Coffee at Starbucks" and "Uber ride home".
+
+<Checkpoint>
+Can you add an expense and see it appear in the list below?
+<Answer>Yes, and clicking delete should remove it from both the list and localStorage</Answer>
+</Checkpoint>
+
+## Step 3: Implement AI Categorization (25–40 min)
+
+Create `pages/api/categorize.ts` and prompt Cursor:
+
+```
+Create an API endpoint that:
+- Takes an expense description
+- Uses OpenAI to categorize it into: Food, Transport, Entertainment, Shopping, Bills, Other
+- Returns the category and confidence score
+- Handles errors gracefully
+```
+
+Update your main component to use AI categorization. Select the form submission logic and prompt:
+
+```
+Modify the expense submission to:
+- Call /api/categorize with the description
+- Auto-assign the returned category to the expense
+- Show a loading state while categorizing
+- Fall back to "Other" if API fails
+```
+
+Add category badges to your expense list:
+
+```typescript
+const categoryColors = {
+  Food: "bg-green-100 text-green-800",
+  Transport: "bg-blue-100 text-blue-800", 
+  Entertainment: "bg-purple-100 text-purple-800",
+  Shopping: "bg-pink-100 text-pink-800",
+  Bills: "bg-red-100 text-red-800",
+  Other: "bg-gray-100 text-gray-800"
+};
+```
+
+<Checkpoint>
+Does adding "Pizza delivery" automatically categorize as "Food"?
+<Answer>Yes, and it should show a colored badge next to the expense with the category name</Answer>
+</Checkpoint>
+
+## Step 4: Add Dashboard and Insights (40–55 min)
+
+Create a new component for the dashboard. Press `Cmd+K` and prompt:
+
+```
+Create a dashboard component that shows:
+- Total spending this month
+- Spending by category (pie chart or bars)
+- Recent expenses (last 5)
+- Biggest expense this week
+Use chart.js or a simple CSS solution for visualizations
+```
+
+Install chart dependencies:
+
+```bash
+npm install chart.js react-chartjs-2
+```
+
+Add the dashboard to your main page below the expense form.
+
+Create a simple analytics function that Cursor can help you build:
+
+```typescript
+const getSpendingInsights = (expenses: Expense[]) => {
+  // Let Cursor implement this
+  const thisMonth = expenses.filter(/* this month logic */);
+  const byCategory = groupBy(thisMonth, 'category');
+  const trends = calculateTrends(expenses);
+  return { thisMonth, byCategory, trends };
+};
+```
+
+<Checkpoint>
+Can you see a visual breakdown of your spending by category?
+<Answer>Yes, there should be a chart or visual representation showing how much you spent in each category</Answer>
+</Checkpoint>
+
+## Step 5: Ship It (55–60 min)
+
+Connect your project to GitHub:
+
+```bash
+git init
+git add .
+git commit -m "Initial expense tracker with AI"
+git branch -M main
+git remote add origin https://github.com/yourusername/expense-tracker.git
+git push -u origin main
+```
+
+Deploy to Vercel:
+
+1. Go to [vercel.com](https://vercel.com)
+2. Click "New Project"
+3. Import your GitHub repo
+4. Add your `OPENAI_API_KEY` in Environment Variables
+5. Deploy
+
+Test your live app by adding expenses and sharing the URL.
+
+🎉 You've built and deployed an AI-powered expense tracker in one hour!
+
+## 🎁 Bonus
+
+- Add expense photos with AI-powered receipt scanning using OpenAI Vision API
+- Implement spending goals and AI-powered budget recommendations  
+- Create expense export to CSV with AI-generated spending reports
+
+## 📚 Next Steps
+
+<NextStep slug="ai-chatbot" />
+
+## 🔗 Resources
+
+- [Cursor Documentation](https://docs.cursor.sh)
+- [OpenAI API Reference](https://platform.openai.com/docs/api-reference)
+- [Next.js Deployment Guide](https://nextjs.org/docs/deployment)
+- [Tailwind CSS Components](https://tailwindui.com/components)
+- [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables)
