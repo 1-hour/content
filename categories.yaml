@@ -1,23 +1,49 @@
-# Categories
-- slug: code
-  name:
-    en: Code
-    zh: 编程
-  icon: "💻"
-  color: blue
-  description:
-    en: "Programming languages, frameworks, and tools"
-    zh: "编程语言、框架和工具"
+# Categories - 按用户场景重构（10 个分类）
+#
+# 设计原则：
+# - 受众视角而非工具视角（"产品经理" 而不是 "PRD 工具"）
+# - URL slug 用英文（SEO 友好）
+# - 每个分类至少容纳 5+ 篇教程
 
-- slug: ai
+- slug: ai-tools
   name:
-    en: AI
-    zh: 人工智能
+    en: AI Tools
+    zh: AI 实战
   icon: "🤖"
   color: purple
   description:
-    en: "AI tools, LLMs, and automation"
-    zh: "AI 工具、大模型和自动化"
+    en: "ChatGPT, Claude, Cursor, Midjourney - hands-on tutorials for real work"
+    zh: "ChatGPT、Claude、Cursor、Midjourney 等 AI 工具的实战教程"
+
+- slug: creators
+  name:
+    en: Creators
+    zh: 创作者
+  icon: "✨"
+  color: pink
+  description:
+    en: "Content creation, video editing, viral hooks, social media growth"
+    zh: "内容创作、剪辑、爆款公式、自媒体起号"
+
+- slug: marketing
+  name:
+    en: Marketing
+    zh: 运营增长
+  icon: "📈"
+  color: green
+  description:
+    en: "Content marketing, community, ads, SEO, growth hacks"
+    zh: "内容运营、社群、私域、投放、SEO"
+
+- slug: product
+  name:
+    en: Product
+    zh: 产品
+  icon: "🎯"
+  color: cyan
+  description:
+    en: "PRD writing, prototyping, user research, competitive analysis"
+    zh: "PRD、原型、用户研究、竞品分析"
 
 - slug: design
   name:
@@ -26,28 +52,48 @@
   icon: "🎨"
   color: pink
   description:
-    en: "UI, UX, and visual design"
-    zh: "UI、UX 和视觉设计"
+    en: "UI/UX, AI image generation, Figma, brand design"
+    zh: "UI/UX、AI 出图、Figma、品牌设计"
 
-- slug: business
+- slug: automation
   name:
-    en: Business
-    zh: 商业
+    en: Automation
+    zh: 自动化
+  icon: "⚡"
+  color: orange
+  description:
+    en: "n8n, Zapier, RPA, workflow automation, scripting"
+    zh: "n8n、Zapier、工作流自动化、效率脚本"
+
+- slug: office
+  name:
+    en: Office
+    zh: 职场效率
   icon: "💼"
+  color: blue
+  description:
+    en: "Excel, PPT, Notion, reporting, professional emails"
+    zh: "Excel、PPT、Notion、汇报、职场沟通"
+
+- slug: side-hustle
+  name:
+    en: Side Hustle
+    zh: 副业
+  icon: "💰"
   color: green
   description:
-    en: "Marketing, productivity, and entrepreneurship"
-    zh: "营销、效率和创业"
+    en: "Xianyu, Xiaohongshu, Newsletter, digital products, indie monetization"
+    zh: "闲鱼、小红书、Newsletter、数字商品、个人变现"
 
-- slug: web
+- slug: code
   name:
-    en: Web
-    zh: 网络
-  icon: "🌐"
-  color: cyan
+    en: Code
+    zh: 编程入门
+  icon: "💻"
+  color: blue
   description:
-    en: "Web development, hosting, and deployment"
-    zh: "网站开发、部署和托管"
+    en: "Programming basics for non-developers, web hosting, deploy"
+    zh: "面向非技术人的编程入门、Web 部署"
 
 - slug: mind
   name:
@@ -56,5 +102,5 @@
   icon: "🧠"
   color: orange
   description:
-    en: "Learning techniques, productivity, and mental models"
-    zh: "学习方法、效率和思维模型"
+    en: "Learning techniques, knowledge management, mental models"
+    zh: "学习方法、知识管理、思维模型"
