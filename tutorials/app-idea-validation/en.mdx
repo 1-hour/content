@@ -1,0 +1,300 @@
+---
+title: "Validate Your App Idea in 1 Hour"
+description: "Run a real demand validation in 60 minutes: dig real pain, collect user quotes, and ship a fake paywall funnel. Don't build until this passes."
+---
+
+> 📚 **Indie App Playbook · Part 1 of 7**
+> Series overview: [Indie App Playbook](/en/tutorials/app-playbook/)
+
+The most expensive mistake new indie devs make isn't slow coding — it's **building for three months and then finding out nobody wants it**.
+
+This tutorial walks you through a real demand validation in 60 minutes. If it passes, you keep going. If not, you swap directions and save three months.
+
+## 🎯 What you'll ship
+
+By the end you'll have:
+
+- A list of **30 real problems** (from user complaints, not your imagination)
+- **10 user quotes** (later powering your screenshots, ads, paywall)
+- A **fake Web2App funnel** (landing → fake paywall → email capture)
+- A clear **go / no-go** decision
+
+## ⏱️ Time blocks
+
+<TimeBlock start="0" end="15" title="Dig pain from App Store / Reddit / TikTok" />
+<TimeBlock start="15" end="25" title="Pick 3 candidates, write each as one positioning line" />
+<TimeBlock start="25" end="45" title="Ship a fake funnel: landing + fake paywall + email" />
+<TimeBlock start="45" end="55" title="Drive traffic: 5 communities + $20 of ads" />
+<TimeBlock start="55" end="60" title="Check against pass criteria and decide" />
+
+## 📋 Prerequisites
+
+- An itch you're already scratching (a problem you hit 3+ times a day works best)
+- ~$20 for ad testing (optional but accelerates everything)
+- Any one-page builder: [Carrd](https://carrd.co/) / [Framer](https://framer.com/) / [Tally](https://tally.so/)
+
+---
+
+## Step 1: Dig real pain (0–15 min)
+
+**Mindset**: Don't start from "what feature do I want to build?" — start from "who is in pain right now and actively looking for help?"
+
+### Four places to look
+
+**1. App Store reviews**
+
+- Search 3 keywords for your direction (e.g. "habit tracker", "UV index")
+- Open the top 20 apps
+- Read only **1–3 star reviews** and **long reviews from the last 3 months**
+- Capture exact wording: "I wish there was...", "Why doesn't it...", "After one week..."
+
+**2. Reddit complaints**
+
+- In r/sideproject, r/apps, r/&lt;your niche&gt;, search:
+  - `app for [your direction]`
+  - `how do I [pain]`
+  - `alternative to [big-co product]`
+- The top comments tell you what people actually hate
+
+**3. TikTok / YouTube comments**
+
+- Search "best app for X", "X review"
+- Comments like "anyone know an app that..." or "I can't find one that..." are gold
+- This is your future ad copy, verbatim
+
+**4. Your own real life**
+
+- List every small annoyance from the past 7 days
+- Don't think about solutions, just problems
+- Target: 30 entries
+
+### Optional tools
+
+- **Astro / Appfigures / Sensor Tower** — keyword volume + competitor downloads
+- **Google Trends** — confirm it's not a 2-month spike
+- **GummySearch** — aggregated Reddit complaints
+
+<Checkpoint>
+**End of step 1 you should have:**
+- 30 problems (user wording, no paraphrasing)
+- 3+ pain points that repeat across sources
+- One direction your gut says you could ship
+</Checkpoint>
+
+---
+
+## Step 2: Narrow down (15–25 min)
+
+**Mindset**: An app can only serve one specific audience first. Mixed audiences → mixed screenshots, mixed copy, mixed paywall.
+
+### Write the positioning line
+
+Template:
+
+```
+For [who], in [what situation], get [what result].
+```
+
+**Bad** (too broad):
+
+> An app that helps everyone track their habits
+
+**Good**:
+
+> For content creators, after posting each day, the app auto-summarizes this week's stats and prompts next week's topic ideas
+
+### Score 3 candidates
+
+Pick 3 directions, score each 1–5 on these 4 axes:
+
+| Axis | Ask yourself |
+|---|---|
+| **Pain intensity** | If they don't use it, do they lose time / money / health / opportunity? |
+| **Willingness to pay** | Are they already paying for an alternative? |
+| **Acquisition path** | Is there a clear entry via ASO / TikTok / Reddit / Google Ads? |
+| **Competitive gap** | Do reviews show repeated complaints competitors haven't fixed? |
+
+Any axis below 3 → **kill it**.
+
+### Don't do this
+
+- ❌ Serve two opposing audiences at once
+- ❌ Stretch positioning to "anyone can use it" for a bigger market
+- ❌ Pitch features — pitch **the result the user wants**
+- ❌ Pick a direction because the keyword is low-competition — Apple now rejects overly simple utility apps
+
+<Checkpoint>
+**Pass criteria**: You can say in **15 seconds** —
+who searches for it, why now, where competitors fail, what your v1 solves first.
+</Checkpoint>
+
+---
+
+## Step 3: Ship a fake funnel (25–45 min)
+
+**Mindset**: Don't write a single line of app code. Validate intent with a webpage first.
+
+### Funnel structure
+
+```
+Ad / community post
+   ↓
+Landing hero (one-line promise)
+   ↓
+Proof section (screenshots / GIFs / user quotes)
+   ↓
+Fake paywall (price + Start Free Trial button)
+   ↓
+Email capture ("We're still building — drop email for early access")
+```
+
+### Tools
+
+Fastest stack:
+
+- **Landing**: Carrd ($19/yr) or free Framer
+- **Fake paywall**: a section on the same page with $4.99/mo or $29.99/yr + Start Trial button
+- **Email capture**: Tally form / Carrd built-in / free ConvertKit
+- **Analytics**: Plausible / Counterscale / GA4
+
+### Hero copy
+
+3-line structure:
+
+```
+[One line: what problem you solve]
+[Subhead: for whom + in what context]
+[CTA button: Start 7-Day Free Trial]
+```
+
+**Example** (sunscreen reminder app):
+
+```
+Never get sunburned again.
+A UV tracker that reminds you when to reapply sunscreen.
+[ Start 7-Day Free Trial ]
+```
+
+### Fake paywall rules
+
+- Realistic pricing ($4.99/mo is a common indie iOS floor)
+- Make trial length + post-trial billing clear
+- **No credit cards**, no fake charges
+- After "Start Trial" → email capture page:
+  > "Heads up! We're still polishing the app. Drop your email and you'll be among the first 100 to get free access."
+
+### Required events
+
+- Landing visits
+- Scroll-to-paywall rate
+- Start Trial click rate
+- Final email capture rate
+
+<Checkpoint>
+**End of step 3 you should have:**
+A live URL (e.g. `your-idea.carrd.co`) where the full visit → email funnel works end-to-end.
+</Checkpoint>
+
+---
+
+## Step 4: Drive traffic (45–55 min)
+
+### Free traffic: 5 community posts
+
+**Template** (not a sales pitch — ask a question):
+
+```
+Title: Anyone else struggle with [pain]?
+
+Body:
+Context: I hit this X times a day.
+My current workaround: [hack], but it has [flaw].
+I had an idea: [one-line product]
+Preview: [landing URL]
+
+Curious:
+- Do you hit this too?
+- How do you solve it now?
+- What's the one feature you'd want in v1?
+```
+
+Post to 5 relevant places:
+
+- Reddit: r/sideproject + your niche sub
+- Indie Hackers
+- Hacker News (Show HN — careful, downvotes hurt)
+- X / Twitter (@ relevant KOLs for feedback)
+- Your local communities (X, Discord, Slack)
+
+### Paid traffic (optional but highly recommended)
+
+**$20 Meta Ads, 3 angles**:
+
+- Same landing page, 3 creative sets
+- Each set tests **only one core promise**
+- Run 24–48 hours, $5/day
+- Watch: CTR, CTR → paywall, paywall → email
+
+### Don't do this
+
+- ❌ Start with a big budget (noise drowns signal)
+- ❌ Test 5 angles at once (data gets diluted)
+- ❌ Use clickbait creative (traffic is noise, not intent)
+
+---
+
+## Step 5: Decide (55–60 min)
+
+### Pass criteria
+
+After small traffic, check these 3 numbers:
+
+| Metric | Pass threshold | Meaning |
+|---|---|---|
+| **Reach-paywall rate** | 12% – 25% | Visitors actually engage |
+| **Email capture rate** | 2% – 5% | Real intent, not curiosity |
+| **Interview consistency** | ≥ 5 people describe the same pain in the same words | Pain is real |
+
+All 3 pass → **continue** to the next part: [Pick Your App Niche](/en/tutorials/app-niche-positioning/)
+
+Any one clearly missed → **swap directions**, back to step 1.
+
+### Common misreads
+
+- **High Start Trial clicks but no email captures** → pain isn't strong enough, or price too high
+- **High CTR but low reach-paywall** → ad promise and landing are disconnected
+- **Lots of emails but no replies to follow-up survey** → curiosity, not intent
+
+### Spend more time here, not less
+
+> A week saved in validation = three months not lost in development.
+
+It's worth $50 more in ads here to avoid coding the wrong thing.
+
+<Checkpoint>
+**End of 60 minutes you should have:**
+- ✅ 30 problems
+- ✅ 10 user quotes
+- ✅ 1 working fake-paywall funnel
+- ✅ A clear decision: **continue or swap**
+
+If "continue", the next part locks the niche and writes the production positioning.
+</Checkpoint>
+
+---
+
+## 📚 Further reading
+
+- Full long-form (not 1-hour scoped): [Indie App Playbook](https://app-playbook-site.pages.dev/)
+- Source: based on Adam Lyttle's ~88 indie iOS videos from the past year
+
+## Series navigation
+
+📚 **Indie App Playbook** · Part 1 of 7
+
+- ✅ **Part 1 · You are here** — Validate Your App Idea in 1 Hour
+- ⏭️ **Next**:
+
+<NextStep slug="app-niche-positioning" />
+
+- 📚 Series overview: [Indie App Playbook](/en/tutorials/app-playbook/)

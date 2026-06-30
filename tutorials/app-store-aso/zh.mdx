@@ -1,0 +1,289 @@
+---
+title: "1 小时做完 App Store 上架与 ASO"
+description: "60 分钟搞定 App Store 页面：标题副标题关键词、前两张截图、订阅说明、审核备注。让用户看到搜索结果时就愿意点进来。"
+---
+
+> 📚 **独立 App 出海指南 · 第 4 篇 / 共 7 篇**
+> 系列总览：[App 出海指南](/zh/tutorials/app-playbook/)
+
+App Store 页面是漏斗最上层。**图标和截图不清楚，后面所有的转化根本不会发生**。
+
+这一小时把上架页面做到位：审核能过、关键词能搜到、用户点进来愿意下载。
+
+## 🎯 你将完成
+
+- 完整的 App Store Connect 页面（zh + en 主语言）
+- 一组**能转化**的截图（前 2 张决定生死）
+- 一份**关键词矩阵**：name / subtitle / keywords 字段分工不重复
+- 审核备注 + 测试账号，**一次过审**
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="关键词研究：找一组互不重复的词" />
+<TimeBlock start="10" end="20" title="写 App 名称 / 副标题 / 关键词字段" />
+<TimeBlock start="20" end="40" title="设计前 2 张截图（讲清痛点 + 结果）" />
+<TimeBlock start="40" end="50" title="订阅说明 + 隐私 + 营养标签" />
+<TimeBlock start="50" end="60" title="审核备注 + 提交" />
+
+## 📋 前置要求
+
+- 上一篇 [iOS App MVP](/zh/tutorials/app-mvp-swiftui/) 的产出：能跑的 TestFlight build
+- Apple Developer Program（$99/年）已激活
+- 一个 Figma / Sketch 账号做截图
+
+---
+
+## 第 1 步：关键词研究（0–10 分钟）
+
+### 找词工具
+
+任选一个：
+
+- [AppFollow](https://appfollow.io/) - 免费 trial 够用
+- [Astro](https://astro-aso.com/) - 免费版功能足够
+- [Appfigures](https://appfigures.com/) - 收费但精确
+- 应急方案：直接在 App Store 搜框打字，看推荐词
+
+### 找一组 5-7 个词
+
+按这个分类找：
+
+| 类型 | 例子（午睡 App） | 用途 |
+|---|---|---|
+| **主关键词**（1 个） | nap timer | 放 App 名称 / 副标题 |
+| **核心同义词**（2-3 个） | power nap, sleep timer, afternoon nap | 放关键词字段 |
+| **长尾词**（2-3 个） | 25 minute nap, work nap, polyphasic | 放关键词字段 |
+
+### 评分标准
+
+每个词查这两个数：
+
+- **Difficulty** ≤ 40（小作者能进前 10）
+- **Traffic** ≥ 20（有人搜）
+
+两个都达标才用。
+
+---
+
+## 第 2 步：App 名称 / 副标题 / 关键词字段（10–20 分钟）
+
+App Store Connect 给你 3 个字段，**互不重复**才是最优解。
+
+### 字段分工
+
+| 字段 | 字符数 | 作用 | 例子 |
+|---|---|---|---|
+| **App Name** | 30 | 品牌 + 主关键词 | `NapKit: Nap Timer` |
+| **Subtitle** | 30 | 收益 + 副关键词 | `Power Nap & Sleep Tracker` |
+| **Keywords** | 100 | 长尾词，逗号分隔，**不要带空格** | `afternoon,polyphasic,25min,siesta,recharge,energy,focus,sleep,coffee,break` |
+
+### 命名公式
+
+```
+[品牌名]: [主关键词形容词]
+```
+
+**对比：**
+
+- ❌ `NapKit`（光品牌，没关键词，搜不到）
+- ❌ `Nap Timer Power Nap Sleep Sleep Timer`（堆词，审核可能打回）
+- ✅ `NapKit: Nap Timer`（品牌 + 主词）
+
+### 描述（Description）
+
+4 行结构，不堆词，写人话：
+
+```
+[第一句：核心承诺，重复广告里那句]
+[第二句：解决什么具体场景的问题]
+
+✓ [核心功能 1]
+✓ [核心功能 2]
+✓ [核心功能 3]
+
+[订阅说明：价格、试用、自动续费、取消方法]
+```
+
+不要把整页都堆满。审核员讨厌长描述，用户也不看。
+
+---
+
+## 第 3 步：截图设计（20–40 分钟）
+
+### 前 2 张决定生死
+
+App Store 搜索结果里**只显示前 2-3 张截图**。这两张要能在用户**不看描述**的情况下让他想下载。
+
+### 第 1 张：痛点 + 承诺
+
+```
+┌─────────────────┐
+│ "Never sleep    │   <- 一句话承诺，大字
+│  past your nap  │
+│  again."        │
+│                 │
+│  [App 主屏幕    │   <- 真实 UI 截图
+│   截图]         │
+└─────────────────┘
+```
+
+**写法关键**：
+
+- 写**结果**，不要写功能（"Never sleep past" 而不是 "Smart timer"）
+- 一行最多 5 个词，加大加粗
+- 背景用品牌色（不要白底，不显眼）
+
+### 第 2 张：核心动作演示
+
+展示用户最在乎的那一步在做：
+
+```
+┌─────────────────┐
+│ "Pick 20 mins,  │
+│  hit start,     │
+│  we'll wake     │
+│  you up."       │
+│                 │
+│  [核心操作截图] │
+└─────────────────┘
+```
+
+### 第 3-5 张（可选）
+
+- 第 3 张：差异化卖点（你有但竞品没有的）
+- 第 4 张：社会证明（评分截图 / 用户原话）
+- 第 5 张：付费墙价值（让用户先看到 paid 解锁什么）
+
+### 工具
+
+- [Mockuuups Studio](https://mockuuups.studio/) - 自动套设备框
+- [Screenshots Pro](https://screenshots.pro/) - 模板多
+- 或者直接 Figma 套 iPhone mockup
+
+### 不要做
+
+- ❌ 整张图都是手机框，UI 截图小得看不清
+- ❌ 文字 < 36px（手机搜索结果里就是个小图）
+- ❌ 5 张截图讲 5 个不同卖点（用户记不住）
+
+---
+
+## 第 4 步：订阅说明 + 隐私 + 营养标签（40–50 分钟）
+
+### 订阅说明（必须）
+
+放在 Description 末尾 + Paywall 里：
+
+```
+NapKit Pro is a subscription.
+
+• 7-day free trial, then $4.99/month or $29.99/year
+• Subscription auto-renews unless cancelled 24h before period ends
+• Manage / cancel in App Store Account Settings
+• Terms: https://yourapp.com/terms
+• Privacy: https://yourapp.com/privacy
+```
+
+少一行都可能被打回。
+
+### 隐私政策 URL
+
+最快方案：
+
+- [Termly](https://termly.io/) - 免费生成
+- 一个公开的 Notion 页面也行
+- 内容必须涵盖：你收集什么数据、跟谁共享、怎么删除
+
+### App Privacy 营养标签
+
+在 App Store Connect → App Privacy 里填。**诚实填**——审核会真查。
+
+如果你装了：
+
+- PostHog → 选 "Usage Data" + "Diagnostics"
+- RevenueCat → 选 "Purchase History"
+- 通知 → 选 "Identifiers"
+
+### 年龄分级
+
+工具类一般选 4+，除非有：
+
+- 用户生成内容 → 12+
+- 包含 AI 聊天/生成 → 12+（保守起见）
+
+---
+
+## 第 5 步：审核备注 + 提交（50–60 分钟）
+
+### 审核备注模板
+
+```
+Hi reviewer,
+
+This app helps users [核心功能 in one line].
+
+Test path:
+1. Launch the app, go through onboarding (4 steps)
+2. Tap "Start a nap" on the home screen
+3. Pick 20 minutes, tap Start
+4. Subscription paywall appears after first completed nap
+5. Use sandbox account below to test purchase
+
+Sandbox account:
+  Email: reviewer@yourdomain.com
+  Password: TestPass123!
+
+Note: Subscription is required only for [premium feature]. Free users can
+[describe free experience].
+
+Contact: support@yourdomain.com
+```
+
+### 提交前最后一遍 checklist
+
+- [ ] 截图都在 6.7" 和 6.5"（iPhone 16 Pro Max + iPhone 14 Plus）
+- [ ] 没用任何 Apple logo / 商标
+- [ ] 没说 "best" / "#1" 这种 superlative（审核会打回）
+- [ ] 付费墙有 Restore Purchase 按钮
+- [ ] 付费墙关闭按钮在显眼位置（不能强迫用户订阅）
+- [ ] 没用假倒计时、假折扣
+- [ ] 隐私政策 URL 真的能打开
+- [ ] 测试账号真的能登
+
+### 提交
+
+Xcode Archive → Distribute → App Store Connect → 选 build → Submit for Review。
+
+正常 24–48 小时反馈。打回是常态，按邮件原话改。
+
+<Checkpoint>
+**60 分钟结束你应该有：**
+- ✅ App Store Connect 页面全填完
+- ✅ 前 2 张截图能让陌生人 5 秒说出你做什么
+- ✅ 审核备注 + sandbox 账号 + 测试路径
+- ✅ 已提交 Submit for Review
+
+下一篇我们准备冷启动，让第一批 100 个付费用户找到你。
+</Checkpoint>
+
+---
+
+## 📚 进一步阅读
+
+- 完整长文版：[独立开发指南](https://app-playbook-site.pages.dev/)
+- 上一篇：[iOS App MVP](/zh/tutorials/app-mvp-swiftui/)
+- App Store Review Guidelines：https://developer.apple.com/app-store/review/guidelines/
+
+## 系列导航
+
+📚 **独立 App 出海指南** · 第 4 篇 / 共 7 篇
+
+- [第 1 篇 — App 点子验证](/zh/tutorials/app-idea-validation/)
+- [第 2 篇 — App 细分定位](/zh/tutorials/app-niche-positioning/)
+- [第 3 篇 — iOS App MVP 雏形](/zh/tutorials/app-mvp-swiftui/)
+- ✅ **第 4 篇 · 你在这里** — 1 小时做完 App Store 上架与 ASO
+- ⏭️ **下一篇**：
+
+<NextStep slug="app-cold-start" />
+
+- 📚 系列总览：[App 出海指南](/zh/tutorials/app-playbook/)

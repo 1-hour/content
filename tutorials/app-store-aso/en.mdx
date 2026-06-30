@@ -1,0 +1,289 @@
+---
+title: "App Store + ASO in 1 Hour"
+description: "60 minutes to a complete App Store page: name, subtitle, keywords, first two screenshots, subscription disclosure, review notes. Get users to tap from search results."
+---
+
+> 📚 **Indie App Playbook · Part 4 of 7**
+> Series overview: [Indie App Playbook](/en/tutorials/app-playbook/)
+
+The App Store page is the top of your funnel. **If the icon and screenshots don't sell, nothing downstream matters.**
+
+This hour: ship a page that passes review, ranks for your keywords, and converts taps to downloads.
+
+## 🎯 What you'll ship
+
+- Full App Store Connect page (en + zh primary)
+- A screenshot set that **converts** (first 2 are everything)
+- A **keyword matrix**: name / subtitle / keywords field, no overlap
+- Review notes + test account → **one-shot review pass**
+
+## ⏱️ Time blocks
+
+<TimeBlock start="0" end="10" title="Keyword research: a non-overlapping set" />
+<TimeBlock start="10" end="20" title="Write App Name / Subtitle / Keywords field" />
+<TimeBlock start="20" end="40" title="First 2 screenshots (pain + result)" />
+<TimeBlock start="40" end="50" title="Subscription + privacy + nutrition labels" />
+<TimeBlock start="50" end="60" title="Review notes + submit" />
+
+## 📋 Prerequisites
+
+- Outputs from [Part 3: iOS MVP](/en/tutorials/app-mvp-swiftui/): a working TestFlight build
+- Apple Developer Program ($99/yr) active
+- Figma / Sketch account for screenshots
+
+---
+
+## Step 1: Keyword research (0–10 min)
+
+### Tools
+
+Pick one:
+
+- [AppFollow](https://appfollow.io/) - free trial works
+- [Astro](https://astro-aso.com/) - free tier sufficient
+- [Appfigures](https://appfigures.com/) - paid but precise
+- Backup: type in App Store search box, watch suggestions
+
+### Find a set of 5–7 words
+
+By category:
+
+| Type | Example (nap app) | Where it goes |
+|---|---|---|
+| **Main keyword** (1) | nap timer | App Name / Subtitle |
+| **Core synonyms** (2–3) | power nap, sleep timer, afternoon nap | Keywords field |
+| **Long-tail** (2–3) | 25 minute nap, work nap, polyphasic | Keywords field |
+
+### Scoring
+
+Each word, check two numbers:
+
+- **Difficulty** ≤ 40 (an indie can reach top 10)
+- **Traffic** ≥ 20 (people actually search)
+
+Use only words that pass both.
+
+---
+
+## Step 2: Name / Subtitle / Keywords (10–20 min)
+
+App Store Connect gives you 3 fields. **No overlap** between them is the optimal play.
+
+### Field roles
+
+| Field | Chars | Role | Example |
+|---|---|---|---|
+| **App Name** | 30 | Brand + main keyword | `NapKit: Nap Timer` |
+| **Subtitle** | 30 | Benefit + secondary keyword | `Power Nap & Sleep Tracker` |
+| **Keywords** | 100 | Long-tail, comma-separated, **no spaces** | `afternoon,polyphasic,25min,siesta,recharge,energy,focus,sleep,coffee,break` |
+
+### Naming formula
+
+```
+[Brand]: [Main keyword phrase]
+```
+
+**Compare:**
+
+- ❌ `NapKit` (brand only, no keyword, won't rank)
+- ❌ `Nap Timer Power Nap Sleep Sleep Timer` (stuffing, review may reject)
+- ✅ `NapKit: Nap Timer` (brand + main)
+
+### Description
+
+4-block structure, no stuffing, plain language:
+
+```
+[Line 1: core promise, restate the ad copy]
+[Line 2: which specific scenario it solves]
+
+✓ [Core feature 1]
+✓ [Core feature 2]
+✓ [Core feature 3]
+
+[Subscription disclosure: price, trial, auto-renew, cancel method]
+```
+
+Don't fill the whole page. Reviewers hate long descriptions, users don't read them.
+
+---
+
+## Step 3: Screenshots (20–40 min)
+
+### The first 2 are everything
+
+Search results show **only the first 2–3 screenshots**. These have to make a user want to download **without reading the description**.
+
+### Screenshot 1: Pain + promise
+
+```
+┌─────────────────┐
+│ "Never sleep    │   <- One-line promise, big and bold
+│  past your nap  │
+│  again."        │
+│                 │
+│  [Main screen   │   <- Real UI screenshot
+│   capture]      │
+└─────────────────┘
+```
+
+**Rules:**
+
+- Write the **result**, not the feature ("Never sleep past" not "Smart timer")
+- Max 5 words per line, large and bold
+- Brand color background (no white — invisible in results)
+
+### Screenshot 2: Core action demo
+
+Show the user doing the thing they care about:
+
+```
+┌─────────────────┐
+│ "Pick 20 mins,  │
+│  hit start,     │
+│  we'll wake     │
+│  you up."       │
+│                 │
+│  [Core action]  │
+└─────────────────┘
+```
+
+### Screenshots 3–5 (optional)
+
+- 3: Differentiator (something competitors don't have)
+- 4: Social proof (review screenshots / user quotes)
+- 5: Paywall value (let users see what paid unlocks)
+
+### Tools
+
+- [Mockuuups Studio](https://mockuuups.studio/) - auto device frames
+- [Screenshots Pro](https://screenshots.pro/) - lots of templates
+- Or just Figma + iPhone mockup
+
+### Don't
+
+- ❌ Huge device frame, UI too small to read
+- ❌ Text < 36px (it's tiny in search results)
+- ❌ 5 screenshots = 5 different selling points (no one remembers)
+
+---
+
+## Step 4: Subscription + privacy + labels (40–50 min)
+
+### Subscription disclosure (required)
+
+Goes at end of Description + inside the paywall:
+
+```
+NapKit Pro is a subscription.
+
+• 7-day free trial, then $4.99/month or $29.99/year
+• Subscription auto-renews unless cancelled 24h before period ends
+• Manage / cancel in App Store Account Settings
+• Terms: https://yourapp.com/terms
+• Privacy: https://yourapp.com/privacy
+```
+
+Missing a line = rejection.
+
+### Privacy policy URL
+
+Fastest options:
+
+- [Termly](https://termly.io/) - free generator
+- A public Notion page works too
+- Must cover: data collected, who you share with, deletion process
+
+### App Privacy nutrition labels
+
+Fill in App Store Connect → App Privacy. **Be honest** — review checks.
+
+If you installed:
+
+- PostHog → "Usage Data" + "Diagnostics"
+- RevenueCat → "Purchase History"
+- Notifications → "Identifiers"
+
+### Age rating
+
+Utility apps usually 4+, unless:
+
+- User-generated content → 12+
+- AI chat / generation → 12+ (play safe)
+
+---
+
+## Step 5: Review notes + submit (50–60 min)
+
+### Review notes template
+
+```
+Hi reviewer,
+
+This app helps users [core feature in one line].
+
+Test path:
+1. Launch the app, go through onboarding (4 steps)
+2. Tap "Start a nap" on the home screen
+3. Pick 20 minutes, tap Start
+4. Subscription paywall appears after first completed nap
+5. Use sandbox account below to test purchase
+
+Sandbox account:
+  Email: reviewer@yourdomain.com
+  Password: TestPass123!
+
+Note: Subscription is required only for [premium feature]. Free users can
+[describe free experience].
+
+Contact: support@yourdomain.com
+```
+
+### Pre-submit checklist
+
+- [ ] Screenshots at 6.7" and 6.5" (iPhone 16 Pro Max + iPhone 14 Plus)
+- [ ] No Apple logos / trademarks used
+- [ ] No "best" / "#1" superlatives (review will reject)
+- [ ] Paywall has Restore Purchase button
+- [ ] Paywall close button is visible (no forced subscription)
+- [ ] No fake countdowns / fake discounts
+- [ ] Privacy URL actually loads
+- [ ] Test account actually works
+
+### Submit
+
+Xcode Archive → Distribute → App Store Connect → pick build → Submit for Review.
+
+Normal turnaround: 24–48 hours. Rejection is normal — fix exactly what the email says.
+
+<Checkpoint>
+**End of 60 minutes you should have:**
+- ✅ App Store Connect page fully filled
+- ✅ First 2 screenshots let a stranger explain the app in 5 seconds
+- ✅ Review notes + sandbox account + test path
+- ✅ Submitted for Review
+
+Next: plan the cold start so the first 100 paying users find you.
+</Checkpoint>
+
+---
+
+## 📚 Further reading
+
+- Full long-form: [Indie App Playbook](https://app-playbook-site.pages.dev/)
+- Previous: [Ship an iOS MVP](/en/tutorials/app-mvp-swiftui/)
+- App Store Review Guidelines: https://developer.apple.com/app-store/review/guidelines/
+
+## Series navigation
+
+📚 **Indie App Playbook** · Part 4 of 7
+
+- [Part 1 — Validate Your App Idea](/en/tutorials/app-idea-validation/)
+- [Part 2 — Pick Your App Niche](/en/tutorials/app-niche-positioning/)
+- [Part 3 — Ship an iOS MVP](/en/tutorials/app-mvp-swiftui/)
+- ✅ **Part 4 · You are here** — App Store + ASO in 1 Hour
+- ⏭️ **Next**:
+
+<NextStep slug="app-cold-start" />
+
+- 📚 Series overview: [Indie App Playbook](/en/tutorials/app-playbook/)

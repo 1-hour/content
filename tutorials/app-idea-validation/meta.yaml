@@ -1,0 +1,21 @@
+slug: app-idea-validation
+category: side-hustle
+difficulty: intermediate
+duration: 60
+tags: [indie-app, ios, validation, user-research, app-store]
+date: 2026-06-30
+published: true
+cover: /images/tutorials/app-idea-validation.svg
+author: zoe
+
+series:
+  slug: app-playbook
+  index: 1
+  total: 7
+  name:
+    en: "Indie App Playbook"
+    zh: "独立 App 出海指南"
+
+translations:
+  en: { status: published }
+  zh: { status: published }

@@ -1,0 +1,21 @@
+slug: app-mvp-swiftui
+category: side-hustle
+difficulty: intermediate
+duration: 60
+tags: [indie-app, ios, swiftui, mvp, revenuecat]
+date: 2026-06-30
+published: true
+cover: /images/tutorials/app-mvp-swiftui.svg
+author: zoe
+
+series:
+  slug: app-playbook
+  index: 3
+  total: 7
+  name:
+    en: "Indie App Playbook"
+    zh: "独立 App 出海指南"
+
+translations:
+  en: { status: published }
+  zh: { status: published }

@@ -1,0 +1,21 @@
+slug: app-cold-start
+category: side-hustle
+difficulty: intermediate
+duration: 60
+tags: [indie-app, ios, cold-start, marketing, ads]
+date: 2026-06-30
+published: true
+cover: /images/tutorials/app-cold-start.svg
+author: zoe
+
+series:
+  slug: app-playbook
+  index: 5
+  total: 7
+  name:
+    en: "Indie App Playbook"
+    zh: "独立 App 出海指南"
+
+translations:
+  en: { status: published }
+  zh: { status: published }

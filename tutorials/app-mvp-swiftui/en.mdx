@@ -1,0 +1,266 @@
+---
+title: "Ship an iOS MVP in 1 Hour"
+description: "Ship a runnable v1 in 60 minutes: SwiftUI + RevenueCat + PostHog. Core action only, 4-step onboarding, basic paywall, key events instrumented."
+---
+
+> 📚 **Indie App Playbook · Part 3 of 7**
+> Series overview: [Indie App Playbook](/en/tutorials/app-playbook/)
+
+An MVP isn't a rough version of a big product — it's a small product that **validates exactly one core hypothesis**.
+
+In one hour you won't ship a full version, but **strangers will complete the core action in 30 seconds** and you'll see in the data exactly where they drop off.
+
+## 🎯 What you'll ship
+
+- A **TestFlight-ready** v1 (minimal but complete)
+- The **core path**: launch → onboarding → core action → paywall
+- **6 must-have events** instrumented
+- A real build you can send to your first 50 users
+
+## ⏱️ Time blocks
+
+<TimeBlock start="0" end="10" title="Scaffold: SwiftUI project + dependencies" />
+<TimeBlock start="10" end="25" title="Core action: 5 screens, main path works" />
+<TimeBlock start="25" end="40" title="Onboarding + paywall" />
+<TimeBlock start="40" end="50" title="Wire RevenueCat + PostHog" />
+<TimeBlock start="50" end="60" title="Submit TestFlight" />
+
+## 📋 Prerequisites
+
+- Xcode 16+, free Apple Developer account
+- Outputs from [Part 2: Pick Your App Niche](/en/tutorials/app-niche-positioning/): ≤ 5 core features + positioning line
+- Free RevenueCat + PostHog accounts
+
+---
+
+## Step 1: Scaffold (0–10 min)
+
+### New project
+
+```
+File → New Project → iOS → App
+Interface: SwiftUI
+Language: Swift
+Storage: None (UserDefaults is enough)
+```
+
+### Dependencies
+
+`File → Add Package Dependencies`:
+
+```
+https://github.com/RevenueCat/purchases-ios
+https://github.com/PostHog/posthog-ios
+```
+
+Only these two. **Don't add** Firebase / Mixpanel / Amplitude — they slow compile.
+
+### Structure
+
+```
+YourApp/
+  App.swift           // @main + register RC/PH
+  ContentView.swift   // Top router
+  Onboarding/         // 4-step flow
+  Core/               // Core action screens
+  Paywall/            // Paywall
+  Analytics.swift     // Event wrapper
+```
+
+---
+
+## Step 2: Core action (10–25 min)
+
+**Mindset**: The user completes one key task **within 30 seconds** of opening. Cut everything else.
+
+### 5 screens
+
+Max 5 screens:
+
+1. **Launch / Onboarding entry**
+2. **Core action input** (the one critical interaction)
+3. **Result page** (the moment the user sees value)
+4. **Paywall** (appears after value is felt)
+5. **Settings / History** (minimal)
+
+### SwiftUI skeleton
+
+```swift
+struct ContentView: View {
+    @AppStorage("hasOnboarded") var hasOnboarded = false
+
+    var body: some View {
+        if !hasOnboarded {
+            OnboardingFlow()
+        } else {
+            MainTabView()
+        }
+    }
+}
+```
+
+### Don't do
+
+- ❌ User accounts (Apple ID / device-local is enough for v1)
+- ❌ Backend API (full local in v1, fewer network deps)
+- ❌ Multi-language (do your main market first)
+- ❌ iPad layout (unless iPad is the core scenario)
+
+---
+
+## Step 3: Onboarding + paywall (25–40 min)
+
+### 4–5 step onboarding
+
+Not a product manual — a **funnel from ad promise → paywall trigger**:
+
+1. **Welcome**: restate the ad's core promise ("Never get sunburned again")
+2. **Pain echo**: 3 lines of "do you also..." so users nod along
+3. **Value demo**: one GIF or 3-step illustration showing how the app solves it
+4. **Permissions** (if needed): notifications / location / camera, each with a "we'll only..." explainer
+5. **Paywall**: right after, while emotion is primed
+
+### Paywall template
+
+```
+┌─────────────────────────────┐
+│ [One-line value prop]       │
+│ Unlock streak tracking.     │
+│ Miss a day = back to zero.  │
+│                             │
+│ ✓ Unlimited streaks         │
+│ ✓ History export            │
+│ ✓ Widget                    │
+│                             │
+│ [ Yearly  $29.99/yr ]       │
+│ [ Monthly $4.99/mo ]        │
+│                             │
+│ Start 7-day free trial      │
+│                             │
+│ Restore | Terms | Privacy   │
+└─────────────────────────────┘
+```
+
+**Must-have**:
+
+- Clear price, clear trial length, clear post-trial billing
+- No fake countdowns / fake "limited time" pressure
+- `Restore Purchase` is required (review will reject otherwise)
+- Close button so users can skip
+
+---
+
+## Step 4: Wire RevenueCat + PostHog (40–50 min)
+
+### RevenueCat (5 min)
+
+Create project at [app.revenuecat.com](https://app.revenuecat.com), grab API key, in `App.swift`:
+
+```swift
+import RevenueCat
+
+@main
+struct YourApp: App {
+    init() {
+        Purchases.configure(withAPIKey: "appl_xxxxxx")
+    }
+    var body: some Scene { ... }
+}
+```
+
+In App Store Connect, create subscription products (yearly + monthly), and create a sandbox tester account.
+
+### PostHog (5 min)
+
+```swift
+import PostHog
+
+let config = PostHogConfig(apiKey: "phc_xxx", host: "https://us.i.posthog.com")
+PostHogSDK.shared.setup(config)
+```
+
+### 6 must-have events
+
+| Event | Fires when |
+|---|---|
+| `app_opened` | App launch |
+| `onboarding_completed` | Finishes onboarding |
+| `core_action_done` | User completes one core action |
+| `paywall_shown` | Paywall appears |
+| `trial_started` | User taps trial |
+| `purchase_completed` | Real payment success |
+
+Wrap in `Analytics.swift`:
+
+```swift
+enum Event: String {
+    case appOpened = "app_opened"
+    case onboardingCompleted = "onboarding_completed"
+    case coreActionDone = "core_action_done"
+    case paywallShown = "paywall_shown"
+    case trialStarted = "trial_started"
+    case purchaseCompleted = "purchase_completed"
+}
+
+func track(_ event: Event, properties: [String: Any]? = nil) {
+    PostHogSDK.shared.capture(event.rawValue, properties: properties)
+}
+```
+
+**Rule**: instrument everything you might need later. **Missing > wrong**.
+
+---
+
+## Step 5: TestFlight (50–60 min)
+
+### Checklist
+
+- [ ] App name, icon, subtitle filled
+- [ ] At least 3 screenshots at 6.7"
+- [ ] Privacy policy URL (Termly / a public Notion page works)
+- [ ] Support URL (Notion page is fine)
+- [ ] App Privacy nutrition labels filled (what data, with whom)
+- [ ] Review notes: test account, subscription test path
+- [ ] Build version 1.0 (1)
+
+### TestFlight, not App Store
+
+**Don't submit to App Store directly** for v1. Flow:
+
+1. Xcode → Product → Archive
+2. Upload to App Store Connect
+3. In TestFlight tab, enable Internal Testing
+4. Invite yourself + the first 50 users from Part 1
+
+TestFlight needs no review — fast iteration. Only submit to App Store after the first 50 users have given feedback.
+
+<Checkpoint>
+**End of 60 minutes you should have:**
+- ✅ A runnable TestFlight build
+- ✅ Core action completable in 30 seconds
+- ✅ 6 key events visible in PostHog
+- ✅ Paywall completes sandbox subscription
+
+No data = it doesn't exist. Next: build the App Store page so real users can find you.
+</Checkpoint>
+
+---
+
+## 📚 Further reading
+
+- Full long-form: [Indie App Playbook](https://app-playbook-site.pages.dev/)
+- Previous: [Pick Your App Niche](/en/tutorials/app-niche-positioning/)
+- RevenueCat docs: https://www.revenuecat.com/docs/
+
+## Series navigation
+
+📚 **Indie App Playbook** · Part 3 of 7
+
+- [Part 1 — Validate Your App Idea](/en/tutorials/app-idea-validation/)
+- [Part 2 — Pick Your App Niche](/en/tutorials/app-niche-positioning/)
+- ✅ **Part 3 · You are here** — Ship an iOS MVP in 1 Hour
+- ⏭️ **Next**:
+
+<NextStep slug="app-store-aso" />
+
+- 📚 Series overview: [Indie App Playbook](/en/tutorials/app-playbook/)

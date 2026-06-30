@@ -1,0 +1,266 @@
+---
+title: "1 小时搭出 iOS App MVP 雏形"
+description: "60 分钟搭出能跑的 v1：SwiftUI + RevenueCat + PostHog 最小组合，只做核心动作、4 步 onboarding、基础付费墙和关键事件埋点。"
+---
+
+> 📚 **独立 App 出海指南 · 第 3 篇 / 共 7 篇**
+> 系列总览：[App 出海指南](/zh/tutorials/app-playbook/)
+
+MVP 不是粗糙版大产品，而是**只验证一个核心假设**的小产品。
+
+这一小时你不会写完整版本，但**陌生用户能在 30 秒内完成一次核心动作**，并且你能从数据里看到他们在哪里流失。
+
+## 🎯 你将完成
+
+- 一个 **TestFlight 能发**的 v1 App（功能极简但完整）
+- **核心路径**：从开屏 → onboarding → 核心动作 → 付费墙
+- **关键事件埋点**：6 个必装事件
+- 一个可以发给前 50 个用户的真实包
+
+## ⏱️ 时间分配
+
+<TimeBlock start="0" end="10" title="脚手架：SwiftUI 项目 + 依赖" />
+<TimeBlock start="10" end="25" title="核心动作：5 个屏幕跑通主路径" />
+<TimeBlock start="25" end="40" title="Onboarding + 付费墙" />
+<TimeBlock start="40" end="50" title="装 RevenueCat + PostHog 埋点" />
+<TimeBlock start="50" end="60" title="TestFlight 提交" />
+
+## 📋 前置要求
+
+- Xcode 16+，免费 Apple Developer 账号已注册
+- 上一篇 [App 细分定位](/zh/tutorials/app-niche-positioning/) 的产出：≤ 5 个核心功能 + 一句定位
+- RevenueCat 免费账号 + PostHog 免费账号
+
+---
+
+## 第 1 步：脚手架（0–10 分钟）
+
+### 新建项目
+
+```
+File → New Project → iOS → App
+Interface: SwiftUI
+Language: Swift
+Storage: 暂时选 None（用 UserDefaults 就够）
+```
+
+### 加依赖
+
+`File → Add Package Dependencies`：
+
+```
+https://github.com/RevenueCat/purchases-ios
+https://github.com/PostHog/posthog-ios
+```
+
+只装这两个。**不要装** Firebase / Mixpanel / Amplitude——多了拖编译。
+
+### 项目结构
+
+```
+YourApp/
+  App.swift           // @main + 注册 RC/PH
+  ContentView.swift   // 主路由
+  Onboarding/         // 4 步引导
+  Core/               // 核心动作页面
+  Paywall/            // 付费墙
+  Analytics.swift     // 埋点封装
+```
+
+---
+
+## 第 2 步：核心动作（10–25 分钟）
+
+**心法**：用户打开后 **30 秒内**能完成一次关键任务。其他全砍。
+
+### 5 个屏幕
+
+最多就这 5 个屏幕：
+
+1. **开屏 / Onboarding 起点**
+2. **核心动作输入**（最关键的那一个交互）
+3. **结果页**（用户看到价值的那一刻）
+4. **付费墙**（出现在用户感受到价值之后）
+5. **设置 / 历史**（最小可有）
+
+### SwiftUI 基础骨架
+
+```swift
+struct ContentView: View {
+    @AppStorage("hasOnboarded") var hasOnboarded = false
+
+    var body: some View {
+        if !hasOnboarded {
+            OnboardingFlow()
+        } else {
+            MainTabView()
+        }
+    }
+}
+```
+
+### 不要做的事
+
+- ❌ 用户账号系统（v1 用 Apple ID / 设备本地存就够）
+- ❌ 后端 API（v1 全本地，能不依赖网络就不依赖）
+- ❌ 多语言（先做你的主市场的语言，后面再加）
+- ❌ iPad 自适应布局（除非你的核心场景就是 iPad）
+
+---
+
+## 第 3 步：Onboarding + 付费墙（25–40 分钟）
+
+### 4–5 步 Onboarding
+
+不是产品说明书，是**承接广告承诺 → 触发付费**的漏斗：
+
+1. **欢迎页**：复述广告里的核心承诺（"Never get sunburned again"）
+2. **痛点共鸣**：3 句话说"你是不是也…"，让用户自己点头
+3. **核心收益展示**：一张 GIF 或 3 步插画，展示 App 怎么解决
+4. **权限请求**（如需要）：通知 / 位置 / 相机，配合 "we'll only…" 解释
+5. **付费墙**：紧接着出现，因为情绪刚被铺垫好
+
+### 付费墙模板
+
+```
+┌─────────────────────────────┐
+│ [一句价值主张]               │
+│ Unlock streak tracking.     │
+│ Miss a day = back to zero.  │
+│                             │
+│ ✓ 无限连续记录              │
+│ ✓ 历史导出                  │
+│ ✓ Widget                    │
+│                             │
+│ [ Yearly  $29.99/yr ]       │
+│ [ Monthly $4.99/mo ]        │
+│                             │
+│ Start 7-day free trial      │
+│                             │
+│ Restore  |  Terms  |  Privacy│
+└─────────────────────────────┘
+```
+
+**关键点**：
+
+- 价格清楚、试用期清楚、试用结束怎么扣费清楚
+- 不能用假倒计时、假"限时优惠"逼订阅
+- `Restore Purchase` 必须有，不然审核打回
+- 关闭按钮要让用户能跳过
+
+---
+
+## 第 4 步：装 RevenueCat + PostHog（40–50 分钟）
+
+### RevenueCat（5 分钟）
+
+在 [app.revenuecat.com](https://app.revenuecat.com) 建 project，拿 API key，在 `App.swift`：
+
+```swift
+import RevenueCat
+
+@main
+struct YourApp: App {
+    init() {
+        Purchases.configure(withAPIKey: "appl_xxxxxx")
+    }
+    var body: some Scene { ... }
+}
+```
+
+App Store Connect 那边在产品 → 内购里建好订阅产品（年订 + 月订），sandbox 测试账号也建好。
+
+### PostHog（5 分钟）
+
+```swift
+import PostHog
+
+let config = PostHogConfig(apiKey: "phc_xxx", host: "https://us.i.posthog.com")
+PostHogSDK.shared.setup(config)
+```
+
+### 6 个必装事件
+
+| 事件名 | 触发时机 |
+|---|---|
+| `app_opened` | App 启动 |
+| `onboarding_completed` | 走完 onboarding |
+| `core_action_done` | 用户完成一次核心动作 |
+| `paywall_shown` | 付费墙出现 |
+| `trial_started` | 点了试用 |
+| `purchase_completed` | 真正付款成功 |
+
+封装到 `Analytics.swift`：
+
+```swift
+enum Event: String {
+    case appOpened = "app_opened"
+    case onboardingCompleted = "onboarding_completed"
+    case coreActionDone = "core_action_done"
+    case paywallShown = "paywall_shown"
+    case trialStarted = "trial_started"
+    case purchaseCompleted = "purchase_completed"
+}
+
+func track(_ event: Event, properties: [String: Any]? = nil) {
+    PostHogSDK.shared.capture(event.rawValue, properties: properties)
+}
+```
+
+**埋点原则**：先全埋上，后面看哪个有用。**漏埋 > 错埋**。
+
+---
+
+## 第 5 步：TestFlight 提交（50–60 分钟）
+
+### 提交清单
+
+- [ ] App 名称、图标、Subtitle 已填
+- [ ] 截图至少 6.7 英寸 3 张
+- [ ] 隐私政策 URL（用 Termly / Notion 公开页生成都行）
+- [ ] 支持 URL（一个 Notion 页就行）
+- [ ] App Privacy 营养标签填好（用了什么数据、跟谁共享）
+- [ ] 审核备注：测试账号、订阅测试路径
+- [ ] 构建版本号 1.0 (1)
+
+### TestFlight 而不是 App Store
+
+第一版**不要直接提 App Store**。流程：
+
+1. Xcode → Product → Archive
+2. 上传到 App Store Connect
+3. 在 TestFlight 标签里 enable Internal Testing
+4. 邀请你自己 + 第 1 篇收到邮件的前 50 个用户
+
+TestFlight 不需要审核，能快速迭代。等你收完前 50 个用户的反馈再正式提 App Store。
+
+<Checkpoint>
+**60 分钟结束你应该有：**
+- ✅ 一个能跑的 TestFlight build
+- ✅ 核心动作 30 秒内能完成
+- ✅ 6 个关键事件在 PostHog 里能看见
+- ✅ 付费墙能 sandbox 完成订阅
+
+数据看不到 = 跟没做一样。下一步把 App Store 页面做好，让真用户能找到你。
+</Checkpoint>
+
+---
+
+## 📚 进一步阅读
+
+- 完整长文版：[独立开发指南](https://app-playbook-site.pages.dev/)
+- 上一篇：[App 细分定位](/zh/tutorials/app-niche-positioning/)
+- RevenueCat 文档：https://www.revenuecat.com/docs/
+
+## 系列导航
+
+📚 **独立 App 出海指南** · 第 3 篇 / 共 7 篇
+
+- [第 1 篇 — App 点子验证](/zh/tutorials/app-idea-validation/)
+- [第 2 篇 — App 细分定位](/zh/tutorials/app-niche-positioning/)
+- ✅ **第 3 篇 · 你在这里** — 1 小时搭出 iOS App MVP 雏形
+- ⏭️ **下一篇**：
+
+<NextStep slug="app-store-aso" />
+
+- 📚 系列总览：[App 出海指南](/zh/tutorials/app-playbook/)

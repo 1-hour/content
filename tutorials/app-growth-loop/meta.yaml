@@ -1,0 +1,21 @@
+slug: app-growth-loop
+category: side-hustle
+difficulty: intermediate
+duration: 60
+tags: [indie-app, ios, growth, retention, analytics]
+date: 2026-06-30
+published: true
+cover: /images/tutorials/app-growth-loop.svg
+author: zoe
+
+series:
+  slug: app-playbook
+  index: 7
+  total: 7
+  name:
+    en: "Indie App Playbook"
+    zh: "独立 App 出海指南"
+
+translations:
+  en: { status: published }
+  zh: { status: published }

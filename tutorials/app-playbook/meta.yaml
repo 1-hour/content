@@ -1,0 +1,23 @@
+slug: app-playbook
+category: side-hustle
+difficulty: intermediate
+duration: 30
+tags: [indie-app, ios, playbook, series, overview]
+date: 2026-06-30
+published: true
+cover: /images/tutorials/app-playbook.svg
+author: zoe
+
+# 系列总览页 - 串起 7 篇实战教程
+series:
+  slug: app-playbook
+  index: 0
+  total: 7
+  isOverview: true
+  name:
+    en: "Indie App Playbook"
+    zh: "独立 App 出海指南"
+
+translations:
+  en: { status: published }
+  zh: { status: published }

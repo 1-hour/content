@@ -1,0 +1,21 @@
+slug: app-store-aso
+category: side-hustle
+difficulty: intermediate
+duration: 60
+tags: [indie-app, ios, aso, app-store, screenshots]
+date: 2026-06-30
+published: true
+cover: /images/tutorials/app-store-aso.svg
+author: zoe
+
+series:
+  slug: app-playbook
+  index: 4
+  total: 7
+  name:
+    en: "Indie App Playbook"
+    zh: "独立 App 出海指南"
+
+translations:
+  en: { status: published }
+  zh: { status: published }

@@ -1,0 +1,239 @@
+---
+title: "Boost App Conversion in 1 Hour"
+description: "Run one optimization pass on activation, trial, payment, and retention in 60 minutes. The first 90 seconds decide everything. Paywall timing decides 80% of revenue."
+---
+
+> 📚 **Indie App Playbook · Part 6 of 7**
+> Series overview: [Indie App Playbook](/en/tutorials/app-playbook/)
+
+Downloads aren't victory. **Users must feel value fast on first open** — and the paywall belongs **after** value, not blocking the door.
+
+This hour fixes the 4 segments of the funnel where indie apps most often die.
+
+## 🎯 What you'll ship
+
+- A **first-90-second funnel diagnosis** (where they drop)
+- A **paywall timing** that actually converts
+- A clear **activation event** definition
+- A **retention dashboard**: 5 numbers to watch weekly
+
+## ⏱️ Time blocks
+
+<TimeBlock start="0" end="10" title="First-90-sec funnel: read activation drop in PostHog" />
+<TimeBlock start="10" end="25" title="Fix the first 90 seconds (onboarding too fast / slow)" />
+<TimeBlock start="25" end="40" title="Paywall timing: free taste → paid upgrade" />
+<TimeBlock start="40" end="50" title="Define activation event + retention board" />
+<TimeBlock start="50" end="60" title="One weekly experiment: A/B one variable" />
+
+## 📋 Prerequisites
+
+- 6 events from [Part 3](/en/tutorials/app-mvp-swiftui/) instrumented in PostHog
+- At least 50 real users (not your test taps)
+- 1–2 weeks of running [cold start](/en/tutorials/app-cold-start/)
+
+---
+
+## Step 1: First-90-sec funnel diagnosis (0–10 min)
+
+### Build this in PostHog
+
+Funnels feature, add events in order:
+
+```
+1. app_opened
+2. onboarding_completed
+3. core_action_done
+4. paywall_shown
+5. trial_started
+```
+
+Time window: **24 hours** (not the default 30 days — if a new user doesn't act today, they won't tomorrow).
+
+### Healthy baselines
+
+| Step | Pass rate | Means |
+|---|---|---|
+| `app_opened → onboarding_completed` | ≥ 70% | Onboarding not too long |
+| `onboarding_completed → core_action_done` | ≥ 50% | User found the core entry |
+| `core_action_done → paywall_shown` | ≥ 60% | Paywall timing OK |
+| `paywall_shown → trial_started` | ≥ 30% | Value prop clear |
+
+### Find the bottleneck
+
+Fix the lowest step **first**. Don't change all 4 at once or you can't tell which fix moved the number.
+
+---
+
+## Step 2: Fix the first 90 seconds (10–25 min)
+
+### Onboarding bleeds (< 50%)
+
+Common reasons:
+
+- **Too long**: more than 5 steps and users bail
+- **Permissions too early**: step 1 hits notification / location prompts, triggers defenses
+- **Doesn't explain**: first screen doesn't restate the ad promise, user thinks they downloaded the wrong thing
+
+Fix:
+
+1. Cut to **4 steps**: welcome → pain echo → value demo → permission (if any)
+2. Permissions on the last step, with a "we'll only use this to X" line
+3. First screen headline **≥ 40px**, restating the ad copy
+
+### Can't find core action (< 30%)
+
+Common reasons:
+
+- Main screen has 5 tabs, user doesn't know which
+- Core action buried in submenu
+- Empty default state, no idea what to input
+
+Fix:
+
+1. Main screen **only the core action button**, others in settings
+2. Give a **prefilled example** or placeholder ("Try: 20 minute nap")
+3. If still no core action by open #3 → pop a **single-step coach mark**
+
+---
+
+## Step 3: Paywall timing (25–40 min)
+
+### Core mindset
+
+**Don't block at the door.** Let the user **feel** the core value first, then trigger paywall.
+
+### Three trigger modes
+
+| Mode | Best for | Conversion |
+|---|---|---|
+| **Hard wall** (no core features without paying) | One-shot tools, AI apps | High but bad retention |
+| **Soft wall** (limited free uses, pay to unlock all) | Habit, content apps | Balanced |
+| **Feature gate** (core free, advanced paid) | Utility, productivity | Lower conv but high NPS |
+
+### Recommended: first use free + Nth trigger
+
+```
+First completed core action → no paywall, let success land
+First result screen → soft prompt "want X advanced feature?"
+Second completed core action → real paywall
+```
+
+### Trial length: test 3 days, not 7
+
+New devs assume **longer trial = better**. Wrong.
+
+- 7-day trial → users forget to cancel, but unsubscribe rate is high
+- 3-day trial → urgency, higher payment rate, higher long-term LTV
+- A/B both, look at net paying users at 30 days
+
+### Paywall copy: name the loss
+
+| ❌ Vague | ✅ Specific |
+|---|---|
+| Unlock all features | Unlock streak tracking. Miss a day, start the counter from zero. |
+| Upgrade to Pro | Pro upgrade: get the Widget today to see this week's progress at a glance. |
+| Premium subscription | Yearly: 8 cents a day. Less than a coffee. |
+
+---
+
+## Step 4: Activation event + retention dashboard (40–50 min)
+
+### What's an "activation event"
+
+Activation = the moment the user **actually feels value**. Not sign-up, not onboarding complete.
+
+| App type | Activation event |
+|---|---|
+| Habit tracker | Completes 3rd entry |
+| AI tool | First successful generation |
+| Content tool | First project saved |
+| Timer app | First completed cycle |
+
+### 5 numbers to watch weekly
+
+Build a PostHog Dashboard, check Monday 9am:
+
+```
+1. New activated users (not downloads)
+2. D1 retention: today's activated, here tomorrow
+3. D7 retention: this Monday's activated, here next Monday
+4. Trial → paid conversion
+5. Monthly cancel / new subscription ratio
+```
+
+### Healthy baselines
+
+- **D1 retention** ≥ 40% (< 30% = product issue)
+- **D7 retention** ≥ 20% (< 10% = positioning issue)
+- **Trial → paid** ≥ 5% (< 3% = paywall issue)
+
+---
+
+## Step 5: One experiment per week (50–60 min)
+
+### Change exactly one variable per week
+
+Most common mistake: Monday change onboarding, Wednesday change screenshots, Friday change paywall — **numbers move and you can't tell which fix did it**.
+
+### Pick the experiment
+
+From your worst segment, pick one variable:
+
+| Worst segment | Variable to A/B |
+|---|---|
+| Onboarding bleed | Cut a step / rewrite first screen / delay permission |
+| Core action bleed | Prefill example / change main layout |
+| Paywall conversion | Change trigger timing / change trial / change copy |
+| Trial → paid | Change price / change comparison / add urgency |
+
+### How long to run
+
+- ≥ 100 users/day → run **5 days**
+- 30–100 users/day → run **10 days**
+- < 30 users/day → not enough traffic, do [cold start](/en/tutorials/app-cold-start/) first
+
+### Experiment log
+
+One line:
+
+```
+2026-W27: Trial 7-day → 3-day
+  Before: 30% trial→paid, 12% unsubscribe
+  After:  ____, ____ (fill after run)
+  Decision: ____
+```
+
+<Checkpoint>
+**End of 60 minutes you should have:**
+- ✅ Screenshot of your 90-second funnel, knowing where it bleeds
+- ✅ Fixed the worst segment (onboarding / paywall / timing)
+- ✅ One clear activation event definition
+- ✅ One PostHog retention dashboard
+- ✅ One running experiment this week
+
+Next: turn these short-term wins into a long-term growth loop.
+</Checkpoint>
+
+---
+
+## 📚 Further reading
+
+- Full long-form: [Indie App Playbook](https://app-playbook-site.pages.dev/)
+- Previous: [App Cold Start](/en/tutorials/app-cold-start/)
+- Book: *Hooked* by Nir Eyal (habit-forming model)
+
+## Series navigation
+
+📚 **Indie App Playbook** · Part 6 of 7
+
+- [Part 1 — Validate Your App Idea](/en/tutorials/app-idea-validation/)
+- [Part 2 — Pick Your App Niche](/en/tutorials/app-niche-positioning/)
+- [Part 3 — Ship an iOS MVP](/en/tutorials/app-mvp-swiftui/)
+- [Part 4 — App Store + ASO](/en/tutorials/app-store-aso/)
+- [Part 5 — App Cold Start](/en/tutorials/app-cold-start/)
+- ✅ **Part 6 · You are here** — Boost App Conversion in 1 Hour
+- ⏭️ **Next**:
+
+<NextStep slug="app-growth-loop" />
+
+- 📚 Series overview: [Indie App Playbook](/en/tutorials/app-playbook/)
