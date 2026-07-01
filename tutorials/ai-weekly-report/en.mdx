@@ -1,0 +1,214 @@
+---
+title: "1 Hour to AI-Powered Weekly Report"
+description: "Turn raw numbers into a dashboard your boss actually reads, with Excel + ChatGPT + a reusable template"
+---
+
+By the end of this hour, you'll transform boring spreadsheet data into a visual weekly report that highlights key wins and tells a story your manager will actually want to read.
+
+## 🎯 What You'll Build
+
+A professional weekly report template combining Excel charts with AI-generated insights that automatically highlights trends, flags issues, and suggests next steps. Your final report will include interactive dashboards, trend analysis, and executive summary sections that make your work visible and valuable.
+
+```
+WEEKLY PERFORMANCE DASHBOARD
+Week of: March 18-24, 2024
+
+KEY WINS THIS WEEK:
+• Sales conversion jumped 23% (highest in Q1)
+• Customer support response time improved to 2.1 hours
+• Social media engagement up 45% vs last week
+
+TREND ALERT: Mobile traffic now 67% of total (up from 61% last month)
+RECOMMENDATION: Prioritize mobile checkout optimization for Q2
+```
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Set up data sources and Excel template" />
+<TimeBlock start="10" end="25" title="Create automated charts and KPI tracking" />
+<TimeBlock start="25" end="40" title="Generate AI insights with ChatGPT prompts" />
+<TimeBlock start="40" end="55" title="Build executive summary and action items" />
+<TimeBlock start="55" end="60" title="Save template and schedule automation" />
+
+## 📋 Prerequisites
+
+- Microsoft Excel (2019 or newer) or Google Sheets
+- ChatGPT account (free tier works fine)
+- Access to your weekly performance data (sales, traffic, metrics, etc.)
+- 30 minutes of recent data to work with
+- Basic familiarity with copy-paste in spreadsheets
+
+## Step 1: Collect and Structure Your Data (0–10 min)
+
+Open Excel and create a new workbook. You'll build three sheets: Raw Data, Charts, and Report.
+
+Create your Raw Data sheet first:
+
+```
+Sheet: "Raw Data"
+Column A: Date | Column B: Metric Name | Column C: Value | Column D: Target
+
+3/18/2024 | Website Visits | 1,247 | 1,200
+3/18/2024 | Conversion Rate | 3.2% | 3.0%
+3/18/2024 | Support Tickets | 23 | 25
+3/19/2024 | Website Visits | 1,389 | 1,200
+```
+
+Paste your actual numbers from the past 7 days. Include at least 5 key metrics your boss cares about: revenue, traffic, conversions, customer satisfaction, or project milestones.
+
+Add a Status column (Column E) with this formula in E2:
+```excel
+=IF(C2>=D2,"✓ Hit Target","⚠ Below Target")
+```
+
+<Checkpoint>
+Do you see green checkmarks for metrics that hit targets and warning symbols for those that missed?
+<Answer>Yes, Excel should automatically show status indicators based on your actual vs target performance</Answer>
+</Checkpoint>
+
+## Step 2: Build Visual KPI Dashboard (10–25 min)
+
+Switch to your Charts sheet. Create a KPI summary table that will feed your visuals:
+
+```
+A1: Metric | B1: This Week | C1: Last Week | D1: Change | E1: Status
+A2: =Raw Data!B2 | B2: [Current week average] | C2: [Previous week] | D2: =(B2-C2)/C2
+```
+
+Select your KPI table (A1:E6) and insert a clustered column chart. Right-click the chart and choose Quick Layout with data labels.
+
+Create a trend line chart for your top 3 metrics:
+- Select date and value columns from Raw Data
+- Insert Line Chart with markers
+- Add trendlines by right-clicking each data series
+
+Your Charts sheet should now show:
+1. KPI comparison bars (this week vs last week)
+2. 7-day trend lines for key metrics
+3. Target achievement summary
+
+Format charts with your company colors. Make titles large and bold: "Weekly KPI Performance" and "7-Day Trends".
+
+<Checkpoint>
+Can you immediately spot which metrics are trending up or down just by looking at your charts?
+<Answer>Yes, the trend lines and comparison bars should make performance direction obvious at a glance</Answer>
+</Checkpoint>
+
+## Step 3: Generate AI Insights with ChatGPT (25–40 min)
+
+Copy your KPI summary data and paste it into ChatGPT with this prompt:
+
+```
+Analyze this weekly performance data as a business analyst. Identify the top 3 insights and suggest 2 action items:
+
+[Paste your KPI table here]
+
+Format your response as:
+KEY INSIGHTS:
+• [Most significant trend or achievement]
+• [Important pattern or concern]  
+• [Opportunity or risk identified]
+
+RECOMMENDED ACTIONS:
+1. [Specific next step with timeline]
+2. [Strategic recommendation]
+
+Keep insights punchy and action-focused for executive review.
+```
+
+ChatGPT will return analysis like:
+
+```
+KEY INSIGHTS:
+• Conversion rate spike indicates your new landing page is working—23% above target
+• Support ticket volume dropped 18% while satisfaction stayed high—team efficiency improved
+• Mobile traffic surge to 67% suggests desktop experience becoming less critical
+
+RECOMMENDED ACTIONS:
+1. A/B test the winning landing page elements on other product pages this month
+2. Document support team process improvements for scaling to other departments
+```
+
+Copy these insights. You'll use them in your executive summary.
+
+Run a second ChatGPT query for competitive context:
+
+```
+Based on these metrics for a [your industry] company, what external factors might explain these trends? Consider seasonal patterns, market conditions, or industry benchmarks. Give me 2-3 sentences of context.
+```
+
+<Checkpoint>
+Does the AI analysis highlight patterns in your data that you might have missed when looking at raw numbers?
+<Answer>Yes, ChatGPT should identify trends, correlations, and business implications beyond just reporting whether numbers went up or down</Answer>
+</Checkpoint>
+
+## Step 4: Build Executive Summary Section (40–55 min)
+
+Create your Report sheet. This becomes your final weekly report layout:
+
+```
+WEEKLY PERFORMANCE REPORT
+Week Ending: [Date]
+
+EXECUTIVE SUMMARY
+[Paste ChatGPT's key insights here, edited for your voice]
+
+PERFORMANCE DASHBOARD
+[Copy-paste your charts from Charts sheet]
+
+DETAILED METRICS
+[Insert formatted table showing all KPIs with status indicators]
+
+NEXT WEEK FOCUS
+[Paste ChatGPT's recommended actions, add your own priorities]
+```
+
+Format the report professionally:
+- Use your company fonts and colors  
+- Make section headers bold and larger
+- Add borders around chart areas
+- Include page numbers if printing
+
+Add a traffic light summary at the top:
+```
+🟢 WINS: [List 2-3 metrics that exceeded targets]
+🟡 WATCH: [List 1-2 metrics needing attention]  
+🔴 URGENT: [List any critical issues requiring immediate action]
+```
+
+Insert a text box with this week's "Story in Numbers":
+- Lead with your biggest win
+- Acknowledge any challenges honestly  
+- Connect metrics to business impact
+- End with confidence in next week's focus
+
+## Step 5: Ship It (55–60 min)
+
+Save your Excel file as "Weekly Report Template - [Your Name].xlsx"
+
+Create a simple automation for next week:
+1. Save the Raw Data sheet as a template with headers only
+2. Set up data validation dropdowns for Metric Names (create a reference list)
+3. Document your ChatGPT prompts in a separate sheet for reuse
+
+Export your completed report as PDF for easy sharing. Test that charts display correctly and text remains readable.
+
+🎉 Send your first AI-powered weekly report to your manager. Watch them actually read through it instead of skimming like usual.
+
+## 🎁 Bonus
+
+- Set up Power Automate to pull data directly from your CRM or analytics tools into Excel
+- Create a PowerBI version that updates automatically and shares via Teams
+- Build comparison templates for monthly and quarterly reviews using the same structure
+
+## 📚 Next Steps
+
+<NextStep slug="excel-dashboard-automation" />
+
+## 🔗 Resources
+
+- [Microsoft Excel Chart Templates Gallery](https://templates.office.com/en-us/charts)
+- [ChatGPT Prompt Engineering Guide](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)
+- [Excel Data Validation Tutorial](https://support.microsoft.com/en-us/office/apply-data-validation-to-cells-29fecbcc-d1b9-42c1-9d76-eff3ce5f7249)
+- [Business Dashboard Design Best Practices](https://www.tableau.com/learn/articles/dashboard-design-principles)
+- [Power Automate Excel Integration Guide](https://docs.microsoft.com/en-us/power-automate/desktop-flows/how-to/excel-automation)
