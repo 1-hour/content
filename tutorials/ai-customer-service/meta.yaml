@@ -1,0 +1,15 @@
+slug: ai-customer-service
+category: ai-tools
+difficulty: beginner
+duration: 60
+tags: [ai, chatbot, customer-service, wecom, feishu]
+date: 2026-07-01
+published: true
+cover: /images/tutorials/ai-customer-service.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published

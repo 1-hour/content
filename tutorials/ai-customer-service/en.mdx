@@ -1,0 +1,220 @@
+---
+title: "1 Hour to Build a GPT Customer Service Bot"
+description: "Train AI on your FAQ, deploy to WeCom/Feishu/website - handles 80% queries without human intervention"
+---
+
+By the end of this hour, you'll have a smart customer service bot that answers common questions automatically, freeing you from repetitive support work and serving customers 24/7.
+
+## 🎯 What You'll Build
+
+A GPT-powered customer service bot that:
+- Learns from your existing FAQ and support conversations
+- Integrates with WeCom, Feishu, or your website chat widget
+- Automatically handles refunds, shipping questions, product details
+- Escalates complex issues to humans with context
+
+```typescript
+// Your bot will handle conversations like this:
+Customer: "Where is my order #12345?"
+Bot: "Let me check that for you! Order #12345 shipped yesterday via SF Express. 
+Tracking: SF1234567890. Expected delivery: tomorrow by 6 PM. 
+Need anything else?"
+```
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="15" title="Set up Coze platform & upload your FAQ knowledge" />
+<TimeBlock start="15" end="35" title="Train bot personality & test common scenarios" />
+<TimeBlock start="35" end="45" title="Connect to WeCom/Feishu/website widget" />
+<TimeBlock start="45" end="55" title="Configure escalation rules & go-live" />
+<TimeBlock start="55" end="60" title="Monitor first conversations & quick fixes" />
+
+## 📋 Prerequisites
+
+- Your FAQ document or common customer questions (any format)
+- WeCom/Feishu admin access OR website editing rights
+- Phone number for Coze verification
+- 30 minutes of recent customer conversations for training data
+
+## Step 1: Create Your AI Brain (0–15 min)
+
+Head to [coze.com](https://coze.com) and sign up with your phone number. Coze is ByteDance's AI platform that makes GPT bot creation dead simple.
+
+Click "Create Bot" and name it after your business: "ShoeStore Assistant" or "TechRepair Helper".
+
+Upload your knowledge base. Drag these files into the "Knowledge" section:
+- FAQ document
+- Product catalog
+- Return policy
+- Shipping information
+
+```text
+Example knowledge structure:
+📁 Product Info
+  - shoe_sizes.pdf
+  - material_guide.txt
+📁 Policies  
+  - return_policy.md
+  - shipping_rates.xlsx
+📁 Common Issues
+  - troubleshooting.docx
+```
+
+Set your bot's personality in the "Persona" field:
+
+```text
+You are a helpful customer service representative for [YourStore]. 
+Be friendly but professional. Always provide specific details like order numbers, dates, and next steps. 
+If you cannot find the answer in the knowledge base, say "Let me connect you with a human agent who can help better."
+Keep responses under 3 sentences unless explaining a process.
+```
+
+<Checkpoint>
+Ask your bot: What is your return policy?
+<Answer>Bot should give specific details from your uploaded policy document, not generic responses</Answer>
+</Checkpoint>
+
+## Step 2: Train Smart Responses (15–35 min)
+
+Click "Preview" to test your bot. Start with your top 5 customer questions:
+
+Test these scenarios:
+- "Where is my order?"
+- "How do I return this?"
+- "Do you have size 42 in stock?"
+- "Is this product suitable for outdoor use?"
+- "Can I change my shipping address?"
+
+For each wrong answer, click "Improve" and add specific examples:
+
+```text
+Bad response: "Please contact support"
+Good response: "I can help track your order! Please share your order number (starts with #) or the email you used to purchase."
+
+Bad response: "We have a return policy"  
+Good response: "Yes! You can return unused items within 30 days. Just visit [yourstore.com/returns], print the prepaid label, and drop it off at any SF Express location."
+```
+
+Add "Intent Recognition" patterns. In the bot settings, teach it to recognize:
+
+```text
+Order Tracking Intent:
+- "where is my package"
+- "tracking number"  
+- "when will it arrive"
+- "shipped yet"
+
+Return Intent:
+- "want to return"
+- "refund please"
+- "wrong size"
+- "doesn't fit"
+```
+
+<Checkpoint>
+Ask: I bought the wrong size last week, what should I do?
+<Answer>Bot should recognize this as a return request and provide specific return steps</Answer>
+</Checkpoint>
+
+## Step 3: Connect to Your Platform (35–45 min)
+
+In Coze, go to "Channels" and pick your platform:
+
+**For WeCom (Enterprise WeChat):**
+1. Copy the webhook URL from Coze
+2. In WeCom admin panel, go to "Applications" > "Create Application"  
+3. Paste the webhook URL in "Message Receiving URL"
+4. Set "Token" and "EncodingAESKey" (copy these back to Coze)
+
+**For Feishu:**
+1. Open [Feishu Developer Console](https://open.feishu.cn/app)
+2. Create new app, enable "Bot" capability
+3. Copy "App ID" and "App Secret" to Coze channel settings
+4. In Feishu, add the bot to your customer service group
+
+**For Website Widget:**
+Copy this embed code and paste before `</body>` on your site:
+
+```html
+<script>
+window.cozeConfig = {
+  bot_id: 'YOUR_BOT_ID_FROM_COZE',
+  user_id: 'website_visitor',
+  title: 'Need Help?'
+};
+</script>
+<script src="https://lf-cdn.coze.com/obj/unpkg/flow-platform/chat-app-sdk/0.1.0-beta.4/libs/oversea/index.js"></script>
+```
+
+The chat widget appears as a floating bubble in the bottom right.
+
+## Step 4: Set Up Smart Escalation (45–55 min)
+
+Configure when to hand off to humans. In Coze "Workflows", create escalation triggers:
+
+```text
+Escalate when customer says:
+- "speak to manager"
+- "this is not working" 
+- "cancel my order"
+- "I want compensation"
+
+Auto-escalate after:
+- 3 back-and-forth messages without resolution
+- Customer rates response below 3 stars
+- Bot confidence score under 70%
+```
+
+Set up human handoff in your platform:
+
+**WeCom:** Bot sends alert to customer service group with conversation context
+**Feishu:** Creates task card assigned to next available agent  
+**Website:** Shows "Connecting you to an agent..." and opens your existing live chat
+
+Add a feedback system. After each interaction, bot asks:
+
+```text
+"Did this help? 👍 👎 
+If not, I'll connect you with our team right away!"
+```
+
+Test the full flow: Ask a complex question → Bot tries to help → You say "not helpful" → Human gets notified
+
+<Checkpoint>
+Trigger an escalation by saying the bot is not helpful
+<Answer>You should receive an alert in WeCom/Feishu or see a human handoff option on website</Answer>
+</Checkpoint>
+
+## Step 5: Ship It (55–60 min)
+
+Switch your bot from "Draft" to "Published" in Coze.
+
+Update your customer touchpoints:
+- Email signatures: "Quick questions? Chat with our AI assistant at [link]"
+- Social media bios: "24/7 support available via chat"  
+- Product pages: Enable the chat widget
+
+Set up monitoring. In Coze "Analytics", watch:
+- Resolution rate (target: 80%+)
+- Average conversation length 
+- Most common unresolved questions
+
+🎉 Your AI customer service agent is now live! It'll handle the repetitive stuff while you focus on growing your business.
+
+## 🎁 Bonus
+
+- **Multi-language support**: Add FAQ translations to handle international customers
+- **Voice integration**: Connect to phone system for voice-to-text customer calls  
+- **Smart upselling**: Train bot to suggest related products based on customer questions
+
+## 📚 Next Steps
+
+<NextStep slug="ai-sales-assistant" />
+
+## 🔗 Resources
+
+- [Coze Documentation](https://www.coze.com/docs)
+- [WeCom Bot Integration Guide](https://developer.work.weixin.qq.com/document/path/91770)
+- [Customer Service Automation Best Practices](https://blog.intercom.com/customer-service-automation/)
+- [AI Response Quality Guidelines](https://platform.openai.com/docs/guides/safety-best-practices)
+- [Conversation Design Patterns](https://developers.google.com/assistant/conversation-design)
