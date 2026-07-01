@@ -1,0 +1,238 @@
+---
+title: "1 Hour to Write a PRD with Claude"
+description: "Turn a one-sentence idea into a 10-page structured PRD with user stories, acceptance criteria, and edge cases"
+---
+
+By the end of this hour, you'll have a complete PRD that developers actually want to build from—structured, detailed, and covering all the edge cases you forgot to think about.
+
+## 🎯 What You'll Build
+
+A comprehensive Product Requirements Document for a food delivery app feature, complete with:
+
+```
+FEATURE: Smart Order Recommendations
+
+USER STORY: As a hungry customer, I want personalized meal suggestions 
+based on my order history and dietary preferences, so I can quickly 
+find something I'll love without endless scrolling.
+
+ACCEPTANCE CRITERIA:
+✓ System displays 3-5 personalized recommendations on home screen
+✓ Recommendations update based on time of day (breakfast/lunch/dinner)
+✓ User can mark preferences as "Not interested" to improve future suggestions
+✓ Recommendations load within 2 seconds on 4G connection
+
+EDGE CASES:
+- New user with no order history → Show popular items in their area
+- User with dietary restrictions → Filter out incompatible options
+- Restaurant closed → Replace with similar alternative
+```
+
+## ⏱️ Time Breakdown
+
+<TimeBlock start="0" end="10" title="Extract core requirements from rough idea" />
+<TimeBlock start="10" end="25" title="Generate user stories and personas" />
+<TimeBlock start="25" end="40" title="Build acceptance criteria and technical specs" />
+<TimeBlock start="40" end="55" title="Identify edge cases and error scenarios" />
+<TimeBlock start="55" end="60" title="Format and review final PRD" />
+
+## 📋 Prerequisites
+
+- Claude account (free tier works fine)
+- A rough product idea (even one sentence is enough)
+- Basic understanding of your target users
+- Access to Google Docs or Notion for final formatting
+
+## Step 1: Extract Core Requirements (0–10 min)
+
+Start with your messy idea and let Claude structure it. Most product ideas come as scattered thoughts—Claude excels at finding the hidden requirements.
+
+Open Claude and paste this prompt template:
+
+```
+I have a product idea: [YOUR IDEA HERE]
+
+Help me extract the core requirements by answering:
+1. What is the main user problem this solves?
+2. Who are the primary users?
+3. What are the 3 most critical features?
+4. What business goal does this achieve?
+5. What are the key constraints (technical, budget, timeline)?
+
+Format as clear bullet points, not paragraphs.
+```
+
+Example with a real idea:
+
+```
+I have a product idea: Add a feature to our food delivery app where 
+users get smart recommendations based on what they ordered before
+
+Help me extract the core requirements by answering:
+1. What is the main user problem this solves?
+2. Who are the primary users?
+3. What are the 3 most critical features?
+4. What business goal does this achieve?
+5. What are the key constraints (technical, budget, timeline)?
+
+Format as clear bullet points, not paragraphs.
+```
+
+Claude will return structured requirements. Copy these into a new document—this becomes your PRD foundation.
+
+<Checkpoint>
+Look at Claude's output. Does it identify a clear user problem that makes you think "yes, that's exactly the pain point"?
+<Answer>Yes, it should identify decision fatigue and choice paralysis as the main problem</Answer>
+</Checkpoint>
+
+## Step 2: Generate User Stories and Personas (10–25 min)
+
+Transform requirements into specific user stories. This step prevents the "build it and they won't come" problem.
+
+Use this prompt with your core requirements:
+
+```
+Based on these requirements: [PASTE YOUR STEP 1 OUTPUT]
+
+Create:
+1. 3 detailed user personas (name, background, key frustration)
+2. 5-7 user stories in format: "As a [persona], I want [action] so that [benefit]"
+3. Prioritize stories as Must-have, Should-have, Could-have
+
+Make personas feel like real people, not generic demographics.
+```
+
+Claude will generate personas like:
+
+- **Sarah, 28, Marketing Manager**: Orders lunch daily between meetings, frustrated by decision paralysis when hungry and time-pressed
+- **Mike, 34, Dad of two**: Family dinner orders on weekends, needs options that satisfy picky eaters
+
+Transform these into actionable user stories:
+
+- As Sarah, I want recommendations to appear immediately when I open the app, so I can order lunch in under 2 minutes
+- As Mike, I want family-friendly suggestions that show kid-approved options, so I don't have to negotiate with my children
+
+<Checkpoint>
+Do your user stories include specific timeframes or measurable outcomes (like "under 2 minutes" or "without scrolling")?
+<Answer>Yes, good user stories include concrete success metrics</Answer>
+</Checkpoint>
+
+## Step 3: Build Acceptance Criteria and Technical Specs (25–40 min)
+
+Convert user stories into developer-ready specifications. This eliminates the "that's not what I meant" conversations during sprint reviews.
+
+For each user story, use this prompt:
+
+```
+Take this user story: [PASTE ONE USER STORY]
+
+Generate:
+1. Acceptance criteria (Given/When/Then format)
+2. Technical requirements (APIs, data sources, performance)
+3. UI/UX requirements (specific screen elements, interactions)
+4. Success metrics (how to measure if it works)
+
+Be specific about numbers, timeframes, and behavior.
+```
+
+Example output for the recommendation story:
+
+**Acceptance Criteria:**
+- Given: User has 5+ previous orders
+- When: User opens app home screen
+- Then: System displays 3 personalized recommendations within 2 seconds
+
+**Technical Requirements:**
+- Recommendation API processes user history from past 30 days
+- Machine learning model considers time of day, weather, day of week
+- Fallback to popular items if ML service is down
+
+**UI/UX Requirements:**
+- Recommendations appear as cards below search bar
+- Each card shows restaurant name, estimated delivery time, price
+- "Not interested" button on each card to improve future suggestions
+
+Repeat this for your top 5 user stories.
+
+## Step 4: Identify Edge Cases and Error Scenarios (40–55 min)
+
+This step separates amateur PRDs from professional ones. Edge cases are where products break and users get frustrated.
+
+Use this comprehensive prompt:
+
+```
+For this feature: [DESCRIBE YOUR FEATURE]
+
+Identify edge cases for:
+1. New users (no data/history)
+2. System failures (API down, slow network)
+3. Unusual user behavior (dietary restrictions, location changes)
+4. Business constraints (restaurant closures, inventory issues)
+5. Scale problems (high traffic, data limits)
+
+For each edge case, specify:
+- What triggers it
+- Expected system behavior
+- User experience impact
+- Fallback solution
+```
+
+Claude will uncover scenarios you never considered:
+
+**Edge Case: User in new city**
+- Trigger: GPS detects location 50+ miles from order history
+- Behavior: Switch from personal history to location-based popular items
+- Fallback: Show top-rated restaurants within 3-mile radius
+
+**Edge Case: All recommended restaurants closed**
+- Trigger: Recommendations generated outside business hours
+- Behavior: Replace with similar restaurants currently open
+- Fallback: Show "Order ahead for tomorrow" options
+
+Document 8-10 edge cases. These become your QA test scenarios.
+
+<Checkpoint>
+Do your edge cases cover what happens when external services fail (payment, GPS, restaurant APIs)?
+<Answer>Yes, external service failures should be major edge case categories</Answer>
+</Checkpoint>
+
+## Step 5: Ship It (55–60 min)
+
+Compile everything into a professional PRD format. Use this final prompt to organize:
+
+```
+Create a final PRD document with these sections:
+1. Executive Summary (2-3 sentences)
+2. Problem Statement
+3. Success Metrics
+4. User Personas
+5. Feature Requirements (user stories + acceptance criteria)
+6. Technical Specifications
+7. Edge Cases and Error Handling
+8. Timeline and Milestones
+
+Use this content: [PASTE ALL PREVIOUS OUTPUTS]
+
+Format with clear headers and bullet points for easy developer scanning.
+```
+
+Copy Claude's output into Google Docs or Notion. Add a version number and review date.
+
+🎉 You now have a PRD that developers can build from without coming back every day asking "but what if..."
+
+## 🎁 Bonus
+
+- **PRD Templates**: Ask Claude to create reusable templates for different feature types (user flows, integrations, UI changes)
+- **Stakeholder Versions**: Generate executive summaries, technical deep-dives, and user research briefs from the same PRD
+- **Acceptance Test Generator**: Have Claude write specific test cases and QA scripts from your edge cases
+
+## 📚 Next Steps
+
+<NextStep slug="user-research-claude" />
+
+## 🔗 Resources
+
+- [Atlassian PRD Template](https://www.atlassian.com/software/confluence/templates/product-requirements-document) - Industry standard format
+- [Product Hunt PRD Examples](https://www.producthunt.com/stories/how-to-write-a-painless-product-requirements-document) - Real PRDs from successful products
+- [Claude Prompt Library](https://docs.anthropic.com/claude/prompt-library) - Advanced prompting techniques
+- [Linear Requirements Guide](https://linear.app/method/product-requirements) - Modern PRD best practices

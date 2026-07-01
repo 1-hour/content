@@ -1,0 +1,15 @@
+slug: claude-prd
+category: product
+difficulty: beginner
+duration: 60
+tags: [ai, claude, prd, product-management, user-stories]
+date: 2026-07-01
+published: true
+cover: /images/tutorials/claude-prd.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published
