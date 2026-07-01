@@ -1,0 +1,15 @@
+slug: ppt-makeover
+category: office
+difficulty: beginner
+duration: 60
+tags: [ppt, design, templates, ai-images]
+date: 2026-07-01
+published: true
+cover: /images/tutorials/ppt-makeover.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published
