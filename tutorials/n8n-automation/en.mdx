@@ -3,6 +3,8 @@ title: "1 Hour to n8n: Automate Your First Real Workflow Without Code"
 description: "Build a complete automation that monitors emails, processes data, and sends notifications - no coding required"
 ---
 
+![a computer screen with a bunch of data on it](/tutorials/n8n-automation/hero.jpg)
+
 By the end of this hour, you'll have a working n8n automation that monitors your Gmail inbox, extracts data from incoming emails, processes it through conditions, and automatically sends Slack notifications or saves to Google Sheets.
 
 ## 🎯 What You'll Build
@@ -40,6 +42,8 @@ A complete email-to-action automation workflow that:
 - Basic understanding of email and spreadsheet concepts
 
 ## Step 1: Setup n8n and Connect Gmail (0–10 min)
+
+![a woman is looking at a computer screen](/tutorials/n8n-automation/step-1.jpg)
 
 Visit [n8n.cloud](https://n8n.cloud) and create a free account. The cloud version gives you 5,000 executions per month.
 
@@ -119,6 +123,8 @@ Execute your workflow so far. In the Code node output, what category would an em
 
 ## Step 3: Add Conditional Routing Logic (25–40 min)
 
+![a close up of a computer screen with text](/tutorials/n8n-automation/step-3.jpg)
+
 Add an "IF" node after your Code node. This splits your workflow into different paths.
 
 Configure the IF condition:
@@ -145,6 +151,8 @@ For non-urgent emails (false path), add another "IF" node to check categories:
 - Condition: `{{ $json.category === 'sales_lead' }}`
 
 ## Step 4: Connect Output Actions (40–55 min)
+
+![A computer screen with a green light on it](/tutorials/n8n-automation/step-4.jpg)
 
 For the sales_lead path, add a "Google Sheets" node:
 - Operation: `Append`
@@ -176,6 +184,8 @@ Look at your workflow canvas. How many different end nodes (Slack/Sheets) do you
 
 ## Step 5: Ship It (55–60 min)
 
+![graphs of performance analytics on a laptop screen](/tutorials/n8n-automation/step-5.jpg)
+
 Click "Save" in the top right and name your workflow "Email Processing Bot".
 
 Click the toggle switch to "Active" - this enables real-time email monitoring.
@@ -206,3 +216,7 @@ Check your Slack channels and Google Sheet to verify each email was processed co
 - [Gmail API Scopes](https://developers.google.com/gmail/api/auth/scopes) - Understanding permissions
 - [n8n Templates](https://n8n.io/workflows/) - 500+ pre-built workflows
 - [Slack Block Kit](https://api.slack.com/block-kit) - Advanced message formatting
+
+---
+
+_Photos on [Unsplash](https://unsplash.com), used under the Unsplash License._

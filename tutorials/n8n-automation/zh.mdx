@@ -3,6 +3,8 @@ title: "1 小时上手 n8n：无代码构建首个自动化工作流"
 description: "构建完整的自动化流程：监控邮件、处理数据、发送通知，完全无需编程"
 ---
 
+![a computer screen with a bunch of data on it](/tutorials/n8n-automation/hero.jpg)
+
 一小时后，你将拥有一个完整的 n8n 自动化工作流，它能监控你的 Gmail 收件箱，从邮件中提取数据，通过条件判断处理，并自动发送 Slack 通知或保存到 Google Sheets。
 
 ## 🎯 成果展示
@@ -40,6 +42,8 @@ description: "构建完整的自动化流程：监控邮件、处理数据、发
 - 对邮件和表格概念的基本理解
 
 ## 第 1 步：设置 n8n 并连接 Gmail（0–10 分钟）
+
+![a woman is looking at a computer screen](/tutorials/n8n-automation/step-1.jpg)
 
 访问 [n8n.cloud](https://n8n.cloud) 并创建免费账户。云版本每月提供 5,000 次执行额度。
 
@@ -119,6 +123,8 @@ return {
 
 ## 第 3 步：添加条件路由逻辑（25–40 分钟）
 
+![a close up of a computer screen with text](/tutorials/n8n-automation/step-3.jpg)
+
 在 Code 节点后添加"IF"节点。这会将你的工作流分成不同路径。
 
 配置 IF 条件：
@@ -145,6 +151,8 @@ IF 节点创建两个路径："true"和"false"。
 - 条件：`{{ $json.category === 'sales_lead' }}`
 
 ## 第 4 步：连接输出操作（40–55 分钟）
+
+![A computer screen with a green light on it](/tutorials/n8n-automation/step-4.jpg)
 
 对于 sales_lead 路径，添加"Google Sheets"节点：
 - 操作：`Append`
@@ -176,6 +184,8 @@ Gmail → Set → Code → IF（紧急？）→ Slack（紧急）/ IF（销售�
 
 ## 第 5 步：部署上线（55–60 分钟）
 
+![graphs of performance analytics on a laptop screen](/tutorials/n8n-automation/step-5.jpg)
+
 点击右上角的"保存"并将工作流命名为"邮件处理机器人"。
 
 点击切换开关到"激活" - 这将启用实时邮件监控。
@@ -206,3 +216,7 @@ Gmail → Set → Code → IF（紧急？）→ Slack（紧急）/ IF（销售�
 - [Gmail API 范围](https://developers.google.com/gmail/api/auth/scopes) - 了解权限
 - [n8n 模板库](https://n8n.io/workflows/) - 500+ 预构建工作流
 - [Slack Block Kit](https://api.slack.com/block-kit) - 高级消息格式化
+
+---
+
+_教程配图由 [Unsplash](https://unsplash.com) 摄影师提供，遵循 Unsplash License。_

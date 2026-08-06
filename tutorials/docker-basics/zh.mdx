@@ -3,6 +3,8 @@ title: "1 小时学会 Docker 基础"
 description: "60 分钟容器化一个应用。从安装 Docker 到运行自己的容器，再到把镜像推送到 Docker Hub。"
 ---
 
+![laptop screen displaying colorful code](/tutorials/docker-basics/hero.jpg)
+
 读完这篇教程，你能把应用跑在容器里，并理解 Docker 的核心工作流。不需要 DevOps 基础。
 
 ## 🎯 你将掌握
@@ -30,6 +32,8 @@ docker run -p 8080:8080 myapp:1.0
 
 ## 第 1 步：安装 Docker（0–10 分钟）
 
+![black flat screen computer monitor](/tutorials/docker-basics/step-1.jpg)
+
 **Mac/Windows**：下载 [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 **Ubuntu/Debian**：
@@ -53,6 +57,8 @@ docker run hello-world
 </Checkpoint>
 
 ## 第 2 步：第一个容器（10–25 分钟）
+
+![a golden docker logo on a black background](/tutorials/docker-basics/step-2.jpg)
 
 运行一个 Nginx 容器：
 
@@ -90,6 +96,8 @@ docker run -it --rm ubuntu bash
 </Checkpoint>
 
 ## 第 3 步：写 Dockerfile（25–40 分钟）
+
+![a computer with a keyboard and mouse](/tutorials/docker-basics/step-3.jpg)
 
 创建一个简单的 Node.js 应用：
 
@@ -151,6 +159,8 @@ CMD ["npm", "start"]
 
 ## 第 4 步：构建与运行（40–55 分钟）
 
+![black flat screen computer monitor turned on displaying website](/tutorials/docker-basics/step-4.jpg)
+
 构建镜像：
 
 ```bash
@@ -194,6 +204,8 @@ docker rm myapp
 </Checkpoint>
 
 ## 第 5 步：推送到 Docker Hub（55–60 分钟）
+
+![man in black jacket standing in front of black and gray industrial machine](/tutorials/docker-basics/step-5.jpg)
 
 登录：
 
@@ -268,3 +280,7 @@ docker-compose up
 - [Docker 文档](https://docs.docker.com/)
 - [Docker Hub](https://hub.docker.com/)
 - [最佳实践](https://docs.docker.com/develop/dev-best-practices/)
+
+---
+
+_教程配图由 [Unsplash](https://unsplash.com) 摄影师提供，遵循 Unsplash License。_

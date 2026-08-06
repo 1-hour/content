@@ -3,6 +3,8 @@ title: "1 小时搭出 iOS App MVP 雏形"
 description: "60 分钟搭出能跑的 v1：SwiftUI + RevenueCat + PostHog 最小组合，只做核心动作、4 步 onboarding、基础付费墙和关键事件埋点。"
 ---
 
+![caffe latte on white ceramic cup beside silver and black laptop computer](/tutorials/app-mvp-swiftui/hero.jpg)
+
 > 📚 **独立 App 出海指南 · 第 3 篇 / 共 7 篇**
 > 系列总览：[App 出海指南](/zh/tutorials/app-playbook/)
 
@@ -34,6 +36,8 @@ MVP 不是粗糙版大产品，而是**只验证一个核心假设**的小产品
 ---
 
 ## 第 1 步：脚手架（0–10 分钟）
+
+![cappuccino in teacup on saucer](/tutorials/app-mvp-swiftui/step-1.jpg)
 
 ### 新建项目
 
@@ -70,6 +74,8 @@ YourApp/
 ---
 
 ## 第 2 步：核心动作（10–25 分钟）
+
+![Modern office space with large windows and desks.](/tutorials/app-mvp-swiftui/step-2.jpg)
 
 **心法**：用户打开后 **30 秒内**能完成一次关键任务。其他全砍。
 
@@ -152,6 +158,8 @@ struct ContentView: View {
 
 ## 第 4 步：装 RevenueCat + PostHog（40–50 分钟）
 
+![man sitting while having coffee and using laptop](/tutorials/app-mvp-swiftui/step-4.jpg)
+
 ### RevenueCat（5 分钟）
 
 在 [app.revenuecat.com](https://app.revenuecat.com) 建 project，拿 API key，在 `App.swift`：
@@ -213,6 +221,8 @@ func track(_ event: Event, properties: [String: Any]? = nil) {
 
 ## 第 5 步：TestFlight 提交（50–60 分钟）
 
+![man standing beside another sitting man using computer](/tutorials/app-mvp-swiftui/step-5.jpg)
+
 ### 提交清单
 
 - [ ] App 名称、图标、Subtitle 已填
@@ -264,3 +274,7 @@ TestFlight 不需要审核，能快速迭代。等你收完前 50 个用户的�
 <NextStep slug="app-store-aso" />
 
 - 📚 系列总览：[App 出海指南](/zh/tutorials/app-playbook/)
+
+---
+
+_教程配图由 [Unsplash](https://unsplash.com) 摄影师提供，遵循 Unsplash License。_

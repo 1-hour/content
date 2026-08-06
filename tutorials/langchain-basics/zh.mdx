@@ -3,6 +3,8 @@ title: "1 小时上手 LangChain：构建你的第一个实用 AI 应用"
 description: "60 分钟内构建一个功能完整的 AI 研究助手，能够总结网页文章并回答相关问题。"
 ---
 
+![gray and black laptop computer on surface](/tutorials/langchain-basics/hero.jpg)
+
 学完这一小时，你将拥有一个可工作的 AI 研究助手，它能够抓取任意网页文章、生成智能摘要，并使用 LangChain 和 OpenAI 回答内容相关问题。
 
 ## 🎯 成果展示
@@ -35,6 +37,8 @@ Ask a question (or 'quit'): What are the main benefits mentioned?
 - 任意文本编辑器或 IDE
 
 ## 第 1 步：搭建 LangChain 环境（0-10 分钟）
+
+![turned-on laptop computer](/tutorials/langchain-basics/step-1.jpg)
 
 创建新项目目录并安装所需包：
 
@@ -141,6 +145,8 @@ print(f"Content length: {len(article['content'])} characters")
 
 ## 第 3 步：创建摘要生成链（25-40 分钟）
 
+![A smartphone is showing an ai assistant's interface.](/tutorials/langchain-basics/step-3.jpg)
+
 创建 `summarizer.py` 来构建你的第一个 LangChain 链：
 
 ```python
@@ -235,6 +241,8 @@ print(f"Summary: {summary['summary']}")
 
 ## 第 4 步：添加带记忆的问答（40-55 分钟）
 
+![Laptop with ai workspace logo on screen](/tutorials/langchain-basics/step-4.jpg)
+
 创建 `qa_system.py` 来处理关于文章的问题：
 
 ```python
@@ -302,6 +310,8 @@ class QASystem:
 </Checkpoint>
 
 ## 第 5 步：打包发布（55-60 分钟）
+
+![a computer screen with a purple and green background](/tutorials/langchain-basics/step-5.jpg)
 
 创建主应用程序 `research_assistant.py`：
 
@@ -395,3 +405,7 @@ python research_assistant.py
 - [向量数据库详解](https://www.pinecone.io/learn/vector-database/) - 理解嵌入和搜索
 - [提示工程指南](https://www.promptingguide.ai/) - 为 LLM 编写更好的提示
 - [LangChain Cookbook](https://github.com/langchain-ai/langchain/tree/master/cookbook) - 实际案例和模式
+
+---
+
+_教程配图由 [Unsplash](https://unsplash.com) 摄影师提供，遵循 Unsplash License。_

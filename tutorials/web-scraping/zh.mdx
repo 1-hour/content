@@ -3,6 +3,8 @@ title: "1 小时学会 Python 网页抓取"
 description: "60 分钟构建真正可用的网页抓取工具。从网站提取数据、处理分页、保存到 CSV。不需要任何抓取经验。"
 ---
 
+![A computer screen with a bunch of text on it](/tutorials/web-scraping/hero.jpg)
+
 读完这篇教程，你将拥有一个能从真实网站提取商品数据并保存为 CSV 的 Python 抓取工具。
 
 ## 🎯 你将构建
@@ -28,6 +30,8 @@ description: "60 分钟构建真正可用的网页抓取工具。从网站提取
 
 ## 第 1 步：安装工具（0–10 分钟）
 
+![a computer screen with a bunch of text on it](/tutorials/web-scraping/step-1.jpg)
+
 安装 `requests`（获取 HTML）和 `beautifulsoup4`（解析 HTML）：
 
 ```bash
@@ -51,6 +55,8 @@ print(soup.title.string)
 
 ## 第 2 步：理解 HTML 结构（10–15 分钟）
 
+![a variety of tools sitting on top of a wooden table](/tutorials/web-scraping/step-2.jpg)
+
 我们抓取 [books.toscrape.com](http://books.toscrape.com/)（官方练习站）。
 
 在浏览器打开 → 右键点击一本书 → **检查（Inspect）**。
@@ -71,6 +77,8 @@ print(soup.title.string)
 - 评分：`p.star-rating`（class 名中包含评分）
 
 ## 第 3 步：提取一个条目（15–25 分钟）
+
+![lines of HTML codes](/tutorials/web-scraping/step-3.jpg)
 
 创建 `scraper.py`：
 
@@ -106,6 +114,8 @@ python scraper.py
 
 ## 第 4 步：提取所有条目（25–40 分钟）
 
+![black flat screen computer monitor](/tutorials/web-scraping/step-4.jpg)
+
 循环遍历页面上所有书：
 
 ```python
@@ -124,6 +134,8 @@ for book in books:
 </Checkpoint>
 
 ## 第 5 步：处理分页（40–55 分钟）
+
+![Employer dashboard showing application trends and key metrics.](/tutorials/web-scraping/step-5.jpg)
 
 这个网站有"下一页"按钮。我们抓取多页：
 
@@ -237,3 +249,7 @@ response = requests.get(url, headers=headers)
 ## ⚠️ 法律提示
 
 抓取前请检查网站的 `robots.txt` 和服务条款。尊重速率限制，不要过度请求导致服务器负担。
+
+---
+
+_教程配图由 [Unsplash](https://unsplash.com) 摄影师提供，遵循 Unsplash License。_

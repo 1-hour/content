@@ -3,6 +3,8 @@ title: "1 小时搭建 AI 聊天机器人"
 description: "60 分钟用 OpenAI API 做一个能记住上下文的 AI 聊天机器人。从 API 配置到功能完整的命令行 bot。"
 ---
 
+![Layered "openai" text with orange shapes on a gray background.](/tutorials/ai-chatbot/hero.jpg)
+
 读完这篇教程，你将拥有一个能记住对话上下文的 AI 聊天机器人。不需要任何机器学习知识，只要你愿意复制、粘贴、运行代码。
 
 ## 🎯 你将构建
@@ -31,6 +33,8 @@ Bot: 巴黎大约有 220 万居民...
 
 ## 第 1 步：获取 OpenAI API Key（0–10 分钟）
 
+![gray and black laptop computer on surface](/tutorials/ai-chatbot/step-1.jpg)
+
 1. 访问 [platform.openai.com](https://platform.openai.com/)
 2. **API Keys** → **Create new secret key**
 3. 复制（以 `sk-...` 开头）
@@ -53,6 +57,8 @@ OPENAI_API_KEY=sk-your-key-here
 </Checkpoint>
 
 ## 第 2 步：第一次 API 调用（10–25 分钟）
+
+![Chatgpt atlas logo displayed on a large screen](/tutorials/ai-chatbot/step-2.jpg)
 
 创建 `test.py`：
 
@@ -88,6 +94,8 @@ python test.py
 
 ## 第 3 步：加入对话记忆（25–40 分钟）
 
+![Ai interface on a glowing keyboard](/tutorials/ai-chatbot/step-3.jpg)
+
 聊天机器人的关键：**每次请求都把完整对话历史发过去**。
 
 ```python
@@ -116,6 +124,8 @@ print(chat("那里有多少人口？"))  # 应该能记住上下文
 </Checkpoint>
 
 ## 第 4 步：构建命令行循环（40–55 分钟）
+
+![a laptop computer sitting on top of a wooden table](/tutorials/ai-chatbot/step-4.jpg)
 
 创建 `chatbot.py`：
 
@@ -163,6 +173,8 @@ if __name__ == "__main__":
 ```
 
 ## 第 5 步：测试（55–60 分钟）
+
+![Chatgpt atlas logo displayed on a large curved screen](/tutorials/ai-chatbot/step-5.jpg)
 
 ```bash
 python chatbot.py
@@ -212,3 +224,7 @@ print()
 - [OpenAI API 文档](https://platform.openai.com/docs)
 - [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
 - [提示词工程指南](https://www.promptingguide.ai/zh/)
+
+---
+
+_教程配图由 [Unsplash](https://unsplash.com) 摄影师提供，遵循 Unsplash License。_

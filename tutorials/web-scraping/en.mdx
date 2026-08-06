@@ -3,6 +3,8 @@ title: "1 Hour to Web Scraping with Python"
 description: "Build a real web scraper in 60 minutes. Extract data from websites, handle pagination, and save to CSV. No prior scraping experience needed."
 ---
 
+![A computer screen with a bunch of text on it](/tutorials/web-scraping/hero.jpg)
+
 By the end of this tutorial, you'll have a working web scraper that extracts product data from a real website and saves it to CSV.
 
 ## 🎯 What You'll Build
@@ -28,6 +30,8 @@ A Python script that:
 
 ## Step 1: Install Tools (0–10 min)
 
+![a computer screen with a bunch of text on it](/tutorials/web-scraping/step-1.jpg)
+
 Install `requests` (fetch HTML) and `beautifulsoup4` (parse HTML):
 
 ```bash
@@ -51,6 +55,8 @@ You should see `Example Domain` printed. If you get `ModuleNotFoundError`, re-ru
 
 ## Step 2: Understand HTML Structure (10–15 min)
 
+![a variety of tools sitting on top of a wooden table](/tutorials/web-scraping/step-2.jpg)
+
 We'll scrape [books.toscrape.com](http://books.toscrape.com/) (a practice site).
 
 Open it in your browser → Right-click a book → **Inspect**.
@@ -71,6 +77,8 @@ You'll see:
 - Rating: `p.star-rating` (class name contains rating)
 
 ## Step 3: Extract One Item (15–25 min)
+
+![lines of HTML codes](/tutorials/web-scraping/step-3.jpg)
 
 Create `scraper.py`:
 
@@ -106,6 +114,8 @@ You should see one book's title, price, and rating (e.g., "Three").
 
 ## Step 4: Extract All Items (25–40 min)
 
+![black flat screen computer monitor](/tutorials/web-scraping/step-4.jpg)
+
 Loop through all books on the page:
 
 ```python
@@ -124,6 +134,8 @@ You should see 20 books printed (one page has 20 items).
 </Checkpoint>
 
 ## Step 5: Handle Pagination (40–55 min)
+
+![Employer dashboard showing application trends and key metrics.](/tutorials/web-scraping/step-5.jpg)
 
 The site has a "next" button. Let's scrape multiple pages:
 
@@ -237,3 +249,7 @@ response = requests.get(url, headers=headers)
 ## ⚠️ Legal Note
 
 Always check a website's `robots.txt` and Terms of Service before scraping. Respect rate limits and don't overload servers.
+
+---
+
+_Photos on [Unsplash](https://unsplash.com), used under the Unsplash License._

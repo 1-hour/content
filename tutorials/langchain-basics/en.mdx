@@ -3,6 +3,8 @@ title: "1 Hour to LangChain: Build Your First LLM App That Actually Does Somethi
 description: "Build a functional AI research assistant that summarizes web articles and answers questions about them in 60 minutes."
 ---
 
+![gray and black laptop computer on surface](/tutorials/langchain-basics/hero.jpg)
+
 By the end of this hour, you'll have a working AI research assistant that can fetch any web article, summarize it, and answer specific questions about the content using LangChain and OpenAI.
 
 ## 🎯 What You'll Build
@@ -35,6 +37,8 @@ Ask a question (or 'quit'): What are the main benefits mentioned?
 - Text editor or IDE of your choice
 
 ## Step 1: Set Up Your LangChain Environment (0–10 min)
+
+![turned-on laptop computer](/tutorials/langchain-basics/step-1.jpg)
 
 Create a new project directory and install the required packages:
 
@@ -141,6 +145,8 @@ Test scraping a simple article URL - does it return title and content without er
 
 ## Step 3: Create the Summarization Chain (25–40 min)
 
+![A smartphone is showing an ai assistant's interface.](/tutorials/langchain-basics/step-3.jpg)
+
 Create `summarizer.py` to build your first LangChain chain:
 
 ```python
@@ -235,6 +241,8 @@ print(f"Summary: {summary['summary']}")
 
 ## Step 4: Add Q&A with Memory (40–55 min)
 
+![Laptop with ai workspace logo on screen](/tutorials/langchain-basics/step-4.jpg)
+
 Create `qa_system.py` to handle questions about the article:
 
 ```python
@@ -302,6 +310,8 @@ Initialize the QA system with an article and ask "What is this article about?" -
 </Checkpoint>
 
 ## Step 5: Ship It (55–60 min)
+
+![a computer screen with a purple and green background](/tutorials/langchain-basics/step-5.jpg)
 
 Create the main application `research_assistant.py`:
 
@@ -395,3 +405,7 @@ python research_assistant.py
 - [Vector Databases Explained](https://www.pinecone.io/learn/vector-database/) - Understanding embeddings and search
 - [Prompt Engineering Guide](https://www.promptingguide.ai/) - Writing better prompts for LLMs
 - [LangChain Cookbook](https://github.com/langchain-ai/langchain/tree/master/cookbook) - Real-world examples and patterns
+
+---
+
+_Photos on [Unsplash](https://unsplash.com), used under the Unsplash License._
