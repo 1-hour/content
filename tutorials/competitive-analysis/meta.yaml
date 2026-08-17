@@ -1,0 +1,15 @@
+slug: competitive-analysis
+category: product
+difficulty: beginner
+duration: 60
+tags: [product, competitive-analysis, framework, positioning, strategy]
+date: 2026-08-17
+published: true
+cover: /images/tutorials/competitive-analysis.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published
