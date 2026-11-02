@@ -1,0 +1,15 @@
+slug: user-interview-1hour
+category: product
+difficulty: beginner
+duration: 60
+tags: [user-research, interview, product, synthesis]
+date: 2026-11-02
+published: true
+cover: /images/tutorials/user-interview-1hour.svg
+author: zoe
+
+translations:
+  en:
+    status: published
+  zh:
+    status: published
