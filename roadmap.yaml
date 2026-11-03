@@ -1,0 +1,105 @@
+# AI 学习路线图 - 6 层架构
+# 每层：id, icon, color, 教程 slugs（已发布的直接关联）
+
+layers:
+  - id: foundation
+    icon: "🧠"
+    color: violet
+    name:
+      zh: 大脑层
+      en: Foundation
+    subtitle:
+      zh: 建立 AI 思维，读懂 LLM 基础
+      en: Build AI intuition and understand how LLMs work
+    tutorials:
+      - chatgpt-prompts
+      - feynman-technique
+
+  - id: tools
+    icon: "🛠️"
+    color: blue
+    name:
+      zh: 工具层
+      en: AI Tools
+    subtitle:
+      zh: 掌握核心 AI 工具，快速上手
+      en: Master the essential AI tools for real work
+    tutorials:
+      - chatgpt-content-30days
+      - cursor-basics
+      - claude-prd
+      - ai-weekly-report
+      - ppt-makeover
+      - resume-ai-rewrite
+      - notion-second-brain
+
+  - id: create
+    icon: "✨"
+    color: pink
+    name:
+      zh: 创作层
+      en: Create
+    subtitle:
+      zh: 用 AI 做内容、图像、视频
+      en: Use AI for content, images, and video
+    tutorials:
+      - midjourney-commercial
+      - xiaohongshu-launch
+      - viral-headlines
+      - short-video-structure
+      - desk-repair-video
+
+  - id: build
+    icon: "⚙️"
+    color: green
+    name:
+      zh: 构建层
+      en: Build
+    subtitle:
+      zh: 用 AI 写代码、自动化工作流
+      en: Code with AI and automate workflows
+    tutorials:
+      - claude-code-basics
+      - python-basics
+      - git-basics
+      - docker-basics
+      - deploy-first-site
+      - n8n-automation
+      - web-scraping
+      - langchain-basics
+
+  - id: grow
+    icon: "📈"
+    color: orange
+    name:
+      zh: 增长层
+      en: Grow
+    subtitle:
+      zh: 产品、运营、用户研究
+      en: Product, marketing, and user growth
+    tutorials:
+      - competitive-analysis
+      - user-interview-1hour
+      - ai-customer-service
+      - figma-basics
+
+  - id: monetize
+    icon: "💰"
+    color: yellow
+    name:
+      zh: 变现层
+      en: Monetize
+    subtitle:
+      zh: 副业、独立产品、睡后收入
+      en: Side income, indie products, passive revenue
+    tutorials:
+      - xianyu-first-sale
+      - paid-newsletter
+      - app-idea-validation
+      - app-mvp-swiftui
+      - app-store-aso
+      - app-cold-start
+      - app-conversion-retention
+      - app-growth-loop
+      - app-niche-positioning
+      - app-playbook
