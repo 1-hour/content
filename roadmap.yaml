@@ -1,5 +1,9 @@
 # AI 学习路线图 - 6 层架构
-# 每层：id, icon, color, 教程 slugs（已发布的直接关联）
+# 每层：
+#   id, icon, color
+#   name/subtitle (bilingual)
+#   categories: 对应 categories.yaml 的 slug 列表，用于统计 upcoming 数量
+#   tutorials: 已显式挑出的 slug 列表（已发布的直接显示在卡片上）
 
 layers:
   - id: foundation
@@ -11,6 +15,7 @@ layers:
     subtitle:
       zh: 建立 AI 思维，读懂 LLM 基础
       en: Build AI intuition and understand how LLMs work
+    categories: [mind]
     tutorials:
       - chatgpt-prompts
       - feynman-technique
@@ -24,6 +29,7 @@ layers:
     subtitle:
       zh: 掌握核心 AI 工具，快速上手
       en: Master the essential AI tools for real work
+    categories: [ai-tools, office]
     tutorials:
       - chatgpt-content-30days
       - cursor-basics
@@ -42,6 +48,7 @@ layers:
     subtitle:
       zh: 用 AI 做内容、图像、视频
       en: Use AI for content, images, and video
+    categories: [creators, design]
     tutorials:
       - midjourney-commercial
       - xiaohongshu-launch
@@ -58,6 +65,7 @@ layers:
     subtitle:
       zh: 用 AI 写代码、自动化工作流
       en: Code with AI and automate workflows
+    categories: [code, automation]
     tutorials:
       - claude-code-basics
       - python-basics
@@ -77,6 +85,7 @@ layers:
     subtitle:
       zh: 产品、运营、用户研究
       en: Product, marketing, and user growth
+    categories: [product, marketing]
     tutorials:
       - competitive-analysis
       - user-interview-1hour
@@ -92,6 +101,7 @@ layers:
     subtitle:
       zh: 副业、独立产品、睡后收入
       en: Side income, indie products, passive revenue
+    categories: [side-hustle]
     tutorials:
       - xianyu-first-sale
       - paid-newsletter
