@@ -201,100 +201,84 @@ questions:
 #   grow 层给 I + S + T + J 的"数据驱动增长"组合
 results:
   # 格式: EI_SN_TF_JP: { layer, title, desc }
+  #
+  # 定位：1hour.guide 技术向，所以 Tech + Builder 组合全部直推 build 层。
+  # 只有极度抽象型（P+N+F 以上）才推 foundation。
 
-  # —— Explorer × Thinker × Tech 系列：基础/构建型 ——
-  INTP: &INTP
-    layer: foundation
-    title:
-      zh: 概念拓荒者
-      en: Concept Pioneer
-    desc:
-      zh: 你喜欢搞懂底层原理再动手。先从 AI 思维入门，等地基稳了再往工具/构建层走。
-      en: You like understanding before doing. Start with AI fundamentals, then move to tools and build layers.
-  INTJ:
-    layer: foundation
-    title:
-      zh: 架构型学习者
-      en: Systems Architect
-    desc:
-      zh: 你想先建立清晰的全景图再深入细节。路线图第一层给你 —— 搭好大脑再谈产出。
-      en: You want the full map before diving in. Start with foundation, then build strategically.
-
-  # —— Builder × Tech 系列：构建层 ——
-  INTJ_build: &BUILDER_TECH
+  # —— I + T 构建型：全部 build（我们站的核心受众）——
+  INTJ: &BUILDER_TECH
     layer: build
     title:
       zh: 工具构建者
       en: Tool Builder
     desc:
-      zh: 你享受从零搭东西。直接从构建层上手，用 AI 把开发/自动化/脚本变成你的武器。
-      en: You enjoy building from scratch. Jump into the build layer and arm yourself with AI-powered dev tools.
+      zh: 你享受从零搭东西，而且想把 AI 变成自己的武器。构建层给你 Cursor / Claude Code / 自动化流水线的实战拆解。
+      en: You enjoy building from scratch and want AI as your real weapon. The build layer breaks down Cursor, Claude Code, and real automation pipelines.
+  INTP: *BUILDER_TECH
   ISTJ: *BUILDER_TECH
-  INTP_build: *BUILDER_TECH
+  ISTP: *BUILDER_TECH
 
-  # —— Executor × Tech ：工具层 ——
+  # —— E + T + S 执行型技术人：工具层起手 ——
   ESTJ: &EXEC_TECH
     layer: tools
     title:
       zh: 效率派执行官
       en: Productivity Executor
     desc:
-      zh: 你是"学了就用"派。工具层给你准备好 ChatGPT / Cursor / Notion AI 的实战教程，今天学明天用。
-      en: Learn and apply, same day. The tools layer has your ChatGPT/Cursor/Notion AI tutorials ready.
+      zh: 你是"学了就用"派。工具层准备好了 Cursor / Claude / ChatGPT 的工程师工作流 —— 今天学，明天就能上。
+      en: Learn and apply, same day. The tools layer has engineer-grade Cursor / Claude / ChatGPT workflows ready for Monday morning.
   ESTP: *EXEC_TECH
-  ISTP: *EXEC_TECH
 
-  # —— Executor × Creator ：创作层 ——
+  # —— E + T + N 探索型技术人：工具 → 构建 ——
+  ENTJ:
+    layer: build
+    title:
+      zh: 技术增长操盘手
+      en: Technical Growth Operator
+    desc:
+      zh: 你会写代码，又关心产品增长。构建层打底，之后到增长层把工程能力直接变成产品杠杆。
+      en: You code AND care about growth. Build layer first, then grow to turn engineering into product leverage.
+  ENTP:
+    layer: build
+    title:
+      zh: 探索型构建者
+      en: Explorer Builder
+    desc:
+      zh: 你爱折腾新技术栈。构建层给你 agent / 自动化 / 自建推理栈的完整路径 —— 想玩多深都有。
+      en: You love new stacks. The build layer has agents, automation, and self-hosted inference — go as deep as you want.
+
+  # —— I + N + F 抽象型：foundation 大脑层 ——
+  INFP: &THINKER_FOUNDATION
+    layer: foundation
+    title:
+      zh: 概念拓荒者
+      en: Concept Pioneer
+    desc:
+      zh: 你喜欢搞懂底层原理再动手。先从大脑层入门 LLM 系统思维，有了地基再决定深耕哪一层。
+      en: You like understanding before building. Start with foundation to grasp LLMs as systems — then decide which layer to deepen.
+  INFJ: *THINKER_FOUNDATION
+
+  # —— E + F 创作/表达型：create 创作层 ——
   ESFP: &EXEC_CREATOR
     layer: create
     title:
       zh: 创作加速器
       en: Creator Accelerator
     desc:
-      zh: 你的审美和表达欲比技术栈更强。创作层给你 Midjourney / 小红书 / 短视频 的 AI 玩法。
-      en: Taste and expression beat tech stack. The create layer has your AI design/content workflows.
+      zh: 你的审美和表达欲比技术栈更强。创作层给你 Midjourney / 小红书 / 短视频的 AI 玩法 —— 创作者可选方向。
+      en: Taste and expression beat tech stack. The create layer has AI design & content workflows — the creator track.
   ESFJ: *EXEC_CREATOR
   ISFP: *EXEC_CREATOR
+  ENFP: *EXEC_CREATOR
+  ENFJ: *EXEC_CREATOR
 
-  # —— Thinker × Creator ：创作 + 大脑 ——
-  INFP: &THINKER_CREATOR
-    layer: create
-    title:
-      zh: 风格探索者
-      en: Style Explorer
-    desc:
-      zh: 你在意作品的"独特性"。先从创作层练手，有了审美再去搭自动化流水线。
-      en: Uniqueness matters. Start creating, then automate once your style is clear.
-  INFJ: *THINKER_CREATOR
-
-  # —— Shipper × Monetizer：变现层 ——
-  ESTJ_money: &MONETIZER
+  # —— I + S + F：务实型稳健派 → monetize 变现 ——
+  ISFJ:
     layer: monetize
     title:
-      zh: 变现实干家
-      en: Monetizer in Action
+      zh: 稳健变现派
+      en: Steady Monetizer
     desc:
-      zh: 睡后收入是你的北极星。变现层给你副业、独立产品、冷启动的完整 playbook。
-      en: Passive income is your north star. The monetize layer has your side hustle & indie product playbook.
-  ESFJ_money: *MONETIZER
-  ISFJ: *MONETIZER
+      zh: 你不爱冒险，但想把 AI 变成稳定现金流。变现层的闲鱼虚拟商品、付费 newsletter 都是低风险起步。
+      en: You don't love risk but want steady AI income. The monetize layer has low-risk starts like virtual goods and paid newsletters.
 
-  # —— Grow：Shipper × Tech × Monetizer ——
-  ENTJ: &GROWER
-    layer: grow
-    title:
-      zh: 增长操盘手
-      en: Growth Operator
-    desc:
-      zh: 你擅长用数据+工具推项目增长。从增长层开始 —— 产品/运营/用户研究的 AI 实战。
-      en: Data + tools = your growth engine. Start with grow — AI-powered product, marketing, research.
-  ENTP: *GROWER
-  ENFJ: *GROWER
-  ENFP:
-    layer: create
-    title:
-      zh: 灵感收割机
-      en: Idea Harvester
-    desc:
-      zh: 创意很多但容易"学 10 个只做 1 个"。创作层帮你把灵感快速落成作品。
-      en: Lots of ideas but tempted to collect without shipping. Create layer helps you turn ideas into deliverables.
