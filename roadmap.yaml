@@ -13,8 +13,9 @@ layers:
       zh: 大脑层
       en: Foundation
     subtitle:
-      zh: 建立 AI 思维，读懂 LLM 基础
-      en: Build AI intuition and understand how LLMs work
+      zh: 读懂 LLM 原理，建立 AI 系统思维
+      en: Understand how LLMs really work and think in systems
+    emphasis: deep
     categories: [mind]
     tutorials:
       - chatgpt-prompts
@@ -27,8 +28,9 @@ layers:
       zh: 工具层
       en: AI Tools
     subtitle:
-      zh: 掌握核心 AI 工具，快速上手
-      en: Master the essential AI tools for real work
+      zh: "工程师视角的 AI 工具链：Cursor / Claude / ChatGPT"
+      en: "AI toolchain for builders: Cursor, Claude, ChatGPT"
+    emphasis: core
     categories: [ai-tools, office]
     tutorials:
       - chatgpt-content-30days
@@ -46,8 +48,9 @@ layers:
       zh: 创作层
       en: Create
     subtitle:
-      zh: 用 AI 做内容、图像、视频
-      en: Use AI for content, images, and video
+      zh: 用 AI 做内容、图像、视频（创作者可选）
+      en: AI for content, images, and video (optional for creators)
+    emphasis: side
     categories: [creators, design]
     tutorials:
       - midjourney-commercial
@@ -63,8 +66,9 @@ layers:
       zh: 构建层
       en: Build
     subtitle:
-      zh: 用 AI 写代码、自动化工作流
-      en: Code with AI and automate workflows
+      zh: 用 AI 写代码、搭服务、做自动化流水线（深度推荐）
+      en: Code, ship services, and automate real pipelines with AI
+    emphasis: deep
     categories: [code, automation]
     tutorials:
       - claude-code-basics
@@ -83,8 +87,9 @@ layers:
       zh: 增长层
       en: Grow
     subtitle:
-      zh: 产品、运营、用户研究
-      en: Product, marketing, and user growth
+      zh: "把技术变成产品：PMF、增长、留存"
+      en: "Turn tech into product — PMF, growth, retention"
+    emphasis: core
     categories: [product, marketing]
     tutorials:
       - competitive-analysis
@@ -99,8 +104,9 @@ layers:
       zh: 变现层
       en: Monetize
     subtitle:
-      zh: 副业、独立产品、睡后收入
-      en: Side income, indie products, passive revenue
+      zh: "独立开发者的变现路径：Indie Hacker / 副业现金流"
+      en: "Indie hacker monetization — side income and passive revenue"
+    emphasis: core
     categories: [side-hustle]
     tutorials:
       - xianyu-first-sale
