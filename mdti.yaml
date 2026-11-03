@@ -1,0 +1,300 @@
+# AI 学习人格测试（MDTI） - 20 题，4 维度
+#
+# 维度：
+#   EI (Executor vs Builder)   —— 使用现成 vs 动手搭建
+#   SN (Shipper vs Thinker)    —— 落地交付 vs 理解原理
+#   TF (Tech vs Creator)       —— 技术/数据 vs 内容/视觉
+#   JP (Monetizer vs Explorer) —— 立刻变现 vs 自由探索
+#
+# 每题：id, dim, options[].text/weight（+1 偏左字母，-1 偏右字母）
+# 结果：4 字母 → 推荐一个起点层 + 2 篇教程
+
+questions:
+  - id: 1
+    dim: EI
+    text:
+      zh: "面对一个新 AI 工具，你更想：\n"
+      en: "Faced with a new AI tool, you'd rather:"
+    options:
+      - { weight: 1, text: { zh: 立即打开官网玩起来、按别人分享的 prompt 跑一遍, en: "Open the site and run someone else's prompts" } }
+      - { weight: -1, text: { zh: 先看它底层怎么跑的，再决定要不要用, en: "Read how it works under the hood first" } }
+
+  - id: 2
+    dim: EI
+    text:
+      zh: 周末有一小时学 AI，你更倾向：
+      en: "You have one hour on the weekend to learn AI:"
+    options:
+      - { weight: 1, text: { zh: 跟着一个"XX 实战"的教程做完一个作品, en: "Follow a 'build X in Y minutes' tutorial" } }
+      - { weight: -1, text: { zh: 从零搭一个工具/脚手架，哪怕没做完, en: "Scaffold your own tool, even if unfinished" } }
+
+  - id: 3
+    dim: EI
+    text:
+      zh: ChatGPT 和自建 LLM 应用，你更想投入：
+      en: "ChatGPT vs building your own LLM app:"
+    options:
+      - { weight: 1, text: { zh: ChatGPT 够用了，重点是用好 prompt, en: "ChatGPT is enough — focus on prompting" } }
+      - { weight: -1, text: { zh: 想自己串 API/模型/知识库，有掌控感, en: "Want to wire up API/model/KB yourself" } }
+
+  - id: 4
+    dim: SN
+    text:
+      zh: 读 AI 文章时，你更看重：
+      en: "When reading AI articles, you focus on:"
+    options:
+      - { weight: 1, text: { zh: "具体 case、模板、prompt、步骤", en: "Cases, templates, prompts, steps" } }
+      - { weight: -1, text: { zh: 原理、架构图、未来趋势, en: "Principles, diagrams, trends" } }
+
+  - id: 5
+    dim: SN
+    text:
+      zh: 学完一个教程，怎么算有收获：
+      en: "After a tutorial, you feel accomplished when:"
+    options:
+      - { weight: 1, text: { zh: 做出一个能看到的作品/产出, en: "You shipped something visible" } }
+      - { weight: -1, text: { zh: 搞懂了背后的概念和取舍, en: "You understood the trade-offs" } }
+
+  - id: 6
+    dim: SN
+    text:
+      zh: "朋友让你推荐 AI 学习路径，你会：\n"
+      en: "A friend asks for an AI learning path. You:"
+    options:
+      - { weight: 1, text: { zh: "直接丢 3 个工具 + 实战链接", en: "Dump 3 tools + hands-on links" } }
+      - { weight: -1, text: { zh: 先问他要解决什么问题，再画个全景图, en: "Ask what problem, then sketch a map" } }
+
+  - id: 7
+    dim: TF
+    text:
+      zh: 你更愿意看到自己产出的是：
+      en: "You'd rather produce:"
+    options:
+      - { weight: 1, text: { zh: 一个能跑的脚本/后端/数据流程, en: "A working script / backend / data flow" } }
+      - { weight: -1, text: { zh: 一张图/一条视频/一篇小红书, en: "An image / video / social post" } }
+
+  - id: 8
+    dim: TF
+    text:
+      zh: 哪种 AI 应用让你眼睛更亮：
+      en: "Which AI application excites you more:"
+    options:
+      - { weight: 1, text: { zh: 自动化、agent、RAG、代码助手, en: "Automation, agents, RAG, coding assistants" } }
+      - { weight: -1, text: { zh: Midjourney、剪映 AI、文案助手, en: "Midjourney, video AI, copywriting" } }
+
+  - id: 9
+    dim: TF
+    text:
+      zh: 让你最头大的：
+      en: "What drains you most:"
+    options:
+      - { weight: 1, text: { zh: "调审美、找参考、改 10 版文案", en: "Tweaking taste, revising copy 10 times" } }
+      - { weight: -1, text: { zh: 读文档、debug、配环境, en: "Reading docs, debugging, env setup" } }
+
+  - id: 10
+    dim: TF
+    text:
+      zh: 加分项，你更想掌握：
+      en: "Bonus skill you'd love to master:"
+    options:
+      - { weight: 1, text: { zh: "SQL / Python / 一点 bash", en: "SQL / Python / a bit of bash" } }
+      - { weight: -1, text: { zh: Figma / 剪辑 / 拍摄灯光, en: "Figma / editing / lighting" } }
+
+  - id: 11
+    dim: JP
+    text:
+      zh: 学 AI 的根本动力是：
+      en: "Your deepest motivation to learn AI:"
+    options:
+      - { weight: 1, text: { zh: 挣钱、副业、建立被动收入, en: "Make money, build side income" } }
+      - { weight: -1, text: { zh: 好奇、探索、保持前沿, en: "Curiosity, exploring the frontier" } }
+
+  - id: 12
+    dim: JP
+    text:
+      zh: 看到一个爆火的 AI 产品，你第一反应：
+      en: "A viral AI product launches. You first think:"
+    options:
+      - { weight: 1, text: { zh: 它的变现路径是什么？我能复用吗？, en: "What's the monetization? Can I replicate?" } }
+      - { weight: -1, text: { zh: 技术栈是啥？底层怎么做的？, en: "What stack? How is it built?" } }
+
+  - id: 13
+    dim: JP
+    text:
+      zh: "下面哪条你更愿意分享到朋友圈：\n"
+      en: "Which would you post to social:"
+    options:
+      - { weight: 1, text: { zh: "用 AI 一个月做了 X 元", en: "Made $X in a month with AI" } }
+      - { weight: -1, text: { zh: 分享一个有趣的 AI 实验, en: "Share a fun AI experiment" } }
+
+  - id: 14
+    dim: EI
+    text:
+      zh: 新同事问你 ChatGPT 怎么用：
+      en: "A new coworker asks about ChatGPT:"
+    options:
+      - { weight: 1, text: { zh: "甩给他一份 prompt 清单", en: "Share a prompt cheat sheet" } }
+      - { weight: -1, text: { zh: 教他配一套自己的 workflow, en: "Help him set up a workflow" } }
+
+  - id: 15
+    dim: SN
+    text:
+      zh: 周报用 AI 写：
+      en: "Writing weekly reports with AI:"
+    options:
+      - { weight: 1, text: { zh: 直接用模板跑完发了, en: "Use a template and ship it" } }
+      - { weight: -1, text: { zh: 想做套自动化，一次配好永久省心, en: "Build an automation to save future time" } }
+
+  - id: 16
+    dim: TF
+    text:
+      zh: 你的工作/兴趣更偏：
+      en: "Your work/interest leans:"
+    options:
+      - { weight: 1, text: { zh: 产品/研发/数据/运维, en: "Product / dev / data / ops" } }
+      - { weight: -1, text: { zh: 内容/设计/运营/销售, en: "Content / design / growth / sales" } }
+
+  - id: 17
+    dim: JP
+    text:
+      zh: 对"睡后收入"的态度：
+      en: "On 'passive income':"
+    options:
+      - { weight: 1, text: { zh: 核心目标，一直在找路径, en: "Core goal, always looking for paths" } }
+      - { weight: -1, text: { zh: 挺好但不着急，先做自己喜欢的, en: "Nice but not urgent — follow curiosity" } }
+
+  - id: 18
+    dim: EI
+    text:
+      zh: 碰到一个 bug / 不懂的点：
+      en: "Hit a bug or something you don't get:"
+    options:
+      - { weight: 1, text: { zh: 直接问 AI 要答案，能跑就行, en: "Ask AI, run it, move on" } }
+      - { weight: -1, text: { zh: 想弄明白原理再往下走, en: "Understand it before moving on" } }
+
+  - id: 19
+    dim: SN
+    text:
+      zh: 哪种内容更吸引你点进去：
+      en: "Which headline do you click:"
+    options:
+      - { weight: 1, text: { zh: "1 小时上手 XX，附完整模板", en: "Master X in 1 hour, template inside" } }
+      - { weight: -1, text: { zh: 深度｜XX 技术路线的演化史, en: "Deep dive: evolution of X" } }
+
+  - id: 20
+    dim: JP
+    text:
+      zh: 更打动你的话术：
+      en: "Which pitch resonates more:"
+    options:
+      - { weight: 1, text: { zh: 用 AI 自动化你的收入, en: "Automate your income with AI" } }
+      - { weight: -1, text: { zh: 和 AI 一起探索未来, en: "Explore the future with AI" } }
+
+# 结果映射：16 种人格 → 推荐起点层
+# 规则：
+#   P（Explorer）+ N（Thinker） → foundation
+#   E（Executor）+ F（Creator）  → create
+#   E（Executor）+ T（Tech）     → tools
+#   I（Builder）+ T（Tech）      → build
+#   S（Shipper）+ F（Creator） + J → create（但更偏变现）
+#   J（Monetizer）+ S           → monetize
+#   grow 层给 I + S + T + J 的"数据驱动增长"组合
+results:
+  # 格式: EI_SN_TF_JP: { layer, title, desc }
+
+  # —— Explorer × Thinker × Tech 系列：基础/构建型 ——
+  INTP: &INTP
+    layer: foundation
+    title:
+      zh: 概念拓荒者
+      en: Concept Pioneer
+    desc:
+      zh: 你喜欢搞懂底层原理再动手。先从 AI 思维入门，等地基稳了再往工具/构建层走。
+      en: You like understanding before doing. Start with AI fundamentals, then move to tools and build layers.
+  INTJ:
+    layer: foundation
+    title:
+      zh: 架构型学习者
+      en: Systems Architect
+    desc:
+      zh: 你想先建立清晰的全景图再深入细节。路线图第一层给你 —— 搭好大脑再谈产出。
+      en: You want the full map before diving in. Start with foundation, then build strategically.
+
+  # —— Builder × Tech 系列：构建层 ——
+  INTJ_build: &BUILDER_TECH
+    layer: build
+    title:
+      zh: 工具构建者
+      en: Tool Builder
+    desc:
+      zh: 你享受从零搭东西。直接从构建层上手，用 AI 把开发/自动化/脚本变成你的武器。
+      en: You enjoy building from scratch. Jump into the build layer and arm yourself with AI-powered dev tools.
+  ISTJ: *BUILDER_TECH
+  INTP_build: *BUILDER_TECH
+
+  # —— Executor × Tech ：工具层 ——
+  ESTJ: &EXEC_TECH
+    layer: tools
+    title:
+      zh: 效率派执行官
+      en: Productivity Executor
+    desc:
+      zh: 你是"学了就用"派。工具层给你准备好 ChatGPT / Cursor / Notion AI 的实战教程，今天学明天用。
+      en: Learn and apply, same day. The tools layer has your ChatGPT/Cursor/Notion AI tutorials ready.
+  ESTP: *EXEC_TECH
+  ISTP: *EXEC_TECH
+
+  # —— Executor × Creator ：创作层 ——
+  ESFP: &EXEC_CREATOR
+    layer: create
+    title:
+      zh: 创作加速器
+      en: Creator Accelerator
+    desc:
+      zh: 你的审美和表达欲比技术栈更强。创作层给你 Midjourney / 小红书 / 短视频 的 AI 玩法。
+      en: Taste and expression beat tech stack. The create layer has your AI design/content workflows.
+  ESFJ: *EXEC_CREATOR
+  ISFP: *EXEC_CREATOR
+
+  # —— Thinker × Creator ：创作 + 大脑 ——
+  INFP: &THINKER_CREATOR
+    layer: create
+    title:
+      zh: 风格探索者
+      en: Style Explorer
+    desc:
+      zh: 你在意作品的"独特性"。先从创作层练手，有了审美再去搭自动化流水线。
+      en: Uniqueness matters. Start creating, then automate once your style is clear.
+  INFJ: *THINKER_CREATOR
+
+  # —— Shipper × Monetizer：变现层 ——
+  ESTJ_money: &MONETIZER
+    layer: monetize
+    title:
+      zh: 变现实干家
+      en: Monetizer in Action
+    desc:
+      zh: 睡后收入是你的北极星。变现层给你副业、独立产品、冷启动的完整 playbook。
+      en: Passive income is your north star. The monetize layer has your side hustle & indie product playbook.
+  ESFJ_money: *MONETIZER
+  ISFJ: *MONETIZER
+
+  # —— Grow：Shipper × Tech × Monetizer ——
+  ENTJ: &GROWER
+    layer: grow
+    title:
+      zh: 增长操盘手
+      en: Growth Operator
+    desc:
+      zh: 你擅长用数据+工具推项目增长。从增长层开始 —— 产品/运营/用户研究的 AI 实战。
+      en: Data + tools = your growth engine. Start with grow — AI-powered product, marketing, research.
+  ENTP: *GROWER
+  ENFJ: *GROWER
+  ENFP:
+    layer: create
+    title:
+      zh: 灵感收割机
+      en: Idea Harvester
+    desc:
+      zh: 创意很多但容易"学 10 个只做 1 个"。创作层帮你把灵感快速落成作品。
+      en: Lots of ideas but tempted to collect without shipping. Create layer helps you turn ideas into deliverables.
